@@ -1,0 +1,20 @@
+{
+  "name": "Electronics-store1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/algorithm-ssau/Electronics-store.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/algorithm-ssau/Electronics-store/issues"
+  },
+  "homepage": "https://github.com/algorithm-ssau/Electronics-store#readme"
+}
