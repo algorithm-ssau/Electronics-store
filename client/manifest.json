@@ -1,0 +1,8 @@
+{
+  "short_name": "EStore",
+  "name": "Electronics online store",
+  "start_url": "pages/index.html",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
