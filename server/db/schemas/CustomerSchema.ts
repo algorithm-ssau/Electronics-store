@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const CustromerSchema = new Schema({
-    customer_id: Number,
     customer_name: String,
     login: String,
     password: String,
