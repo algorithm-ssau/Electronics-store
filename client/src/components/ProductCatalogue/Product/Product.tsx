@@ -13,5 +13,6 @@ export const Product: React.FC<IProduct> = (props) => {
                 ${price}
             </h3>
         </section>
+        <button onClick={() => {console.log("Покупается " + name + " за " + price )}}>Купить</button>
     </div>)
 }
