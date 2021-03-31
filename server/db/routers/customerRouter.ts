@@ -33,4 +33,11 @@ customerRouter.delete("/customers/:id",(req,res)=>{
         });
 });
 
+customerRouter.get("/customers/:id",(req,res)=>{
+    Customer.find({_id: req.params.id})
+        .then(customer =>{
+            res.send(customer);
+        });
+});
+
 module.exports = customerRouter;
