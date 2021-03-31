@@ -33,4 +33,12 @@ templateRouter.delete("/orders/:id",(req,res)=>{
         });
 });
 
+templateRouter.get("/orders/:id",(req,res)=>{
+    Template.findOne({_id: req.params.id})
+        .then(template =>{
+            res.send(template);
+        });
+});
+
+
 module.exports = templateRouter;

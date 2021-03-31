@@ -33,4 +33,11 @@ productRouter.delete("/orders/:id",(req, res)=>{
         });
 });
 
+productRouter.get("/orders/:id",(req, res)=>{
+    Product.findOne({_id: req.params.id})
+        .then(product =>{
+            res.send(product);
+        });
+});
+
 module.exports = productRouter;

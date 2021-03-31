@@ -33,4 +33,11 @@ orderRouter.delete("/orders/:id",(req,res)=>{
         });
 });
 
+orderRouter.get("/orders/:id",(req,res)=>{
+    Order.findOne({_id: req.params.id})
+        .then(order =>{
+            res.send(order);
+        });
+});
+
 module.exports = orderRouter;
