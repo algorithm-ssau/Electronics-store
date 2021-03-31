@@ -7,7 +7,7 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-const URI=process.env.MONGODB_URL
+const URI= process.env.MONGODB_URL
 mongoose.connect(URI,{
     useCreateIndex:true,
     useFindAndModify:false,
@@ -17,6 +17,11 @@ mongoose.connect(URI,{
     if(err) throw err;
     console.log('Connected to MongoDB')
 })
+
+app.use("/api/customers",require("./db/routers/customerRouter"))
+app.use("/api/orders",require("./db/routers/orderRouter"))
+app.use("/api/templates",require("./db/routers/templateRouter"))
+app.use("/api/products",require("./db/routers/productRouter"))
 
 const PORT= process.env.PORT || 5000
 app.listen(PORT,()=>{
