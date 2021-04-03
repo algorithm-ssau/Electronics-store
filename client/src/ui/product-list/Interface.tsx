@@ -1,6 +1,6 @@
-import { IProduct } from "../product/Interface"
+import { IProduct } from '../product/Product';
 
-export interface IProductCatalogue {
+export interface ProductListProps {
   // maybe there will be more props
   products: IProduct[];
 }

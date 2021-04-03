@@ -1,3 +1,3 @@
-export const User = () => {
-  return <h1>Страница юзера</h1>
-}
+import React from 'react';
+
+export const User = () => <h1>Страница юзера</h1>;

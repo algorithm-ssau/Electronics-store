@@ -1,3 +1,3 @@
-export const Registration = () => {
-  return <h1>Страница регистрации</h1>
-}
+import React from 'react';
+
+export const Registration = () => <h1>Страница регистрации</h1>;

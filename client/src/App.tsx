@@ -1,15 +1,14 @@
-import React from "react"
+import React from 'react';
 
-import { ProductCatalogue } from "./pages/product-catalogue/ProductCatalogue"
+import { ProductCatalogue } from './pages/product-catalogue/ProductCatalogue';
+import { productsMockData } from './ui/product-list/ProductsMockData';
 
+export const App: React.FC = () => (
+  // todo add router
+  // todo add state storage (Redux)
+  <div className="App">
+    <ProductCatalogue products={productsMockData} />
+  </div>
+);
 
-export const App: React.FC = () => {
-// todo add router
-// todo add state storage (Redux)
-  return (
-    <div className="App">
-      <ProductCatalogue/>
-    </div>
-  )
-}
 // В корзину, товар, страницу пользователя, на страницу входа/регистрации

@@ -22,11 +22,5 @@
   },
   "include": [
     "src",
-    "src/interfaces",
-    "src/pages",
-    "src/pages/product-catalogue",
-    "src/ui",
-    "src/ui/product",
-    "src/ui/product-list"
   ]
 }

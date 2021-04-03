@@ -1,3 +1,3 @@
-export const Navigation = () => {
-  return <h1>Панель навигации</h1>
-}
+import React from 'react';
+
+export const Navigation = () => <h1>Панель навигации</h1>;
