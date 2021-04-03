@@ -1,6 +1,6 @@
-import React from 'react';
-import { ProductListProps } from './Interface';
-import { IProduct, Product } from '../product/Product';
+import React from "react";
+import { ProductListProps } from "./Interface";
+import { IProduct, Product } from "../product/Product";
 
 export const ProductList: React.FC<ProductListProps> = (props) => {
   const { products } = props;

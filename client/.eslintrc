@@ -24,6 +24,7 @@
     }
   },
   "rules": {
+    "prettier/prettier": ["error", { "singleQuote": false }],
     "react-hooks/exhaustive-deps": "error",
     "object-curly-spacing": [
       "warn",

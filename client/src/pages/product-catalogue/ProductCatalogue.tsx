@@ -1,10 +1,9 @@
-import React from 'react';
-import { ProductList } from '../../ui/product-list/ProductList';
-import { Navigation } from '../../ui/navigation/Navigation';
-import { ProductListProps } from '../../ui/product-list/Interface';
+import React from "react";
+import { ProductList } from "../../ui/product-list/ProductList";
+import { ProductListProps } from "../../ui/product-list/Interface";
 
 interface ProductCatalogueProps {
-  products: ProductListProps['products'];
+  products: ProductListProps["products"];
 }
 
 export const ProductCatalogue: React.FC<ProductCatalogueProps> = ({
@@ -12,7 +11,6 @@ export const ProductCatalogue: React.FC<ProductCatalogueProps> = ({
 }) => {
   return (
     <div>
-      <Navigation />
       <ProductList products={products} />
     </div>
   );

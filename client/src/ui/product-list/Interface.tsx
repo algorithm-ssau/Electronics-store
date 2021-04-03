@@ -1,4 +1,4 @@
-import { IProduct } from '../product/Product';
+import { IProduct } from "../product/Product";
 
 export interface ProductListProps {
   // maybe there will be more props

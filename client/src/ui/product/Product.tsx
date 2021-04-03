@@ -1,5 +1,5 @@
-import React from 'react';
-import { logger } from '../../utils/logger';
+import React from "react";
+import { logger } from "../../utils/logger";
 
 export interface IProduct {
   id: string;
