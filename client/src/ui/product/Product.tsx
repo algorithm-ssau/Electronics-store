@@ -1,15 +1,11 @@
 import React from "react";
-import { logger } from "../../utils/logger";
+import { useDispatch } from "react-redux";
+import { ProductProps } from "./ProductProps";
+import { addItemToCart } from "../shopping-cart/ShoppingCartActions";
 
-export interface IProduct {
-  id: string;
-  name: string;
-  price: number;
-  img: string;
-}
-
-export const Product: React.FC<IProduct> = (props) => {
-  const { img, name, price } = props;
+export const Product: React.FC<ProductProps> = (props) => {
+  const dispatch = useDispatch();
+  const { img, name, price, id } = props;
   return (
     <div className="productBorder">
       <img className="productImage" alt="SomeImage" src={img} />
@@ -17,14 +13,6 @@ export const Product: React.FC<IProduct> = (props) => {
         <h3>{name}</h3>
         <h3>${price}</h3>
       </section>
-      <button
-        type="button"
-        onClick={() => {
-          logger.log(`Покупается ${name} за ${price}`);
-        }}
-      >
-        Купить
-      </button>
     </div>
   );
 };
