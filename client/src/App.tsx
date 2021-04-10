@@ -1,26 +1,24 @@
 import React from "react";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { ProductCatalogue } from "./pages/product-catalogue/ProductCatalogue";
-import { productsMockData } from "./mocks/ProductsMockData";
+import { PageProductCatalogue } from "./pages/product-catalogue/PageProductCatalogue";
 import { Navigation } from "./ui/navigation/Navigation";
-import { ShoppingCart } from "./pages/shopping-cart/ShoppingCart";
+import { ShoppingCartPage } from "./pages/shopping-cart/ShoppingCartPage";
 import { User } from "./pages/user/User";
 import { Registration } from "./pages/registration/Registration";
 import { ErrorPage } from "./pages/error-page/ErrorPage";
 
 export const App: React.FC = () => {
-  // todo add state storage (Redux)
   // todo separate user and register in a smart way
   return (
     <Router>
       <Navigation />
       <Switch>
         <Route exact path="/">
-          <ProductCatalogue products={productsMockData} />
+          <PageProductCatalogue />
         </Route>
         <Route path="/ShoppingCart">
-          <ShoppingCart />
+          <ShoppingCartPage />
         </Route>
         <Route path="/User">
           <User />
@@ -35,5 +33,3 @@ export const App: React.FC = () => {
     </Router>
   );
 };
-
-// В корзину, товар, страницу пользователя, на страницу входа/регистрации

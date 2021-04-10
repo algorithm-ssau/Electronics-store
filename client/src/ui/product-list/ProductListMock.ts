@@ -1,6 +1,6 @@
-import { IProduct } from "../ui/product/Product";
+import { ProductProps } from "../product/ProductProps";
 
-export const productsMockData: IProduct[] = [
+export const productListMock: ProductProps[] = [
   {
     id: "1",
     name: "e-шаурма",
