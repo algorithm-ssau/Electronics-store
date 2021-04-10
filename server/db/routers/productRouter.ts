@@ -1,6 +1,7 @@
-const express = require('express');
-const productRouter = express.Router();
-const Product = require("../schemasProductSchema");
+import {Router} from 'express';
+import {Product} from "../schemas/ProductSchema";
+
+const productRouter = Router();
 
 productRouter.get("/orders",(req, res)=>{
     Product.find({})
@@ -40,4 +41,4 @@ productRouter.get("/orders/:id",(req, res)=>{
         });
 });
 
-module.exports = productRouter;
+export {productRouter};

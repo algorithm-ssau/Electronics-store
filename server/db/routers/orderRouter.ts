@@ -1,6 +1,7 @@
-const express = require('express');
-const orderRouter = express.Router();
-const Order = require("../schemas/OrderSchema");
+import {Router} from 'express';
+import {Order} from "../schemas/OrderSchema";
+
+const orderRouter = Router();
 
 orderRouter.get("/orders",(req,res)=>{
     Order.find({})
@@ -40,4 +41,4 @@ orderRouter.get("/orders/:id",(req,res)=>{
         });
 });
 
-module.exports = orderRouter;
+export {orderRouter};

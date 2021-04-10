@@ -1,5 +1,4 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+import {Schema,model} from "mongoose";
 
 const TemplateSchema = new Schema({
     template_name: String,
@@ -7,5 +6,6 @@ const TemplateSchema = new Schema({
     template_descr: String,
 });
 
-const Template = mongoose.model("template",TemplateSchema);
-module.exports = Template;
+const Template = model("template",TemplateSchema);
+
+export {Template};

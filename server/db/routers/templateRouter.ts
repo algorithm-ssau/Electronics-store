@@ -1,6 +1,7 @@
-const express = require('express');
-const templateRouter = express.Router();
-const Template = require("../schemas/TemplateSchema");
+import {Router} from 'express';
+import {Template} from "../schemas/TemplateSchema";
+
+const templateRouter = Router();
 
 templateRouter.get("/orders",(req,res)=>{
     Template.find({})
@@ -40,5 +41,4 @@ templateRouter.get("/orders/:id",(req,res)=>{
         });
 });
 
-
-module.exports = templateRouter;
+export {templateRouter};

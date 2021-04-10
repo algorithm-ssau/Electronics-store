@@ -1,5 +1,4 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+import {Schema, model} from 'mongoose';
 
 const CustromerSchema = new Schema({
     customer_name: String,
@@ -9,5 +8,6 @@ const CustromerSchema = new Schema({
     order_ids: []
 });
 
-const Customer = mongoose.model("customer",CustromerSchema);
-module.exports = Customer;
+const Customer = model("customer",CustromerSchema);
+
+export {Customer};
