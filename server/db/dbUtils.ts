@@ -1,4 +1,4 @@
-const Customer = require("../schemas/CustomerSchema");
+import {Customer} from "./schemas/CustomerSchema";
 
 /**
  * Utility function to check existence of current user in database
@@ -19,10 +19,7 @@ function checkExist(login: String):Boolean{
  */
 function checkPassword(login:String, password:String ):Boolean{
     let customer = Customer.findOne({login: login});
-    return (customer.password == password)
+    return (customer.get('password') == password)
 }
 
-module.exports = {
-    checkExist,
-    checkPassword,
-};
+export {checkExist,checkPassword}

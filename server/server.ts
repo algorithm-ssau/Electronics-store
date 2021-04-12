@@ -1,14 +1,20 @@
-require('dotenv').config()
-const express=require('express')
-const mongoose = require('mongoose')
-const cors=require('cors')
+import {connect} from 'mongoose'
+import * as cors from 'cors'
+import * as dotenv from "dotenv";
+import {customerRouter} from "./db/routers/customerRouter";
+import {orderRouter} from "./db/routers/orderRouter";
+import {productRouter} from "./db/routers/productRouter";
+import {templateRouter} from "./db/routers/templateRouter";
+import * as express from 'express'
+
+dotenv.config()
 
 const app = express()
 app.use(express.json())
 app.use(cors())
 
 const URI= process.env.MONGODB_URL
-mongoose.connect(URI,{
+connect(URI,{
     useCreateIndex:true,
     useFindAndModify:false,
     useNewUrlParser: true,
@@ -18,10 +24,10 @@ mongoose.connect(URI,{
     console.log('Connected to MongoDB')
 })
 
-app.use("/api/customers",require("./db/routers/customerRouter"))
-app.use("/api/orders",require("./db/routers/orderRouter"))
-app.use("/api/templates",require("./db/routers/templateRouter"))
-app.use("/api/products",require("./db/routers/productRouter"))
+app.use("/api/customers",customerRouter)
+app.use("/api/orders",orderRouter)
+app.use("/api/templates",templateRouter)
+app.use("/api/products",productRouter)
 
 const PORT= process.env.PORT || 5000
 app.listen(PORT,()=>{

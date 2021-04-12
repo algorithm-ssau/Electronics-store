@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+      "lib": ["ES6"],
+      "types": ["node"],
+      "sourceMap": true,
+      "allowJs": true,
+      "module": "CommonJS",
+      "skipLibCheck": true,
+      "allowSyntheticDefaultImports": true,
+      "strict": false,
+      "moduleResolution": "node",
+      "isolatedModules": true
+  },
+    "include": [
+        "db"
+    ],
+    "exclude": [
+        "node_modules",
+        "env"
+    ]
+}

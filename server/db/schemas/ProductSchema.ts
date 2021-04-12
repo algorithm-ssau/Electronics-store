@@ -1,5 +1,4 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+import {Schema,model} from "mongoose";
 
 const ProductSchema = new Schema({
     template_id: Number,
@@ -10,5 +9,6 @@ const ProductSchema = new Schema({
     template_descr: String
 });
 
-const Product = mongoose.model("product",ProductSchema);
-module.exports = Product;
+const Product = model("product",ProductSchema);
+
+export {Product};
