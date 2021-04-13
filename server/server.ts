@@ -24,10 +24,10 @@ connect(URI,{
     console.log('Connected to MongoDB')
 })
 
-app.use("/api/customers",customerRouter)
-app.use("/api/orders",orderRouter)
-app.use("/api/templates",templateRouter)
-app.use("/api/products",productRouter)
+app.use("/api",customerRouter)
+app.use("/api",orderRouter)
+app.use("/api",templateRouter)
+app.use("/api",productRouter)
 
 const PORT= process.env.PORT || 5000
 app.listen(PORT,()=>{
