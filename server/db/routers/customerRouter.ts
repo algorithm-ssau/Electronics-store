@@ -4,15 +4,16 @@ import {checkExist} from  "../dbUtils";
 
 const customerRouter = Router();
 
-customerRouter.get("/customers",(req,res)=>{
+customerRouter.get("/customers/get",(req,res)=>{
     Customer.find({})
         .then(customer =>{
         res.send(customer);
     });
 });
 
-customerRouter.post("/customers",(req,res)=>{
-    if (!checkExist(req.body.login)) {
+customerRouter.post("/customers/post",async(req,res)=>{
+    let flag = await checkExist(req.body.login);
+    if (flag) {
         Customer.create(req.body)
             .then(customer => {
                 res.send(customer);
@@ -23,7 +24,7 @@ customerRouter.post("/customers",(req,res)=>{
     }
 });
 
-customerRouter.put("/customers/:id",(req,res)=>{
+customerRouter.put("/customers/update/:id",(req,res)=>{
     if (!checkExist(req.body.login)) {
         Customer.findByIdAndUpdate({_id: req.params.id}, req.body)
             .then(() => {
@@ -38,14 +39,14 @@ customerRouter.put("/customers/:id",(req,res)=>{
     }
 });
 
-customerRouter.delete("/customers/:id",(req,res)=>{
+customerRouter.delete("/customers/delete/:id",(req,res)=>{
     Customer.deleteOne({_id: req.params.id})
         .then(customer=>{
             res.send(customer);
         });
 });
 
-customerRouter.get("/customers/:id",(req,res)=>{
+customerRouter.get("/customers/get/:id",(req,res)=>{
     Customer.findOne({_id: req.params.id})
         .then(customer =>{
             res.send(customer);
