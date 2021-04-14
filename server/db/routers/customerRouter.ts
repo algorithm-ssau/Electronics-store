@@ -11,8 +11,9 @@ customerRouter.get("/customers/get",(req,res)=>{
     });
 });
 
-customerRouter.post("/customers/post",(req,res)=>{
-    if (!checkExist(req.body.login)) {
+customerRouter.post("/customers/post",async(req,res)=>{
+    let flag = await checkExist(req.body.login);
+    if (flag) {
         Customer.create(req.body)
             .then(customer => {
                 res.send(customer);
