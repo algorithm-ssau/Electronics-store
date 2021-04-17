@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { ProductList } from "../../ui/product-list/ProductList";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { fetchProductList } from "../../store/action-creators/productListActionCreator";
+import { addItemToCart } from "../../ui/shopping-cart/ShoppingCartActions";
 
 export const PageProductCatalogue: React.FC = () => {
   const { products, error, loading } = useTypedSelector((state) => state.productList);
@@ -67,12 +68,29 @@ export const PageProductCatalogue: React.FC = () => {
   return (
     <>
       <div>
-        <p>TODO ЗНАЧОК_ПОИСКА</p>
-        <p>Фильтр:</p>
-        <input type="text" value={filterText} onChange={onChangeFilterText} placeholder="Фильтр" />
-        <p>Ценовой фильтр</p>
-        От <input type="text" value={filterPriceMore} onChange={onChangeFilterPriceMore} placeholder="0" />
-        До <input type="text" value={filterPriceLess} onChange={onChangeFilterPriceLess} placeholder="∞" />
+        <input
+          className="searchProduct"
+          type="text"
+          value={filterText}
+          onChange={onChangeFilterText}
+          placeholder="Название товара"
+        />
+        Цена: <span className="descriptionPrice">От</span>
+        <input
+          className="inputPrice"
+          type="text"
+          value={filterPriceMore}
+          onChange={onChangeFilterPriceMore}
+          placeholder="0"
+        />
+        <span className="descriptionPrice">До</span>
+        <input
+          className="inputPrice"
+          type="text"
+          value={filterPriceLess}
+          onChange={onChangeFilterPriceLess}
+          placeholder="∞"
+        />
       </div>
       <div>
         <ProductList products={displayedProducts} />
