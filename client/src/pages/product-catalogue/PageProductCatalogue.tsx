@@ -13,6 +13,8 @@ export const PageProductCatalogue: React.FC = () => {
   }, [dispatch]);
 
   const [filterText, setFilterText] = useState("");
+  const [filterPriceMore, setFilterPriceMore] = useState("");
+  const [filterPriceLess, setFilterPriceLess] = useState("");
 
   const [displayedProducts, setDisplayedProducts] = useState(products);
   useEffect(() => {
@@ -26,8 +28,34 @@ export const PageProductCatalogue: React.FC = () => {
     setDisplayedProducts(filteredProducts);
   }, [filterText, products]);
 
+  useEffect(() => {
+    if (filterPriceLess === "" && filterPriceMore === "") {
+      setDisplayedProducts(products);
+      return;
+    }
+
+    let valueLess = Number.MAX_VALUE;
+
+    if (filterPriceLess !== "") {
+      valueLess = Number(filterPriceLess);
+    }
+
+    const filteredProducts = products
+      .filter((product) => product.price >= Number(filterPriceMore))
+      .filter((product) => product.price <= valueLess);
+    setDisplayedProducts(filteredProducts);
+  }, [filterPriceLess, filterPriceMore, products]);
+
   const onChangeFilterText = (e: ChangeEvent<HTMLInputElement>) => {
     setFilterText(e.target.value);
+  };
+
+  const onChangeFilterPriceMore = (e: ChangeEvent<HTMLInputElement>) => {
+    setFilterPriceMore(e.target.value);
+  };
+
+  const onChangeFilterPriceLess = (e: ChangeEvent<HTMLInputElement>) => {
+    setFilterPriceLess(e.target.value);
   };
 
   if (loading) {
@@ -42,6 +70,9 @@ export const PageProductCatalogue: React.FC = () => {
         <p>TODO ЗНАЧОК_ПОИСКА</p>
         <p>Фильтр:</p>
         <input type="text" value={filterText} onChange={onChangeFilterText} placeholder="Фильтр" />
+        <p>Ценовой фильтр</p>
+        От <input type="text" value={filterPriceMore} onChange={onChangeFilterPriceMore} placeholder="0" />
+        До <input type="text" value={filterPriceLess} onChange={onChangeFilterPriceLess} placeholder="∞" />
       </div>
       <div>
         <ProductList products={displayedProducts} />
