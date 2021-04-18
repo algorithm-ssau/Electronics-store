@@ -25,3 +25,38 @@ body {
 .product {
   margin: 16px;
 }
+
+.registerButtonSignIn{
+  margin: 20px 16px 16px ;
+  background-color:darkorange;
+  color:white;
+}
+
+.registerButtonSignUp{
+  margin: 20px 16px 16px 0;
+  background-color:lightgrey;
+  color:black;
+}
+
+.registerCard{
+  background-color:dodgerblue;
+  margin: 10px 70% 10px 0;
+}
+
+.registerAuthorisationText{
+  margin-left: 16px;
+  color:white;
+}
+
+.input-field{
+  margin-left: 16px;
+}
+
+.input-field-label1{
+  margin-left: 16px;
+  margin-top: 16px;
+}
+
+.input-field-label{
+  margin-left: 16px;
+}
