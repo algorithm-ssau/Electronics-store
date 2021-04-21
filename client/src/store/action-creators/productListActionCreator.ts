@@ -8,13 +8,13 @@ export const fetchProductList = () => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(fetchProducts());
-      const response = await axios.get(getDBReqURL("TEMPLATE", "GET"));
+      const response = await axios.get(getDBReqURL("TEMPLATE", "GET", ""));
       dispatch(fetchProductsSuccess(response.data));
-      setTimeout(() => {
-        dispatch(fetchProductsSuccess(productListMock));
-      }, 2000);
+      // setTimeout(() => {
+      //  dispatch(fetchProductsSuccess(productListMock));
+      // }, 2000);
     } catch (e) {
-      dispatch(fetchProductsError("Ошибка при загрузке списка продуктов"));
+      dispatch(fetchProductsError(e.message));
     }
   };
 };
