@@ -9,9 +9,17 @@ import * as express from 'express'
 
 dotenv.config()
 
+var corsOptions = {
+    origin: 'http://localhost:5001',
+    methods: ['GET', 'PUT', 'POST', 'DELETE']
+}
+
 const app = express()
 app.use(express.json())
-app.use(cors())
+app.use(cors(corsOptions))
+
+
+
 
 const URI= process.env.MONGODB_URL
 connect(URI,{
