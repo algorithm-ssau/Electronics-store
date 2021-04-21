@@ -6,11 +6,10 @@ dotenv.config({ path: "../../.env" });
  *
  * @param entity Entity of database. Possible values: CUSTOMER,PRODUCT,ORDER,TEMPLATE
  * @param method HTTP Method. Possible values: GET,POST,PUT,DELETE
- * @param req Request string
  * @returns String value of valid URL
  */
-function getDBReqURL(entity: string, method: string, req: string): string {
-  let tURL: string = "http://";
+function getDBReqURL(entity: string, method: string): string {
+  let tURL: string = "";
   switch (entity) {
     case "CUSTOMER": {
       tURL = String(process.env.CUSTOMER_API_URL);
@@ -31,19 +30,18 @@ function getDBReqURL(entity: string, method: string, req: string): string {
     default:
       break;
   }
-  return `${String(process.env.HOST)}:${String(process.env.PORT)}${tURL}/${method}/${req}`;
+  return `${String(process.env.HOST)}:${String(process.env.PORT)}${tURL}/${method}/`;
 }
 
 /**
  *
  * @param side Side of application. Possible values: SERVER,CLIENT,DEVS
  * @param mode Possible values: LU (last update) and VER (version)
- * @param req Request string
  * @returns String value of valid URL
  * @description if side == "DEVS" mode have to be null-value
  */
-function getPyApiReqURL(side: string, mode: string, req: string) {
-  let tURL: string = "http://";
+function getPyApiReqURL(side: string, mode: string) {
+  let tURL: string = "";
   switch (side) {
     case "SERVER": {
       tURL = String(process.env.SERVER_INFO_URL);
@@ -75,7 +73,7 @@ function getPyApiReqURL(side: string, mode: string, req: string) {
     default:
       break;
   }
-  return `${String(process.env.HOST)}:${String(process.env.PORT)}${tURL}/${req}`;
+  return `${String(process.env.HOST)}:${String(process.env.PORT)}${tURL}`;
 }
 
 export { getDBReqURL, getPyApiReqURL };
