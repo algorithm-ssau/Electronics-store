@@ -53,4 +53,24 @@ customerRouter.get("/customers/get/:id",(req,res)=>{
         });
 });
 
+customerRouter.get("/customers/get/:login/:password",(req,res)=>{
+    Customer.findOne({
+        login: req.params.login,
+        password: req.params.password
+    })
+        .then(customer=>{
+            res.send(customer);
+        });
+});
+
+customerRouter.get("/customers/get/:email/:password",(req,res)=>{
+    Customer.findOne({
+        email: req.params.email,
+        password: req.params.password
+    })
+        .then(customer=>{
+            res.send(customer);
+        });
+});
+
 export {customerRouter};
