@@ -1,17 +1,19 @@
-const express = require('express');
-const customerRouter = express.Router();
-const Customer = require("../schemas/CustomerSchema");
-const utils = require("../dbUtils");
+import {Router} from 'express';
+import {Customer} from "../schemas/CustomerSchema";
+import {checkExist} from  "../dbUtils";
 
-customerRouter.get("/customers",(req,res)=>{
+const customerRouter = Router();
+
+customerRouter.get("/customers/get",(req,res)=>{
     Customer.find({})
         .then(customer =>{
         res.send(customer);
     });
 });
 
-customerRouter.post("/customers",(req,res)=>{
-    if (!utils.checkExist(req.body.login)) {
+customerRouter.post("/customers/post",async(req,res)=>{
+    let flag = await checkExist(req.body.login);
+    if (flag) {
         Customer.create(req.body)
             .then(customer => {
                 res.send(customer);
@@ -22,8 +24,8 @@ customerRouter.post("/customers",(req,res)=>{
     }
 });
 
-customerRouter.put("/customers/:id",(req,res)=>{
-    if (!utils.checkExist(req.body.login)) {
+customerRouter.put("/customers/update/:id",(req,res)=>{
+    if (!checkExist(req.body.login)) {
         Customer.findByIdAndUpdate({_id: req.params.id}, req.body)
             .then(() => {
                 Customer.findOne({_id: req.params.id})
@@ -37,18 +39,38 @@ customerRouter.put("/customers/:id",(req,res)=>{
     }
 });
 
-customerRouter.delete("/customers/:id",(req,res)=>{
+customerRouter.delete("/customers/delete/:id",(req,res)=>{
     Customer.deleteOne({_id: req.params.id})
         .then(customer=>{
             res.send(customer);
         });
 });
 
-customerRouter.get("/customers/:id",(req,res)=>{
+customerRouter.get("/customers/get/:id",(req,res)=>{
     Customer.findOne({_id: req.params.id})
         .then(customer =>{
             res.send(customer);
         });
 });
 
-module.exports = customerRouter;
+customerRouter.get("/customers/get/:login/:password",(req,res)=>{
+    Customer.findOne({
+        login: req.params.login,
+        password: req.params.password
+    })
+        .then(customer=>{
+            res.send(customer);
+        });
+});
+
+customerRouter.get("/customers/get/:email/:password",(req,res)=>{
+    Customer.findOne({
+        email: req.params.email,
+        password: req.params.password
+    })
+        .then(customer=>{
+            res.send(customer);
+        });
+});
+
+export {customerRouter};

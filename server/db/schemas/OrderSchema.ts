@@ -1,10 +1,10 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+import {Schema,model} from "mongoose";
 
 const OrderSchema = new Schema({
-    status: Number,
-    product_ids: []
+    status: {type:Number, default: 0},
+    product_ids: {type: [String], default: []},
 });
 
-const Order = mongoose.model("order",OrderSchema);
-module.exports = Order;
+const Order = model("order",OrderSchema);
+
+export {Order};

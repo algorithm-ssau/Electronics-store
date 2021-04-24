@@ -11,7 +11,7 @@ export const ProductList: React.FC<{ products: ProductListProps["products"] }> =
       <h2>Каталог товаров</h2>
       <div className="product">
         {products.map((product: ProductProps) => (
-          <div key={product.id}>
+          <div className="productBlock" key={product.id}>
             <Product {...product} />
             <ButtonBuy productId={product.id} />
           </div>

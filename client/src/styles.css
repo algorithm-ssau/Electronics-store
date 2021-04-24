@@ -24,4 +24,37 @@ body {
 
 .product {
   margin: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+  justify-items: center;
+}
+
+.Application {
+  margin: 0 10% 0 10%;
+  width: 80%;
+  box-shadow: 0 0 45px #dbdada;
+}
+
+.searchProduct {
+  width: 50%;
+  margin-right: 2%;
+  margin-left: 1%;
+}
+
+.inputPrice {
+  width: 10%;
+  margin-inline-start: 1%;
+}
+
+.descriptionPrice {
+  margin-left: 2%;
+}
+
+.productBlock {
+  max-width: 300px;
+  overflow: hidden;
+  padding: 15px;
+  box-shadow: 0 0 15px #ddd;
+  margin: 10px 0;
+  position: relative;
 }

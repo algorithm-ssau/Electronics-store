@@ -1,22 +1,23 @@
-const express = require('express');
-const orderRouter = express.Router();
-const Order = require("../schemas/OrderSchema");
+import {Router} from 'express';
+import {Order} from "../schemas/OrderSchema";
 
-orderRouter.get("/orders",(req,res)=>{
+const orderRouter = Router();
+
+orderRouter.get("/orders/get",(req,res)=>{
     Order.find({})
         .then(order =>{
             res.send(order);
         });
 });
 
-orderRouter.post("/orders",(req,res)=>{
+orderRouter.post("/orders/post",(req,res)=>{
     Order.create(req.body)
         .then(order =>{
             res.send(order);
         });
 });
 
-orderRouter.put("/orders/:id",(req,res)=>{
+orderRouter.put("/orders/update/:id",(req,res)=>{
     Order.findByIdAndUpdate({_id: req.params.id},req.body)
         .then(()=>{
             Order.findOne({_id: req.params.id})
@@ -26,18 +27,18 @@ orderRouter.put("/orders/:id",(req,res)=>{
         });
 });
 
-orderRouter.delete("/orders/:id",(req,res)=>{
+orderRouter.delete("/orders/delete/:id",(req,res)=>{
     Order.deleteOne({_id: req.params.id})
         .then(order=>{
             res.send(order);
         });
 });
 
-orderRouter.get("/orders/:id",(req,res)=>{
+orderRouter.get("/orders/get/:id",(req,res)=>{
     Order.findOne({_id: req.params.id})
         .then(order =>{
             res.send(order);
         });
 });
 
-module.exports = orderRouter;
+export {orderRouter};

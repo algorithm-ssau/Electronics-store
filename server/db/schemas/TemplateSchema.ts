@@ -1,11 +1,12 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+import {Schema,model} from "mongoose";
 
 const TemplateSchema = new Schema({
-    template_name: String,
-    template_price: Number,
-    template_descr: String,
+    template_name: {type: String, default: ""},
+    template_price: {type: Number, default: 0},
+    template_descr: {type: String, default: ""},
+    template_img_src: {type: String, default: ""},
 });
 
-const Template = mongoose.model("template",TemplateSchema);
-module.exports = Template;
+const Template = model("template",TemplateSchema);
+
+export {Template};

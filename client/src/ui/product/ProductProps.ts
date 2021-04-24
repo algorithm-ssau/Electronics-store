@@ -2,5 +2,6 @@ export interface ProductProps {
   id: string;
   name: string;
   price: number;
-  img: string;
+  imgSrc: string;
+  desc: string;
 }

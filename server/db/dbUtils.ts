@@ -1,13 +1,13 @@
-const Customer = require("../schemas/CustomerSchema");
+import {Customer} from "./schemas/CustomerSchema";
 
 /**
  * Utility function to check existence of current user in database
  * @param login Login of current user
- * @returns Returns True if user with current login exists, False otherwise
+ * @returns true if user with current login not exists, false otherwise
  */
-function checkExist(login: String):Boolean{
+async function checkExist(login: String):Promise<Boolean>{
     let customer = Customer.findOne({login: login});
-    return customer!=null;
+    return customer.countDocuments().then((res)=>(res==0));
 }
 
 
@@ -15,14 +15,11 @@ function checkExist(login: String):Boolean{
  * Utility function to authenticate current user in database
  * @param login Login of current user
  * @param password Password of current user
- * @returns Returns True if user's password is correct, False otherwise
+ * @returns true if user's password is correct, false otherwise
  */
-function checkPassword(login:String, password:String ):Boolean{
+async function checkPassword(login:String, password:String ):Promise<Boolean>{
     let customer = Customer.findOne({login: login});
-    return (customer.password == password)
+    return (customer.get('password').then((res)=>{(res==password)}))
 }
 
-module.exports = {
-    checkExist,
-    checkPassword,
-};
+export {checkExist,checkPassword}
