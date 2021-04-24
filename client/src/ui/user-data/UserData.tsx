@@ -1,6 +1,6 @@
 import React from "react";
-import { FullUserDataProps } from "./UserDataProps";
+import { UserDataComponentProps } from "./UserDataComponentProps";
 
-export const UserData: React.FC<FullUserDataProps> = (props) => {
+export const UserData: React.FC<UserDataComponentProps> = (props) => {
   return <>UserDataPlug</>;
 };

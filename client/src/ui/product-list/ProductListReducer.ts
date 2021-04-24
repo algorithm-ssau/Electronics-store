@@ -1,7 +1,7 @@
 import { ProductListProps } from "./ProductListProps";
 import { ProductAction } from "./ProductActionType";
 
-const initialState: ProductListProps = { products: [], loading: false, error: "" };
+const initialState: ProductListProps = { products: [], loading: false, error: null };
 
 export const productListReducer = (state = initialState, action: ProductAction): ProductListProps => {
   switch (action.type) {

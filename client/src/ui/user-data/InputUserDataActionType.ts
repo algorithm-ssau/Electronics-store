@@ -1,8 +1,9 @@
-import { InputUserDataProps } from "./UserDataProps";
+import { UserDataProps } from "./UserDataComponentProps";
 
 export type InputUserDataAction =
-  | { type: "FETCH_USER"; payload: { enteredLogin: string; enteredPassword: string } }
-  | { type: "FETCH_USER_SUCCESS"; payload: { userData: InputUserDataProps } }
+  | { type: "LOADING_USER"; payload: { loading: boolean } }
+  | { type: "FETCH_USER_SUCCESS"; payload: { userData: UserDataProps } }
   | { type: "FETCH_USER_ERROR"; payload: { error: string } }
-  | { type: "USER_LOG_OUT" }
-  | { type: "UPDATE_USER_INFO"; payload: { newInfo: InputUserDataProps } };
+  | { type: "UPDATE_USER_SUCCESS"; payload: { newInfo: UserDataProps } }
+  | { type: "UPDATE_USER_ERROR"; payload: { error: string } }
+  | { type: "USER_LOG_OUT" };
