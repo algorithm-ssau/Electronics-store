@@ -13,7 +13,6 @@ export const PageProductCatalogue: React.FC = () => {
   }, [dispatch]);
 
   const [filterText, setFilterText] = useState("");
-
   const [displayedProducts, setDisplayedProducts] = useState(products);
   useEffect(() => {
     if (filterText === "") {

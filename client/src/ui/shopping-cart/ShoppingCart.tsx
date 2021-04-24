@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { Product } from "../product/Product";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
@@ -9,13 +9,11 @@ export const ShoppingCart = () => {
   const { products } = useTypedSelector((state) => state.productList);
   const dispatch = useDispatch();
 
-  const [displayedItems, setDisplayedItems] = useState(productsInCart);
-
   return (
     <div>
       <h2>Корзина</h2>
       <div className="product">
-        {Array.from(displayedItems).map((itemInCart) => {
+        {Array.from(productsInCart).map((itemInCart) => {
           const productId = itemInCart[0];
           const productAmount = itemInCart[1];
           const product = products.find((curProduct) => curProduct.id === productId);
