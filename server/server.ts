@@ -10,7 +10,7 @@ import * as express from 'express'
 dotenv.config()
 
 var corsOptions = {
-    origin: 'http://localhost:5001',
+    origin: 'http://localhost:3000',
     methods: ['GET', 'PUT', 'POST', 'DELETE']
 }
 
