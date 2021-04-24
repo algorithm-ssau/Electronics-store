@@ -66,7 +66,7 @@ export const PageProductCatalogue: React.FC = () => {
   }
   return (
     <>
-      <div>
+      <div className="stringSearch">
         <input
           className="searchProduct"
           type="text"
