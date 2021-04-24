@@ -1,7 +1,3 @@
-import * as dotenv from "dotenv";
-
-dotenv.config({ path: "../../.env" });
-
 /**
  *
  * @param entity Entity of database. Possible values: CUSTOMER,PRODUCT,ORDER,TEMPLATE
@@ -13,25 +9,26 @@ function getDBReqURL(entity: string, method: string, req: string): string {
   let tURL: string = "http://";
   switch (entity) {
     case "CUSTOMER": {
-      tURL = String(process.env.CUSTOMER_API_URL);
+      tURL = "/api/customers";
       break;
     }
     case "PRODUCT": {
-      tURL = String(process.env.PRODUCT_API_URL);
+      tURL = "/api/products";
       break;
     }
     case "ORDER": {
-      tURL = String(process.env.ORDER_API_URL);
+      tURL = "/api/orders";
       break;
     }
     case "TEMPLATE": {
-      tURL = String(process.env.TEMPLATE_API_URL);
+      tURL = "/api/templates";
       break;
     }
     default:
       break;
   }
-  return `${String(process.env.HOST)}:${String(process.env.PORT)}${tURL}/${method}/${req}`;
+
+  return `http://localhost:5000${tURL}/${method}/${req}`;
 }
 
 /**
