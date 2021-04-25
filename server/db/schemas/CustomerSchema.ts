@@ -1,6 +1,6 @@
 import {Schema, model} from 'mongoose';
 
-const CustromerSchema = new Schema({
+const CustomerSchema = new Schema({
     customer_name: {type: String, default: ""},
     email: {type: String, default: ""},
     login: {type:String, default: ""},
@@ -10,6 +10,6 @@ const CustromerSchema = new Schema({
     order_ids: {type: [String], default: []},
 });
 
-const Customer = model("customer",CustromerSchema);
+const Customer = model("customer",CustomerSchema);
 
 export {Customer};

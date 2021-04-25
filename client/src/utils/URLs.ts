@@ -6,7 +6,7 @@
  * @returns String value of valid URL
  */
 function getDBReqURL(entity: string, method: string, req: string): string {
-  let tURL: string = "http://";
+  let tURL: string = "";
   switch (entity) {
     case "CUSTOMER": {
       tURL = "/api/customers";
@@ -35,23 +35,22 @@ function getDBReqURL(entity: string, method: string, req: string): string {
  *
  * @param side Side of application. Possible values: SERVER,CLIENT,DEVS
  * @param mode Possible values: LU (last update) and VER (version)
- * @param req Request string
  * @returns String value of valid URL
  * @description if side == "DEVS" mode have to be null-value
  */
-function getPyApiReqURL(side: string, mode: string, req: string) {
-  let tURL: string = "http://";
+function getPyApiReqURL(side: string, mode: string) {
+  let tURL: string = "";
   switch (side) {
     case "SERVER": {
-      tURL = String(process.env.SERVER_INFO_URL);
+      tURL = "api/appinfo/server";
       break;
     }
     case "CLIENT": {
-      tURL = String(process.env.CLIENT_INFO_URL);
+      tURL = "api/appinfo/client";
       break;
     }
     case "DEVS": {
-      tURL = String(process.env.DEVELOPERS_INFO_URL);
+      tURL = "api/appinfo/developers";
       break;
     }
     default:
@@ -66,13 +65,10 @@ function getPyApiReqURL(side: string, mode: string, req: string) {
       tURL += "/version";
       break;
     }
-    case null: {
-      break;
-    }
     default:
       break;
   }
-  return `${String(process.env.HOST)}:${String(process.env.PORT)}${tURL}/${req}`;
+  return `http://localhost:5000${tURL}`;
 }
 
 export { getDBReqURL, getPyApiReqURL };
