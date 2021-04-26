@@ -5,7 +5,7 @@ const initialState: UserDataComponentProps = {
   userDataProps: {
     emailAndPassword: undefined,
     displayedName: "Guest",
-    userIcon: "https://icon-library.com/images/account-icon-png/account-icon-png-3.jpg",
+    userIcon: "https://pereezd-neva.ru/assets/template/img/spectehnika/d5fa0e2330973dc6b7571d881a345d6b.png",
     userVerified: false,
   },
   loading: false,
