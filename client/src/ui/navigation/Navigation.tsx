@@ -1,28 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { NavigationItems } from "../navigation-items/NavigationItems";
+import { UserMiniature } from "../user-miniature/UserMiniature";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 export const Navigation = () => {
+  const dispatch = useDispatch();
+  const { loading, userDataProps, error } = useTypedSelector((state) => state.currentUser);
+  const { displayedName, userIcon } = userDataProps;
+  if (error) return <div>Ошибка миниатюры пользователя: {error}</div>;
   return (
-    <div className="header">
-      <div className="logoShop">
-        <h1>Магазин электроники</h1>
-      </div>
-      <nav>
-        <ul>
-          <li className="listItem">
-            <Link to="/">Products</Link>
-          </li>
-          <li className="listItem">
-            <Link to="/User">User Profile</Link>
-          </li>
-          <li className="listItem">
-            <Link to="/Register">Register</Link>
-          </li>
-          <li className="listItem">
-            <Link to="/ShoppingCart">Shopping cart</Link>
-          </li>
-        </ul>
-      </nav>
+    <div>
+      <NavigationItems />
+      {loading ? <div>Обновление миниатюры...</div> : <UserMiniature icon={userIcon} name={displayedName} />}
     </div>
   );
 };
