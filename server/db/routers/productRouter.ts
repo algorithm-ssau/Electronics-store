@@ -1,23 +1,24 @@
 import {Router} from 'express';
 import {Product} from "../schemas/ProductSchema";
+import {parseProduct, parseProducts} from "../utils/productParser";
 
 const productRouter = Router();
 
-productRouter.get("/orders/get",(req, res)=>{
+productRouter.get("/products/get",(req, res)=>{
     Product.find({})
         .then(product =>{
-            res.send(product);
+            res.send(parseProducts(product));
         });
 });
 
-productRouter.post("/orders/post",(req, res)=>{
+productRouter.post("/products/post",(req, res)=>{
     Product.create(req.body)
         .then(product =>{
             res.send(product);
         });
 });
 
-productRouter.put("/orders/update/:id",(req, res)=>{
+productRouter.put("/products/update/:id",(req, res)=>{
     Product.findByIdAndUpdate({_id: req.params.id},req.body)
         .then(()=>{
             Product.findOne({_id: req.params.id})
@@ -27,17 +28,17 @@ productRouter.put("/orders/update/:id",(req, res)=>{
         });
 });
 
-productRouter.delete("/orders/delete/:id",(req, res)=>{
+productRouter.delete("/products/delete/:id",(req, res)=>{
     Product.deleteOne({_id: req.params.id})
         .then(product=>{
             res.send(product);
         });
 });
 
-productRouter.get("/orders/get/:id",(req, res)=>{
+productRouter.get("/products/get/:id",(req, res)=>{
     Product.findOne({_id: req.params.id})
         .then(product =>{
-            res.send(product);
+            res.send(parseProduct(product));
         });
 });
 
