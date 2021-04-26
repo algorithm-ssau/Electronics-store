@@ -1,4 +1,4 @@
-import {Customer} from "./schemas/CustomerSchema";
+import {Customer} from "../schemas/CustomerSchema";
 
 /**
  * Utility function to check existence of current user in database
@@ -21,5 +21,6 @@ async function checkPassword(login:String, password:String ):Promise<Boolean>{
     let customer = Customer.findOne({login: login});
     return (customer.get('password').then((res)=>{(res==password)}))
 }
+
 
 export {checkExist,checkPassword}
