@@ -1,13 +1,14 @@
 import {Router} from 'express';
 import {Customer} from "../schemas/CustomerSchema";
-import {checkExist} from  "../dbUtils";
+import {checkExist} from "../utils/checks";
+import { parseCustomers, parseCustomer } from '../utils/customerParser';
 
 const customerRouter = Router();
 
 customerRouter.get("/customers/get",(req,res)=>{
     Customer.find({})
         .then(customer =>{
-        res.send(customer);
+            res.send(parseCustomers(customer));
     });
 });
 
@@ -24,11 +25,11 @@ customerRouter.post("/customers/post",async(req,res)=>{
     }
 });
 
-customerRouter.put("/customers/update/:id",(req,res)=>{
+customerRouter.put("/customers/update/:login",(req,res)=>{
     if (!checkExist(req.body.login)) {
-        Customer.findByIdAndUpdate({_id: req.params.id}, req.body)
+        Customer.findByIdAndUpdate({login: req.params.login}, req.body)
             .then(() => {
-                Customer.findOne({_id: req.params.id})
+                Customer.findOne({login: req.params.login})
                     .then(customer => {
                         res.send(customer);
                     });
@@ -39,16 +40,9 @@ customerRouter.put("/customers/update/:id",(req,res)=>{
     }
 });
 
-customerRouter.delete("/customers/delete/:id",(req,res)=>{
-    Customer.deleteOne({_id: req.params.id})
+customerRouter.delete("/customers/delete/:login",(req,res)=>{
+    Customer.deleteOne({login: req.params.login})
         .then(customer=>{
-            res.send(customer);
-        });
-});
-
-customerRouter.get("/customers/get/:id",(req,res)=>{
-    Customer.findOne({_id: req.params.id})
-        .then(customer =>{
             res.send(customer);
         });
 });
@@ -59,7 +53,7 @@ customerRouter.get("/customers/get/:login/:password",(req,res)=>{
         password: req.params.password
     })
         .then(customer=>{
-            res.send(customer);
+            res.send(parseCustomer(customer));
         });
 });
 
@@ -69,7 +63,7 @@ customerRouter.get("/customers/get/:email/:password",(req,res)=>{
         password: req.params.password
     })
         .then(customer=>{
-            res.send(customer);
+            res.send(parseCustomer(customer));
         });
 });
 

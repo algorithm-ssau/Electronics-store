@@ -1,10 +1,16 @@
 import {Schema,model} from "mongoose";
+import {OrderResponse} from "../responseInterfaces/orderInterfaces";
+
+const Cart = new Schema({
+    product_id: {type: String, default: ""},
+    count: {type: Number, default:0}
+})
 
 const OrderSchema = new Schema({
     status: {type:Number, default: 0},
-    product_ids: {type: [String], default: []},
+    products: {type: [Cart], default: []},
 });
 
-const Order = model("order",OrderSchema);
+const Order = model<OrderResponse>("order",OrderSchema);
 
 export {Order};

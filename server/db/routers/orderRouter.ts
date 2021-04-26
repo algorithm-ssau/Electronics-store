@@ -1,12 +1,13 @@
 import {Router} from 'express';
 import {Order} from "../schemas/OrderSchema";
+import {parseOrder, parseOrders} from "../utils/orderParser";
 
 const orderRouter = Router();
 
 orderRouter.get("/orders/get",(req,res)=>{
     Order.find({})
         .then(order =>{
-            res.send(order);
+            res.send(parseOrders(order));
         });
 });
 
@@ -37,7 +38,7 @@ orderRouter.delete("/orders/delete/:id",(req,res)=>{
 orderRouter.get("/orders/get/:id",(req,res)=>{
     Order.findOne({_id: req.params.id})
         .then(order =>{
-            res.send(order);
+            res.send(parseOrder(order));
         });
 });
 
