@@ -12,14 +12,3 @@ export const parseProducts = (res: ProductResponse[]): ProductProps[] => {
         }
     })
 }
-
-export const parseProduct = (res: ProductResponse): ProductProps => {
-    return {
-        id: res._id,
-        name: res.product_name,
-        price: res.price,
-        imgSrc: res.img_src,
-        desc: res.descr,
-        type: res.type,
-    }
-}

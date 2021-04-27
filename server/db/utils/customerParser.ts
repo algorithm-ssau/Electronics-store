@@ -15,18 +15,3 @@ export const parseCustomers = (res: CustomerResponse[]): UserDataProps[] => {
         }
     })
 };
-
-export const parseCustomer = (res: CustomerResponse): UserDataProps => {
-    return {
-        nickname: res.login,
-        userIcon: res.avatar_src,
-        userVerified: res.verified,
-        emailAndPassword: {
-            email: res.email,
-            password: res.password
-        },
-        realName: res.customer_name,
-        account: res.account,
-    }
-}
-

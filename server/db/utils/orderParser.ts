@@ -9,20 +9,13 @@ const parseCart = (res: Cart[]): Cart[] =>{
     })
 }
 
-export const parseOrders = (res: OrderResponse[]): OrderProps[] =>{
+export const parseOrders = (res: OrderResponse[]): OrderProps[]=>{
     return res.map((order) => {
         return {
             id: order._id,
             orderStatus: order.status,
-            products: parseCart(order.products)
+            products: parseCart(order.products),
+            date: order.date
         }
     })
-}
-
-export const parseOrder = (res: OrderResponse): OrderProps =>{
-    return {
-        id: res._id,
-        orderStatus: res.status,
-        products: res.products
-    }
 }
