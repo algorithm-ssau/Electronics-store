@@ -1,13 +1,27 @@
 import {Router} from 'express';
 import {Product} from "../schemas/ProductSchema";
-import {parseProduct, parseProducts} from "../utils/productParser";
+import { parseProducts} from "../utils/productParser";
+import * as aqp from 'api-query-params';
+import {getProductId} from "../utils/getIDs";
 
 const productRouter = Router();
 
 productRouter.get("/products/get",(req, res)=>{
-    Product.find({})
+    const { filter, skip, limit, sort, projection, population } = aqp(req.query);
+    Product.find(filter)
+        .skip(skip)
+        .limit(limit)
+        .sort(sort)
+        .select(projection)
+        .populate(population)
         .then(product =>{
-            res.send(parseProducts(product));
+            if (product.length>0) {
+                res.send(parseProducts(product));
+            }
+            else res.send({
+                error:true,
+                message:"Product not found"
+            })
         });
 });
 
@@ -18,28 +32,40 @@ productRouter.post("/products/post",(req, res)=>{
         });
 });
 
-productRouter.put("/products/update/:id",(req, res)=>{
-    Product.findByIdAndUpdate({_id: req.params.id},req.body)
-        .then(()=>{
-            Product.findOne({_id: req.params.id})
-                .then(product =>{
-                    res.send(product);
-                });
+productRouter.put("/products/update",async(req, res)=>{
+    const { filter, skip, limit, sort, projection, population } = aqp(req.query);
+    let id = await getProductId(filter);
+    if (id != null) {
+        Product.findByIdAndUpdate({_id: id}, req.body)
+            .then(() => {
+                res.send({
+                    error: false,
+                    message: "Product was successfully updated"
+                })
+            });
+    }
+    else res.send({
+        error: true,
+        message: "Product not found"
+    })
+});
+
+productRouter.delete("/products/delete",(req, res)=>{
+    const { filter, skip, limit, sort, projection, population } = aqp(req.query);
+    Product.deleteOne(filter)
+        .then((product)=>{
+            if (product.deletedCount>0){
+                res.send({
+                    error: false,
+                    message: "Product was successfully deleted"
+                })
+            }
+            else res.send({
+                error: true,
+                message: "Product not found"
+            })
         });
 });
 
-productRouter.delete("/products/delete/:id",(req, res)=>{
-    Product.deleteOne({_id: req.params.id})
-        .then(product=>{
-            res.send(product);
-        });
-});
-
-productRouter.get("/products/get/:id",(req, res)=>{
-    Product.findOne({_id: req.params.id})
-        .then(product =>{
-            res.send(parseProduct(product));
-        });
-});
 
 export {productRouter};
