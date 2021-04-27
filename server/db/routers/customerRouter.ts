@@ -54,7 +54,7 @@ customerRouter.put("/customers/update",async(req,res)=>{
     let id = await getCustomerId(filter);
     if (id != null) {
         Customer.findByIdAndUpdate({_id: id}, req.body)
-            .then((customer) => {
+            .then(() => {
                 res.send({
                     error: false,
                     message: "Customer was successfully updated"
