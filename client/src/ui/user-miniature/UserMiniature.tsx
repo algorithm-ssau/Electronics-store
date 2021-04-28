@@ -5,7 +5,7 @@ export const UserMiniature: React.FC<UserMiniatureProps> = (props) => {
   const { name, icon } = props;
   return (
     <div>
-      <div>{`${name}`}</div>
+      <div className="nameUser">{`${name}`}</div>
       <div>
         <img alt={icon} src={icon} />
       </div>

@@ -69,10 +69,7 @@ body {
 .listItem {
   display: inline-block;
   opacity: .7;
-  padding: 0 20px;
-}
-
-.listItem {
+  padding: 0 60px;
   text-transform: uppercase;
   color: #555;
 }
@@ -103,4 +100,9 @@ a {
   align-items: center;
   flex-wrap: wrap;
   margin: 15px 0;
+}
+
+.nameUser {
+  text-align: center;
+  color: #555;
 }
