@@ -4,7 +4,6 @@ import * as dotenv from "dotenv";
 import {customerRouter} from "./db/routers/customerRouter";
 import {orderRouter} from "./db/routers/orderRouter";
 import {productRouter} from "./db/routers/productRouter";
-import {templateRouter} from "./db/routers/templateRouter";
 import * as express from 'express'
 
 dotenv.config()
@@ -34,7 +33,6 @@ connect(URI,{
 
 app.use("/api",customerRouter)
 app.use("/api",orderRouter)
-app.use("/api",templateRouter)
 app.use("/api",productRouter)
 
 const PORT= process.env.PORT || 5000

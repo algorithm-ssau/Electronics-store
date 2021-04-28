@@ -1,75 +1,86 @@
 import {Router} from 'express';
 import {Customer} from "../schemas/CustomerSchema";
-import {checkExist} from  "../dbUtils";
+import {checkLoginExist,checkEmailExist} from "../utils/checks";
+import { parseCustomers } from '../utils/customerParser';
+import * as aqp from 'api-query-params';
+import { getCustomerId } from '../utils/getIDs';
 
 const customerRouter = Router();
 
 customerRouter.get("/customers/get",(req,res)=>{
-    Customer.find({})
+    const { filter, skip, limit, sort, projection, population } = aqp(req.query);
+    Customer.find(filter)
+        .skip(skip)
+        .limit(limit)
+        .sort(sort)
+        .select(projection)
+        .populate(population)
         .then(customer =>{
-        res.send(customer);
+            if (customer.length>0) {
+                res.send(parseCustomers(customer));
+            }
+            else res.send({
+                error:true,
+                message:"Customer not found"
+            })
     });
 });
 
 customerRouter.post("/customers/post",async(req,res)=>{
-    let flag = await checkExist(req.body.login);
-    if (flag) {
+    let loginFlag = await checkLoginExist(req.body.login);
+    let emailFlag = await checkEmailExist(req.body.email);
+    if (loginFlag && emailFlag) {
         Customer.create(req.body)
             .then(customer => {
-                res.send(customer);
+                res.send(parseCustomers([customer]));
             });
     }
-    else {
-        res.send("User with this login is already exists");
+    else if (!loginFlag){
+        res.send({
+            error:true,
+            message:"Customer with this login is already exists"
+        });
+    }
+    else if (!emailFlag){
+        res.send({
+            error:true,
+            message:"Customer with this email is already exists"
+        });
     }
 });
 
-customerRouter.put("/customers/update/:id",(req,res)=>{
-    if (!checkExist(req.body.login)) {
-        Customer.findByIdAndUpdate({_id: req.params.id}, req.body)
+customerRouter.put("/customers/update",async(req,res)=>{
+    const { filter, skip, limit, sort, projection, population } = aqp(req.query);
+    let id = await getCustomerId(filter);
+    if (id != null) {
+        Customer.findByIdAndUpdate({_id: id}, req.body)
             .then(() => {
-                Customer.findOne({_id: req.params.id})
-                    .then(customer => {
-                        res.send(customer);
-                    });
+                res.send({
+                    error: false,
+                    message: "Customer was successfully updated"
+                })
             });
     }
-    else {
-        res.send("User with this login is already exists");
-    }
-});
-
-customerRouter.delete("/customers/delete/:id",(req,res)=>{
-    Customer.deleteOne({_id: req.params.id})
-        .then(customer=>{
-            res.send(customer);
-        });
-});
-
-customerRouter.get("/customers/get/:id",(req,res)=>{
-    Customer.findOne({_id: req.params.id})
-        .then(customer =>{
-            res.send(customer);
-        });
-});
-
-customerRouter.get("/customers/get/:login/:password",(req,res)=>{
-    Customer.findOne({
-        login: req.params.login,
-        password: req.params.password
+    else res.send({
+        error: true,
+        message: "Customer not found"
     })
-        .then(customer=>{
-            res.send(customer);
-        });
 });
 
-customerRouter.get("/customers/get/:email/:password",(req,res)=>{
-    Customer.findOne({
-        email: req.params.email,
-        password: req.params.password
-    })
-        .then(customer=>{
-            res.send(customer);
+customerRouter.delete("/customers/delete",(req,res)=>{
+    const { filter, skip, limit, sort, projection, population } = aqp(req.query);
+    Customer.deleteOne(filter)
+        .then((customer)=>{
+            if (customer.deletedCount>0){
+                res.send({
+                    error: false,
+                    message: "Customer was successfully deleted"
+                })
+            }
+            else res.send({
+                    error: true,
+                    message: "Customer not found"
+                })
         });
 });
 

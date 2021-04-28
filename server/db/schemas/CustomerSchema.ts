@@ -1,4 +1,5 @@
 import {Schema, model} from 'mongoose';
+import { CustomerResponse } from '../responseInterfaces/customerInterfaces';
 
 const CustomerSchema = new Schema({
     customer_name: {type: String, default: ""},
@@ -8,8 +9,9 @@ const CustomerSchema = new Schema({
     account: {type: Number, default: 0},
     avatar_src: {type: String, default: ""},
     order_ids: {type: [String], default: []},
+    verified: {type: Boolean, default: true},
 });
 
-const Customer = model("customer",CustomerSchema);
+const Customer = model<CustomerResponse>("customer",CustomerSchema);
 
 export {Customer};
