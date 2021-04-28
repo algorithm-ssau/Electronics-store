@@ -32,7 +32,7 @@ customerRouter.post("/customers/post",async(req,res)=>{
     if (loginFlag && emailFlag) {
         Customer.create(req.body)
             .then(customer => {
-                res.send(customer);
+                res.send(parseCustomers([customer]));
             });
     }
     else if (!loginFlag){

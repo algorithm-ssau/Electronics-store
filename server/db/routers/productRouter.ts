@@ -28,7 +28,7 @@ productRouter.get("/products/get",(req, res)=>{
 productRouter.post("/products/post",(req, res)=>{
     Product.create(req.body)
         .then(product =>{
-            res.send(product);
+            res.send(parseProducts([product]));
         });
 });
 
