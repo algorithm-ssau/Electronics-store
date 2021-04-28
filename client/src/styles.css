@@ -106,3 +106,55 @@ a {
   text-align: center;
   color: #555;
 }
+
+.singleLineBlocks {
+  float: left;
+  width: 50%;
+}
+
+.dataUser {
+  max-width: 100%;
+  height: auto;
+  overflow: hidden;
+  margin-top: 3%;
+}
+
+.userImage {
+  margin-left: 50%;
+  width: 200px;
+  height: 200px;
+  margin-top: 2%;
+  border-radius: 100px;
+  border: 4px solid #03429a;
+  box-shadow: 0 0 7px #03429a;
+}
+
+.userDescription {
+  margin-left: 10%;
+}
+
+.purchaseHistory {
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  margin-top: 7%;
+}
+
+.tablePurchaseHistory {
+  border-collapse: collapse;
+  width: 94%;
+  margin-left: 3%;
+  margin-right: 3%;
+}
+
+.tablePurchaseHistory td, th {
+  border: 1px solid #a3a3a3;
+}
+
+.dataPurchase {
+  text-align: center;
+}
+
+.nameColumn {
+  font-weight: 700;
+}
