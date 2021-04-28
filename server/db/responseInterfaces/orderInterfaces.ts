@@ -9,11 +9,13 @@ export interface OrderProps{
     id: String,
     orderStatus: Number,
     products: Cart[],
-    date: Date
+    date: Date,
+    total: Number
 }
 
 export interface  OrderResponse extends Document{
     status: Number,
     products: Cart[],
-    date: Date
+    date: Date,
+    total: Number
 }

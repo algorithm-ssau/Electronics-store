@@ -9,7 +9,8 @@ const Cart = new Schema({
 const OrderSchema = new Schema({
     status: {type:Number, default: 0},
     products: {type: [Cart], default: []},
-    date: {type: Date, default: Date.now()}
+    date: {type: Date, default: Date.now()},
+    total: {type: Number, default: undefined}
 });
 
 const Order = model<OrderResponse>("order",OrderSchema);

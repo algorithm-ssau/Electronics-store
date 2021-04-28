@@ -1,6 +1,6 @@
 import {Router} from 'express';
 import {Order} from "../schemas/OrderSchema";
-import { parseOrders} from "../utils/orderParser";
+import {getTotal, parseOrders} from "../utils/orderParser";
 import * as aqp from 'api-query-params';
 import {getOrderId} from "../utils/getIDs";
 
@@ -25,10 +25,11 @@ orderRouter.get("/orders/get",(req,res)=>{
         });
 });
 
-orderRouter.post("/orders/post",(req,res)=>{
+orderRouter.post("/orders/post",async(req,res)=>{
+    req.body.total = await getTotal(req.body.products);
     Order.create(req.body)
         .then(order =>{
-            res.send(order);
+            res.send(parseOrders([order]));
         });
 });
 
