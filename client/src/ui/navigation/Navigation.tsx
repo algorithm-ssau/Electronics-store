@@ -10,7 +10,7 @@ export const Navigation = () => {
   const { displayedName, userIcon } = userDataProps;
   if (error) return <div>Ошибка миниатюры пользователя: {error}</div>;
   return (
-    <div>
+    <div className="header">
       <NavigationItems />
       {loading ? <div>Обновление миниатюры...</div> : <UserMiniature icon={userIcon} name={displayedName} />}
     </div>
