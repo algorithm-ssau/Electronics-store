@@ -80,6 +80,37 @@ a {
   text-decoration: none;
   text-transform: uppercase;
   color: #555;
+  display: inline-block;
+  line-height: 1;
+  cursor: pointer;
+  position: relative;
+}
+
+a:after {
+  display: block;
+  content: "";
+  background-color: #095cd7;
+  height: 2px;
+  width: 0%;
+  left: 50%;
+  position: absolute;
+  -webkit-transition: width .3s ease-in-out;
+  -moz--transition: width .3s ease-in-out;
+  transition: width .3s ease-in-out;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+a:hover:after,
+a:focus:after {
+  width: 100%;
+}
+a:hover{
+  color:#095cd7;
+}
+
+a:focus{
+  color:#095cd7;
 }
 
 .header {
