@@ -160,3 +160,71 @@ a {
 .nameColumn {
   font-weight: 700;
 }
+
+.loginInForm {
+  width: 50%;
+  margin: 5% 25% 25%;
+  border: 3px solid #00165ead;
+  padding: 20px 6px;
+  border-radius: 20px;
+}
+
+.inputDataRegistration {
+  width: 90%;
+  font-size: 100%;
+  color: #000000;
+  margin: 3%;
+  padding: 2%;
+  border: 2px solid #00165ead;
+}
+
+.loginIn:hover {
+  background: #1f65e5;
+}
+
+.loginIn:focus {
+  background: #0358f6;
+}
+
+.loginIn {
+  width: 30%;
+  margin: 3%;
+  padding: 2%;
+  background: #4785fa;
+}
+
+.descriptionLogIn {
+  text-transform: uppercase;
+  color: white;
+  letter-spacing: 2px;
+}
+
+.textLogIn {
+  text-transform: uppercase;
+  margin: 5% 0% 5% 3%;
+  font-weight: 600;
+  font-size: 31px;
+}
+
+.buttonRegistration {
+  margin-left: 24%;
+  text-transform: uppercase;
+  color: #ff802b;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.registrationButton:hover {
+  background: #1f65e5;
+}
+
+.registrationButton:focus {
+  background: #0358f6;
+}
+
+.registrationButton {
+  width: 40%;
+  margin: 3%;
+  padding: 2%;
+  background: #4785fa;
+}
