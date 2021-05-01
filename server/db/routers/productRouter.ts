@@ -18,10 +18,10 @@ productRouter.get("/products/get",(req, res)=>{
             if (product.length>0) {
                 res.send(parseProducts(product));
             }
-            else res.send({
+            else res.send([{
                 error:true,
                 message:"Product not found"
-            })
+            }])
         });
 });
 
@@ -38,16 +38,16 @@ productRouter.put("/products/update",async(req, res)=>{
     if (id != null) {
         Product.findByIdAndUpdate({_id: id}, req.body)
             .then(() => {
-                res.send({
+                res.send([{
                     error: false,
                     message: "Product was successfully updated"
-                })
+                }])
             });
     }
-    else res.send({
+    else res.send([{
         error: true,
         message: "Product not found"
-    })
+    }])
 });
 
 productRouter.delete("/products/delete",(req, res)=>{
@@ -55,15 +55,15 @@ productRouter.delete("/products/delete",(req, res)=>{
     Product.deleteOne(filter)
         .then((product)=>{
             if (product.deletedCount>0){
-                res.send({
+                res.send([{
                     error: false,
                     message: "Product was successfully deleted"
-                })
+                }])
             }
-            else res.send({
+            else res.send([{
                 error: true,
                 message: "Product not found"
-            })
+            }])
         });
 });
 

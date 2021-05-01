@@ -8,7 +8,7 @@ environment = dotenv_values('.env')
 
 @app.get('/api/appinfo/server/version')
 async def get_server_version():
-    return {"server_version":environment['SERVER_VERSION']},
+    return {"server_version":environment['SERVER_VERSION']}
 
 @app.get('/api/appinfo/client/version')
 async def get_client_version():
@@ -16,11 +16,11 @@ async def get_client_version():
 
 @app.get('/api/appinfo/server/last_update')
 async def get_date_of_server_last_update():
-    return {"last update":environment['SERVER_LAST_UPDATE']}
+    return {"server_last_update":environment['SERVER_LAST_UPDATE']}
 
 @app.get('/api/appinfo/client/last_update')
 async def get_date_of_client_last_update():
-    return {"last update":environment['CLIENT_LAST_UPDATE']}
+    return {"client_last_update":environment['CLIENT_LAST_UPDATE']}
 
 @app.get('/api/appinfo/developers')
 async def get_developers():

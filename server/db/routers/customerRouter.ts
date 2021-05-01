@@ -19,10 +19,10 @@ customerRouter.get("/customers/get",(req,res)=>{
             if (customer.length>0) {
                 res.send(parseCustomers(customer));
             }
-            else res.send({
+            else res.send([{
                 error:true,
                 message:"Customer not found"
-            })
+            }])
     });
 });
 
@@ -35,17 +35,23 @@ customerRouter.post("/customers/post",async(req,res)=>{
                 res.send(parseCustomers([customer]));
             });
     }
+    else if (!loginFlag && !emailFlag){
+        res.send([{
+            error:true,
+            message:"Customer with this login and email is already exists"
+        }]);
+    }
     else if (!loginFlag){
-        res.send({
+        res.send([{
             error:true,
             message:"Customer with this login is already exists"
-        });
+        }]);
     }
     else if (!emailFlag){
-        res.send({
+        res.send([{
             error:true,
             message:"Customer with this email is already exists"
-        });
+        }]);
     }
 });
 
@@ -55,16 +61,16 @@ customerRouter.put("/customers/update",async(req,res)=>{
     if (id != null) {
         Customer.findByIdAndUpdate({_id: id}, req.body)
             .then(() => {
-                res.send({
+                res.send([{
                     error: false,
                     message: "Customer was successfully updated"
-                })
+                }])
             });
     }
-    else res.send({
+    else res.send([{
         error: true,
         message: "Customer not found"
-    })
+    }])
 });
 
 customerRouter.delete("/customers/delete",(req,res)=>{
@@ -72,15 +78,15 @@ customerRouter.delete("/customers/delete",(req,res)=>{
     Customer.deleteOne(filter)
         .then((customer)=>{
             if (customer.deletedCount>0){
-                res.send({
+                res.send([{
                     error: false,
                     message: "Customer was successfully deleted"
-                })
+                }])
             }
-            else res.send({
+            else res.send([{
                     error: true,
                     message: "Customer not found"
-                })
+                }])
         });
 });
 

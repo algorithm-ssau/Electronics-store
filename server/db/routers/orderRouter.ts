@@ -18,10 +18,10 @@ orderRouter.get("/orders/get",(req,res)=>{
             if (order.length>0) {
                 res.send(parseOrders(order));
             }
-            else res.send({
+            else res.send([{
                 error:true,
                 message:"Order not found"
-            })
+            }])
         });
 });
 
@@ -39,16 +39,16 @@ orderRouter.put("/orders/update",async(req,res)=>{
     if (id != null) {
         Order.findByIdAndUpdate({_id: id}, req.body)
             .then(() => {
-                res.send({
+                res.send([{
                     error: false,
                     message: "Order was successfully updated"
-                })
+                }])
             });
     }
-    else res.send({
+    else res.send([{
         error: true,
         message: "Order not found"
-    })
+    }])
 });
 
 orderRouter.delete("/orders/delete",(req,res)=>{
@@ -56,15 +56,15 @@ orderRouter.delete("/orders/delete",(req,res)=>{
     Order.deleteOne(filter)
         .then((order)=> {
             if (order.deletedCount > 0) {
-                res.send({
+                res.send([{
                     error: false,
                     message: "Order was successfully deleted"
-                })
+                }])
             }
-            else res.send({
+            else res.send([{
                     error: true,
                     message: "Order not found"
-                })
+                }])
         });
 
 });
