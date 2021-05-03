@@ -9,26 +9,26 @@ function getDBReqURL(entity: string, method: string, req: string): string {
   let tURL: string = "";
   switch (entity) {
     case "CUSTOMER": {
-      tURL = "/api/customers";
+      tURL = "api/customers";
       break;
     }
     case "PRODUCT": {
-      tURL = "/api/products";
+      tURL = "api/products";
       break;
     }
     case "ORDER": {
-      tURL = "/api/orders";
+      tURL = "api/orders";
       break;
     }
     case "TEMPLATE": {
-      tURL = "/api/templates";
+      tURL = "api/templates";
       break;
     }
     default:
       break;
   }
 
-  return `http://localhost:5000${tURL}/${method}/${req}`;
+  return `http://localhost:5000/${tURL}/${method.toLowerCase()}/${req}`;
 }
 
 /**
@@ -68,7 +68,7 @@ function getPyApiReqURL(side: string, mode: string) {
     default:
       break;
   }
-  return `http://localhost:5000${tURL}`;
+  return `http://localhost:5000/${tURL}`;
 }
 
 export { getDBReqURL, getPyApiReqURL };

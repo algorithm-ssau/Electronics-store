@@ -1,9 +1,9 @@
 import { ProductListProps } from "./ProductListProps";
-import { ProductAction } from "./ProductActionType";
+import { ProductListActionType } from "./ProductListActionType";
 
 const initialState: ProductListProps = { products: [], loading: false, error: null };
 
-export const productListReducer = (state = initialState, action: ProductAction): ProductListProps => {
+export const productListReducer = (state = initialState, action: ProductListActionType): ProductListProps => {
   switch (action.type) {
     case "ADD_PRODUCT": {
       return { ...state, products: [...state.products, action.payload] };

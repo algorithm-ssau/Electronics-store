@@ -9,7 +9,6 @@ import { Registration } from "./pages/registration/Registration";
 import { ErrorPage } from "./pages/error-page/ErrorPage";
 
 export const App: React.FC = () => {
-  // todo separate user and register in a smart way
   return (
     <Router>
       <Navigation />

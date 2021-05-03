@@ -1,27 +1,49 @@
-import { ProductProps } from "../product/ProductProps";
-import { ProductListProps } from "./ProductListProps";
-import { ProductAction } from "./ProductActionType";
+import { ProductProps, ProductPropsDB } from "../product/ProductProps";
+import { ProductListActionType, ProductListActionMessage } from "./ProductListActionType";
 
-export const fetchProducts = (): ProductAction => ({
+export const fetchProducts = (): ProductListActionType => ({
   type: "FETCH_PRODUCTS",
 });
-export const fetchProductsSuccess = (response: ProductListProps["products"]): ProductAction => ({
+export const fetchProductsSuccess = (products: ProductProps[]): ProductListActionType => ({
   type: "FETCH_PRODUCTS_SUCCESS",
-  payload: response,
+  payload: { products },
 });
-export const fetchProductsError = (error: string): ProductAction => ({
+export const fetchProductsError = (errorMessage: ProductListActionMessage): ProductListActionType => ({
   type: "FETCH_PRODUCTS_ERROR",
-  payload: error,
+  payload: { errorMessage },
 });
-export const addProduct = (product: ProductProps): ProductAction => ({
-  type: "ADD_PRODUCT",
-  payload: product,
+export const addProduct = (productToAdd: ProductPropsDB): ProductListActionType => ({
+  type: "DB_ADD_PRODUCT",
+  payload: { productToAdd },
 });
-export const removeProduct = (productId: string): ProductAction => ({
-  type: "REMOVE_PRODUCT",
-  payload: productId,
+export const addProductSuccess = (productInDB: ProductProps): ProductListActionType => ({
+  type: "DB_ADD_PRODUCT_SUCCESS",
+  payload: { productInDB },
 });
-export const updateProduct = (product: ProductProps): ProductAction => ({
-  type: "UPDATE_PRODUCT",
-  payload: product,
+export const updateProduct = (
+  idProductToUpdate: ProductProps["id"],
+  newProductProps: ProductPropsDB
+): ProductListActionType => ({
+  type: "DB_UPDATE_PRODUCT",
+  payload: { idProductToUpdate, newProductProps },
+});
+export const updateProductSuccess = (infoMessage: ProductListActionMessage): ProductListActionType => ({
+  type: "DB_UPDATE_PRODUCT_SUCCESS",
+  payload: { infoMessage },
+});
+export const updateProductError = (errorMessage: ProductListActionMessage): ProductListActionType => ({
+  type: "DB_UPDATE_PRODUCT_ERROR",
+  payload: { errorMessage },
+});
+export const deleteProduct = (idProductToDelete: ProductProps["id"]): ProductListActionType => ({
+  type: "DB_DELETE_PRODUCT",
+  payload: { idProductToDelete },
+});
+export const deleteProductSuccess = (infoMessage: ProductListActionMessage): ProductListActionType => ({
+  type: "DB_DELETE_PRODUCT_SUCCESS",
+  payload: { infoMessage },
+});
+export const deleteProductError = (errorMessage: ProductListActionMessage): ProductListActionType => ({
+  type: "DB_DELETE_PRODUCT_ERROR",
+  payload: { errorMessage },
 });
