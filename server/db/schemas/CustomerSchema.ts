@@ -9,7 +9,7 @@ const CustomerSchema = new Schema({
     account: {type: Number, default: 0},
     avatar_src: {type: String, default: ""},
     order_ids: {type: [String], default: []},
-    verified: {type: Boolean, default: true},
+    verified: {type: Boolean, default: false},
 });
 
 const Customer = model<CustomerResponse>("customer",CustomerSchema);
