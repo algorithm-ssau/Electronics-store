@@ -20,6 +20,7 @@ customerRouter.get("/customers/get",(req,res)=>{
                 res.send(parseCustomers(customer));
             }
             else res.send([{
+                responseType: "Message",
                 error:true,
                 message:"Customer not found"
             }])
@@ -37,18 +38,21 @@ customerRouter.post("/customers/post",async(req,res)=>{
     }
     else if (!loginFlag && !emailFlag){
         res.send([{
+            responseType: "Message",
             error:true,
             message:"Customer with this login and email is already exists"
         }]);
     }
     else if (!loginFlag){
         res.send([{
+            responseType: "Message",
             error:true,
             message:"Customer with this login is already exists"
         }]);
     }
     else if (!emailFlag){
         res.send([{
+            responseType: "Message",
             error:true,
             message:"Customer with this email is already exists"
         }]);
@@ -62,12 +66,14 @@ customerRouter.put("/customers/update",async(req,res)=>{
         Customer.findByIdAndUpdate({_id: id}, req.body)
             .then(() => {
                 res.send([{
+                    responseType: "Message",
                     error: false,
                     message: "Customer was successfully updated"
                 }])
             });
     }
     else res.send([{
+        responseType: "Message",
         error: true,
         message: "Customer not found"
     }])
@@ -79,15 +85,39 @@ customerRouter.delete("/customers/delete",(req,res)=>{
         .then((customer)=>{
             if (customer.deletedCount>0){
                 res.send([{
+                    responseType: "Message",
                     error: false,
                     message: "Customer was successfully deleted"
                 }])
             }
             else res.send([{
+                    responseType: "Message",
                     error: true,
                     message: "Customer not found"
                 }])
         });
 });
 
+customerRouter.get("/customers/isadmin",(req,res)=>{
+    const { filter, skip, limit, sort, projection, population } = aqp(req.query);
+    Customer.findOne(filter)
+        .then(customer =>{
+            if (customer != null) {
+                if (customer._id == process.env.ADMIN_ID) {
+                    res.send([{
+                        responseType: "Data",
+                        isAdmin: true
+                    }])
+                } else res.send([{
+                    responseType: "Data",
+                    isAdmin: false
+                }])
+            }
+            else res.send([{
+                responseType: "Message",
+                error: true,
+                message: "Customer not found"
+            }])
+        })
+})
 export {customerRouter};

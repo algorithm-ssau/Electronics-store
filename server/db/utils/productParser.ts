@@ -3,6 +3,7 @@ import {ProductProps, ProductResponse} from "../responseInterfaces/productInterf
 export const parseProducts = (res: ProductResponse[]): ProductProps[] => {
     return res.map((product) => {
         return {
+            responseType: "Data",
             id: product._id,
             name: product.product_name,
             price: product.price,

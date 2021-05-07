@@ -19,6 +19,7 @@ orderRouter.get("/orders/get",(req,res)=>{
                 res.send(parseOrders(order));
             }
             else res.send([{
+                responseType: "Message",
                 error:true,
                 message:"Order not found"
             }])
@@ -40,12 +41,14 @@ orderRouter.put("/orders/update",async(req,res)=>{
         Order.findByIdAndUpdate({_id: id}, req.body)
             .then(() => {
                 res.send([{
+                    responseType: "Message",
                     error: false,
                     message: "Order was successfully updated"
                 }])
             });
     }
     else res.send([{
+        responseType: "Message",
         error: true,
         message: "Order not found"
     }])
@@ -57,11 +60,13 @@ orderRouter.delete("/orders/delete",(req,res)=>{
         .then((order)=> {
             if (order.deletedCount > 0) {
                 res.send([{
+                    responseType: "Message",
                     error: false,
                     message: "Order was successfully deleted"
                 }])
             }
             else res.send([{
+                    responseType: "Message",
                     error: true,
                     message: "Order not found"
                 }])
