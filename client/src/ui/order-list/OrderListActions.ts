@@ -1,10 +1,11 @@
 import { OrderListActionType } from "./OrderListActionType";
-import { Order, OrderDB, OrderListProps } from "./OrderListProps";
+import { Order, OrderListProps } from "./OrderListProps";
 import { ActionMessage } from "../../interfaces/ActionMessage";
+import { EmailAndPassword } from "../user-data/UserDataComponentProps";
 
-export const ordersFetchBegin = (orderIds: Order["orderId"][]): OrderListActionType => ({
+export const ordersFetchBegin = (emailAndPassword: EmailAndPassword): OrderListActionType => ({
   type: "ORDERS_FETCH_BEGIN",
-  payload: { orderIds },
+  payload: { emailAndPassword },
 });
 export const ordersFetchSuccess = (orders: OrderListProps["orders"]): OrderListActionType => ({
   type: "ORDERS_FETCH_SUCCESS",
@@ -14,19 +15,7 @@ export const ordersFetchError = (errorMessage: ActionMessage): OrderListActionTy
   type: "ORDERS_FETCH_ERROR",
   payload: { errorMessage },
 });
-export const orderFetchBegin = (orderId: Order["orderId"]): OrderListActionType => ({
-  type: "ORDER_FETCH_BEGIN",
-  payload: { orderId },
-});
-export const orderFetchSuccess = (order: Order): OrderListActionType => ({
-  type: "ORDER_FETCH_SUCCESS",
-  payload: { order },
-});
-export const orderFetchError = (errorMessage: ActionMessage): OrderListActionType => ({
-  type: "ORDER_FETCH_ERROR",
-  payload: { errorMessage },
-});
-export const orderAddBegin = (orderToAdd: OrderDB): OrderListActionType => ({
+export const orderAddBegin = (orderToAdd: Order): OrderListActionType => ({
   type: "ORDER_ADD_BEGIN",
   payload: { orderToAdd },
 });
@@ -38,12 +27,9 @@ export const orderAddError = (errorMessage: ActionMessage): OrderListActionType 
   type: "ORDER_ADD_ERROR",
   payload: { errorMessage },
 });
-export const orderUpdateBegin = (
-  idOrderToUpdate: Order["orderId"],
-  newOrderDbFormat: OrderDB
-): OrderListActionType => ({
+export const orderUpdateBegin = (idOrderToUpdate: Order["orderId"], newOrder: Order): OrderListActionType => ({
   type: "ORDER_UPDATE_BEGIN",
-  payload: { idOrderToUpdate, newOrderDbFormat },
+  payload: { idOrderToUpdate, newOrder },
 });
 export const orderUpdateSuccess = (infoMessage: ActionMessage): OrderListActionType => ({
   type: "ORDER_UPDATE_SUCCESS",

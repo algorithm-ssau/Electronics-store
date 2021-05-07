@@ -1,37 +1,46 @@
 import { Dispatch } from "redux";
 import axios from "axios";
-import {
-  addOrderBegin,
-  addOrderError,
-  addOrderSuccess,
-  deleteOrderBegin,
-  deleteOrderError,
-  deleteOrderSuccess,
-  fetchOrdersBegin,
-  fetchOrdersError,
-  fetchOrdersSuccess,
-  updateOrderBegin,
-  updateOrderError,
-  updateOrderSuccess,
-} from "../../ui/order-list/OrderListActions";
 import { getDBReqURL } from "../../utils/URLs";
-import { Order } from "../../ui/order-list/OrderListProps";
+import { Order, OrderListProps } from "../../ui/order-list/OrderListProps";
 import { normalOrderToDBOrder } from "../../utils/converters";
 import { UserDataProps } from "../../ui/user-data/UserDataComponentProps";
+import {
+  orderAddBegin,
+  orderAddError,
+  orderAddSuccess,
+  orderDeleteBegin,
+  orderDeleteError,
+  orderDeleteSuccess,
+  ordersFetchBegin,
+  ordersFetchError,
+  ordersFetchSuccess,
+  orderUpdateBegin,
+  orderUpdateError,
+  orderUpdateSuccess,
+} from "../../ui/order-list/OrderListActions";
+import { Customer } from "../../interfaces/Customer";
 
-export const fetchOrderList = (emailAndPassword: UserDataProps["emailAndPassword"]) => {
+export const fetchOrders = (emailAndPassword: UserDataProps["emailAndPassword"], orderIds: Customer["orderIds"]) => {
   return async (dispatch: Dispatch) => {
     try {
       if (!emailAndPassword) {
-        dispatch(fetchOrdersSuccess([]));
+        dispatch(ordersFetchSuccess([]));
         return;
       }
-      dispatch(fetchOrdersBegin(emailAndPassword));
-      const response = await axios.get(getDBReqURL("CUSTOMER", "GET"));
-      const orders =
-      dispatch(fetchOrdersSuccess(response.data));
+      dispatch(ordersFetchBegin(emailAndPassword));
+      const orders: OrderListProps["orders"] = [];
+      await Promise.all(
+        orderIds.map(async (orderId) => {
+          const orderOrError = await axios.get(
+            getDBReqURL("ORDER", "GET", `?_id=${orderId}`)
+          );
+          if (orderOrError.response[0].body.) {
+          }
+        })
+      );
+      dispatch(ordersFetchSuccess(orders));
     } catch (e) {
-      dispatch(fetchOrdersError({ error: true, text: e.message }));
+      dispatch(ordersFetchError({ error: true, text: e.message }));
     }
   };
 };
@@ -39,12 +48,12 @@ export const fetchOrderList = (emailAndPassword: UserDataProps["emailAndPassword
 export const addOrder = (orderToAdd: Order) => {
   return async (dispatch: Dispatch) => {
     try {
+      dispatch(orderAddBegin(orderToAdd));
       const orderToAddDbFormat = normalOrderToDBOrder(orderToAdd);
-      dispatch(addOrderBegin(orderToAddDbFormat));
       const response = await axios.post(getDBReqURL("ORDER", "POST", JSON.stringify(orderToAddDbFormat)));
-      dispatch(addOrderSuccess(response.data[0]));
+      dispatch(orderAddSuccess(response.data[0]));
     } catch (e) {
-      dispatch(addOrderError({ error: true, text: e.message }));
+      dispatch(orderAddError({ error: true, text: e.message }));
     }
   };
 };
@@ -53,15 +62,14 @@ export const updateOrder = (idOrderToUpdate: Order["orderId"], newOrderProps: Or
   return async (dispatch: Dispatch) => {
     try {
       const orderInDbFormat = normalOrderToDBOrder(newOrderProps);
-      dispatch(updateOrderBegin(idOrderToUpdate, orderInDbFormat));
+      dispatch(orderUpdateBegin(idOrderToUpdate, newOrderProps));
       const response = await axios.put(
         getDBReqURL("ORDER", "PUT", `?_id=${idOrderToUpdate}`),
         JSON.stringify(orderInDbFormat)
       );
-
-      dispatch(updateOrderSuccess(response.data[0]));
+      dispatch(orderUpdateSuccess(response.data[0]));
     } catch (e) {
-      dispatch(updateOrderError({ error: true, text: e.message }));
+      dispatch(orderUpdateError({ error: true, text: e.message }));
     }
   };
 };
@@ -69,11 +77,11 @@ export const updateOrder = (idOrderToUpdate: Order["orderId"], newOrderProps: Or
 export const deleteOrder = (idOrderToDelete: Order["orderId"]) => {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch(deleteOrderBegin(idOrderToDelete));
+      dispatch(orderDeleteBegin(idOrderToDelete));
       const response = await axios.put(getDBReqURL("ORDER", "PUT", `?_id=${idOrderToDelete}`));
-      dispatch(deleteOrderSuccess(response.data[0]));
+      dispatch(orderDeleteSuccess(response.data[0]));
     } catch (e) {
-      dispatch(deleteOrderError({ error: true, text: e.message }));
+      dispatch(orderDeleteError({ error: true, text: e.message }));
     }
   };
 };

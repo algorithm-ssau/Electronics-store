@@ -9,6 +9,7 @@ const initialState: ProductListProps = {
 
 export const productListReducer = (state = initialState, action: ProductListActionType): ProductListProps => {
   switch (action.type) {
+
     default:
       return state;
   }
