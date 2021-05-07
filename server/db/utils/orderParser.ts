@@ -13,6 +13,7 @@ const parseCart = (res: Cart[]): Cart[] =>{
 export const parseOrders = (res: OrderResponse[]): OrderProps[]=>{
     return res.map((order) => {
         return {
+            responseType: "Data",
             id: order._id,
             orderStatus: order.status,
             products: parseCart(order.products),

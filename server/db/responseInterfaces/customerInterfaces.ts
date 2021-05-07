@@ -6,6 +6,7 @@ export interface EmailAndPassword {
 }
 
 export interface UserDataProps {
+    responseType: String;
     emailAndPassword: EmailAndPassword | undefined; // user is not logged in
     nickname: String;
     userIcon: String;

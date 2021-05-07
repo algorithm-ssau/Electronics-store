@@ -1,6 +1,7 @@
 import { Document } from "mongoose";
 
 export interface ProductProps {
+    responseType: String;
     id: String;
     name: String;
     price: Number;
