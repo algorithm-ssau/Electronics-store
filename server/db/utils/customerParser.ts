@@ -3,6 +3,7 @@ import {CustomerResponse, UserDataProps } from "../responseInterfaces/customerIn
 export const parseCustomers = (res: CustomerResponse[]): UserDataProps[] => {
     return res.map((customer) => {
         return {
+            responseType: "Data",
             nickname: customer.login,
             userIcon: customer.avatar_src,
             userVerified: customer.verified,

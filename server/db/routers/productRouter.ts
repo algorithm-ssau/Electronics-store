@@ -19,6 +19,7 @@ productRouter.get("/products/get",(req, res)=>{
                 res.send(parseProducts(product));
             }
             else res.send([{
+                responseType: "Message",
                 error:true,
                 message:"Product not found"
             }])
@@ -39,12 +40,14 @@ productRouter.put("/products/update",async(req, res)=>{
         Product.findByIdAndUpdate({_id: id}, req.body)
             .then(() => {
                 res.send([{
+                    responseType: "Message",
                     error: false,
                     message: "Product was successfully updated"
                 }])
             });
     }
     else res.send([{
+        responseType: "Message",
         error: true,
         message: "Product not found"
     }])
@@ -56,11 +59,13 @@ productRouter.delete("/products/delete",(req, res)=>{
         .then((product)=>{
             if (product.deletedCount>0){
                 res.send([{
+                    responseType: "Message",
                     error: false,
                     message: "Product was successfully deleted"
                 }])
             }
             else res.send([{
+                responseType: "Message",
                 error: true,
                 message: "Product not found"
             }])

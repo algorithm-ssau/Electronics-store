@@ -6,6 +6,7 @@ export interface Cart{
 }
 
 export interface OrderProps{
+    responseType: String,
     id: String,
     orderStatus: Number,
     products: Cart[],
