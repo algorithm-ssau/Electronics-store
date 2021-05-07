@@ -14,17 +14,6 @@ const initialState: UserDataComponentProps = {
 
 export const currentUserReducer = (state = initialState, action: InputUserDataAction): UserDataComponentProps => {
   switch (action.type) {
-    case "LOADING_USER":
-      return { ...state, loading: action.payload.loading };
-    case "FETCH_USER_SUCCESS":
-      return { ...state, userDataProps: action.payload.userData, loading: false };
-    case "UPDATE_USER_SUCCESS":
-      return { ...state, userDataProps: action.payload.newInfo, loading: false };
-    case "UPDATE_USER_ERROR":
-    case "FETCH_USER_ERROR":
-      return { ...state, error: action.payload.error, loading: false };
-    case "USER_LOG_OUT":
-      return { ...initialState };
     default:
       return state;
   }

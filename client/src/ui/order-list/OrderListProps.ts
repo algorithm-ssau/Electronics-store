@@ -1,4 +1,5 @@
 import { ProductProps } from "../product/ProductProps";
+import { ActionMessage } from "../../interfaces/ActionMessage";
 
 export interface CartDB {
   product_id: string;
@@ -25,6 +26,8 @@ export interface Order {
   total: number;
 }
 
-export interface OrderList {
+export interface OrderListProps {
   orders: Order[];
+  loading: boolean;
+  message: ActionMessage;
 }

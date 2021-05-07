@@ -1,20 +1,20 @@
 import { ProductProps, ProductPropsDB } from "../product/ProductProps";
 import { ProductListProps } from "./ProductListProps";
-
-export interface ProductListActionMessage {
-  error: boolean;
-  message: string;
-}
+import { ActionMessage } from "../../interfaces/ActionMessage";
 
 export type ProductListActionType =
-  | { type: "FETCH_PRODUCTS" }
-  | { type: "FETCH_PRODUCTS_SUCCESS"; payload: { products: ProductListProps["products"] } }
-  | { type: "FETCH_PRODUCTS_ERROR"; payload: { errorMessage: ProductListActionMessage } }
-  | { type: "DB_ADD_PRODUCT"; payload: { productToAdd: ProductPropsDB } }
-  | { type: "DB_ADD_PRODUCT_SUCCESS"; payload: { productInDB: ProductProps } }
-  | { type: "DB_UPDATE_PRODUCT"; payload: { idProductToUpdate: ProductProps["id"]; newProductProps: ProductPropsDB } }
-  | { type: "DB_UPDATE_PRODUCT_SUCCESS"; payload: { infoMessage: ProductListActionMessage } }
-  | { type: "DB_UPDATE_PRODUCT_ERROR"; payload: { errorMessage: ProductListActionMessage } }
-  | { type: "DB_DELETE_PRODUCT"; payload: { idProductToDelete: ProductProps["id"] } }
-  | { type: "DB_DELETE_PRODUCT_SUCCESS"; payload: { infoMessage: ProductListActionMessage } }
-  | { type: "DB_DELETE_PRODUCT_ERROR"; payload: { errorMessage: ProductListActionMessage } };
+  | { type: "PRODUCTS_FETCH_BEGIN" }
+  | { type: "PRODUCTS_FETCH_SUCCESS"; payload: { products: ProductListProps["products"] } }
+  | { type: "PRODUCTS_FETCH_ERROR"; payload: { errorMessage: ActionMessage } }
+  | { type: "PRODUCT_ADD_BEGIN"; payload: { productToAddDbFormat: ProductPropsDB } }
+  | { type: "PRODUCT_ADD_SUCCESS"; payload: { productJustAdded: ProductProps } }
+  | { type: "PRODUCT_ADD_ERROR"; payload: { errorMessage: ActionMessage } }
+  | {
+      type: "PRODUCT_UPDATE_BEGIN";
+      payload: { idProductToUpdate: ProductProps["id"]; newProductDbFormat: ProductPropsDB };
+    }
+  | { type: "PRODUCT_UPDATE_SUCCESS"; payload: { infoMessage: ActionMessage } }
+  | { type: "PRODUCT_UPDATE_ERROR"; payload: { errorMessage: ActionMessage } }
+  | { type: "PRODUCT_DELETE_BEGIN"; payload: { idProductToDelete: ProductProps["id"] } }
+  | { type: "PRODUCT_DELETE_SUCCESS"; payload: { infoMessage: ActionMessage } }
+  | { type: "PRODUCT_DELETE_ERROR"; payload: { errorMessage: ActionMessage } };

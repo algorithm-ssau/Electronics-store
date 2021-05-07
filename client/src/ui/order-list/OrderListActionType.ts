@@ -1,19 +1,19 @@
-import { OrderDB, Order, OrderList } from "./OrderListProps";
-
-export interface OrderListActionMessage {
-  error: boolean;
-  message: string;
-}
+import { OrderDB, Order, OrderListProps } from "./OrderListProps";
+import { ActionMessage } from "../../interfaces/ActionMessage";
 
 export type OrderListActionType =
-  | { type: "FETCH_ORDERS"; payload: { userId: string } }
-  | { type: "FETCH_ORDERS_SUCCESS"; payload: { orderList: OrderList } }
-  | { type: "FETCH_ORDERS_ERROR"; payload: { errorMessage: OrderListActionMessage } }
-  | { type: "ADD_ORDER"; payload: { orderToAdd: OrderDB } }
-  | { type: "ADD_ORDER_SUCCESS"; payload: { orderInDB: Order } }
-  | { type: "UPDATE_ORDER"; payload: { idOrderToUpdate: Order["orderId"]; newOrderProps: OrderDB } }
-  | { type: "UPDATE_ORDER_SUCCESS"; payload: { infoMessage: OrderListActionMessage } }
-  | { type: "UPDATE_ORDER_ERROR"; payload: { errorMessage: OrderListActionMessage } }
-  | { type: "DELETE_ORDER"; payload: { idOrderToDelete: Order["orderId"] } }
-  | { type: "DELETE_ORDER_SUCCESS"; payload: { infoMessage: OrderListActionMessage } }
-  | { type: "DELETE_ORDER_ERROR"; payload: { errorMessage: OrderListActionMessage } };
+  | { type: "ORDERS_FETCH_BEGIN"; payload: { orderIds: Order["orderId"][] } }
+  | { type: "ORDERS_FETCH_SUCCESS"; payload: { orders: OrderListProps["orders"] } }
+  | { type: "ORDERS_FETCH_ERROR"; payload: { errorMessage: ActionMessage } }
+  | { type: "ORDER_FETCH_BEGIN"; payload: { orderId: Order["orderId"] } }
+  | { type: "ORDER_FETCH_SUCCESS"; payload: { order: Order } }
+  | { type: "ORDER_FETCH_ERROR"; payload: { errorMessage: ActionMessage } }
+  | { type: "ORDER_ADD_BEGIN"; payload: { orderToAdd: OrderDB } }
+  | { type: "ORDER_ADD_SUCCESS"; payload: { orderJustAdded: Order } }
+  | { type: "ORDER_ADD_ERROR"; payload: { errorMessage: ActionMessage } }
+  | { type: "ORDER_UPDATE_BEGIN"; payload: { idOrderToUpdate: Order["orderId"]; newOrderDbFormat: OrderDB } }
+  | { type: "ORDER_UPDATE_SUCCESS"; payload: { infoMessage: ActionMessage } }
+  | { type: "ORDER_UPDATE_ERROR"; payload: { errorMessage: ActionMessage } }
+  | { type: "ORDER_DELETE_BEGIN"; payload: { idOrderToDelete: Order["orderId"] } }
+  | { type: "ORDER_DELETE_SUCCESS"; payload: { infoMessage: ActionMessage } }
+  | { type: "ORDER_DELETE_ERROR"; payload: { errorMessage: ActionMessage } };

@@ -5,7 +5,7 @@
  * @param req Request string
  * @returns String value of valid URL
  */
-function getDBReqURL(entity: string, method: string, req: string): string {
+function getDBReqURL(entity: string, method: string, req = ""): string {
   let tURL: string = "";
   switch (entity) {
     case "CUSTOMER": {
