@@ -2,14 +2,14 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { ProductList } from "../../ui/product-list/ProductList";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { fetchProductList } from "../../store/action-creators/productListActionCreator";
+import { fetchProducts } from "../../store/action-creators/productListActionCreator";
 
 export const PageProductCatalogue: React.FC = () => {
   const { products, error, loading } = useTypedSelector((state) => state.productList);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchProductList());
+    dispatch(fetchProducts());
   }, [dispatch]);
 
   const [filterText, setFilterText] = useState("");

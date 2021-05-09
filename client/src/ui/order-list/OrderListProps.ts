@@ -7,7 +7,7 @@ export interface CartDB {
 }
 
 export interface OrderDB {
-  status: number;
+  status: string;
   products: CartDB[];
   date: string;
   total: number;
@@ -20,7 +20,7 @@ export interface OrderEntrance {
 
 export interface Order {
   orderId: string; // todo to User["id"]
-  orderStatus: number; // todo to a nice form
+  orderStatus: string;
   products: OrderEntrance[];
   date: string; // todo to a nice form
   total: number;
