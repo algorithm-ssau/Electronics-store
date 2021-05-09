@@ -7,7 +7,7 @@ const Cart = new Schema({
 })
 
 const OrderSchema = new Schema({
-    status: {type:Number, default: 0},
+    status: {type:String, default: ""},
     products: {type: [Cart], default: []},
     date: {type: Date, default: Date.now()},
     total: {type: Number, default: undefined}
