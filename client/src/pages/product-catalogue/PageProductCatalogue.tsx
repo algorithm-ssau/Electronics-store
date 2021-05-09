@@ -5,7 +5,7 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { fetchProducts } from "../../store/action-creators/productListActionCreator";
 
 export const PageProductCatalogue: React.FC = () => {
-  const { products, error, loading } = useTypedSelector((state) => state.productList);
+  const { products, loading, message } = useTypedSelector((state) => state.productList);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -61,8 +61,8 @@ export const PageProductCatalogue: React.FC = () => {
   if (loading) {
     return <h1>Загрузка...</h1>;
   }
-  if (error) {
-    return <h1>{error}</h1>;
+  if (message.error) {
+    return <h1>{message.text}</h1>;
   }
   return (
     <>

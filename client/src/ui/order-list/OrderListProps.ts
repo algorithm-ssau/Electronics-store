@@ -19,10 +19,10 @@ export interface OrderEntrance {
 }
 
 export interface Order {
-  orderId: string; // todo to User["id"]
+  orderId: string;
   orderStatus: string;
   products: OrderEntrance[];
-  date: string; // todo to a nice form
+  date: string;
   total: number;
 }
 

@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { Product } from "../product/Product";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { addItemToCart, removeItemFromCart } from "./ShoppingCartActions";
+import { addItemToCart, removeItemFromCart } from "../../store/action-creators/shoppingCartActionCreator";
 
 export const ShoppingCart = () => {
   const { productsInCart } = useTypedSelector((state) => state.shoppingCart);

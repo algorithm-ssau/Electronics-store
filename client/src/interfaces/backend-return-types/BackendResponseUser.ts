@@ -1,4 +1,4 @@
-export interface Customer {
+export interface BackendResponseUser {
   nickname: string;
   userIcon: string;
   userVerified: boolean;

@@ -1,50 +1,129 @@
 import { Dispatch } from "redux";
+import axios from "axios";
 import {
-  fetchUserError,
-  fetchUserSuccess,
-  loadingUser,
-  updateUserError,
-  updateUserSuccess,
-  userLogOut,
+  userDeleteAccountBegin,
+  userDeleteAccountError,
+  userDeleteAccountSuccess,
+  userLoginBegin,
+  userLoginError,
+  userLoginSuccess,
+  userLogoutBegin,
+  userLogoutError,
+  userLogoutSuccess,
+  userRegisterBegin,
+  userRegisterError,
+  userRegisterSuccess,
+  userUpdateBegin,
+  userUpdateError,
+  userUpdateSuccess,
 } from "../../ui/user-data/InputUserDataActions";
-import { inputUserDataMock } from "../../ui/user-data/InputUserDataMock";
-import { EmailAndPassword, UserDataProps } from "../../ui/user-data/UserDataComponentProps";
+import { EmailAndPassword, UserDataSignUpProps } from "../../ui/user-data/UserDataComponentProps";
+import { getDBReqURL } from "../../utils/URLs";
+import { UserOrError } from "../../interfaces/json-interfaces/UserOrError";
+import {
+  backendMessageToActionMessage,
+  backendResponseUserToFrontendUser,
+  userSignUpPropsToBackendUser,
+  userSignUpPropsToBackendUserDefault,
+} from "../../utils/converters";
+import { BackendMessage } from "../../interfaces/BackendMessage";
 
-export const getUserInfo = (emailAndPassword: EmailAndPassword) => {
+export const signIn = (emailAndPassword: EmailAndPassword) => {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch(loadingUser(true));
-      // todo get user info from data base by email and password
-      setTimeout(() => {
-        const user = inputUserDataMock.find((userData) => userData.emailAndPassword === emailAndPassword);
-        if (user) {
-          dispatch(fetchUserSuccess(user));
-          return;
-        }
-        dispatch(fetchUserError(`Your account doesn't exist, maybe you meant to sign in instead!`));
-      }, 2000);
+      dispatch(userLoginBegin(emailAndPassword));
+      const response: UserOrError[] = (
+        await axios.get(
+          getDBReqURL("CUSTOMER", "GET", `?email=${emailAndPassword.email}&password=${emailAndPassword.password}`)
+        )
+      ).data;
+      if (response[0].responseType === "Message") {
+        dispatch(userLoginError({ error: response[0].error, text: response[0].message }));
+        return;
+      }
+      const userData = backendResponseUserToFrontendUser(response[0]);
+      dispatch(userLoginSuccess(userData));
     } catch (e) {
-      dispatch(fetchUserError(e.message));
+      dispatch(userLoginError({ error: true, text: e.message }));
     }
   };
 };
 
-export const updateUserInfo = (oldEmailAndPassword: EmailAndPassword, newUserInfo: UserDataProps) => {
+export const signUp = (userSignUpProps: UserDataSignUpProps) => {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch(loadingUser(true));
-      // todo update user info in data base by old email and password
-      dispatch(updateUserSuccess(newUserInfo));
+      const userToSignUpBackendFormat = userSignUpPropsToBackendUserDefault(userSignUpProps);
+      dispatch(userRegisterBegin(userToSignUpBackendFormat));
+      const response: UserOrError[] = (
+        await axios.post(getDBReqURL("CUSTOMER", "POST"), JSON.stringify(userToSignUpBackendFormat))
+      ).data;
+      if (response[0].responseType === "Message") {
+        dispatch(userRegisterError({ error: response[0].error, text: response[0].message }));
+        return;
+      }
+      const userJustRegistered = backendResponseUserToFrontendUser(response[0]);
+      dispatch(userRegisterSuccess(userJustRegistered));
     } catch (e) {
-      dispatch(updateUserError(e.message));
+      dispatch(userRegisterError({ error: true, text: e.message }));
+    }
+  };
+};
+
+export const updateUserInfo = (oldEmailAndPassword: EmailAndPassword, newUserDataProps: UserDataSignUpProps) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(userUpdateBegin(oldEmailAndPassword, newUserDataProps));
+      const newUserDataBackendFormat = userSignUpPropsToBackendUser(newUserDataProps);
+      const response: BackendMessage[] = (
+        await axios.put(
+          getDBReqURL(
+            "CUSTOMER",
+            "PUT",
+            `?email=${oldEmailAndPassword.email}&password=${oldEmailAndPassword.password}`
+          ),
+          JSON.stringify(newUserDataBackendFormat)
+        )
+      ).data;
+      const actionMessage = backendMessageToActionMessage(response[0]);
+      if (actionMessage.error) {
+        dispatch(userUpdateError(actionMessage));
+        return;
+      }
+      dispatch(userUpdateSuccess(actionMessage));
+    } catch (e) {
+      dispatch(userUpdateError({ error: true, text: e.message }));
+    }
+  };
+};
+
+export const deleteAccount = (emailAndPassword: EmailAndPassword) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(userDeleteAccountBegin(emailAndPassword));
+      const response: BackendMessage[] = (
+        await axios.delete(
+          getDBReqURL("CUSTOMER", "DELETE", `?email=${emailAndPassword.email}&password=${emailAndPassword.password}`)
+        )
+      ).data;
+      const actionMessage = backendMessageToActionMessage(response[0]);
+      if (actionMessage.error) {
+        dispatch(userDeleteAccountError(actionMessage));
+        return;
+      }
+      dispatch(userDeleteAccountSuccess(actionMessage));
+    } catch (e) {
+      dispatch(userDeleteAccountError({ error: true, text: e.message }));
     }
   };
 };
 
 export const logOut = () => {
   return async (dispatch: Dispatch) => {
-    dispatch(loadingUser(true));
-    dispatch(userLogOut());
-    dispatch(loadingUser(false));
+    try {
+      dispatch(userLogoutBegin());
+      dispatch(userLogoutSuccess());
+    } catch (e) {
+      dispatch(userLogoutError({ error: true, text: e.message }));
+    }
   };
 };

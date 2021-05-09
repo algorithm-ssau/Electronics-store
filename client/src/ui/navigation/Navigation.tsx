@@ -1,14 +1,12 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { NavigationItems } from "../navigation-items/NavigationItems";
 import { UserMiniature } from "../user-miniature/UserMiniature";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 export const Navigation = () => {
-  const dispatch = useDispatch();
-  const { loading, userDataProps, error } = useTypedSelector((state) => state.currentUser);
+  const { userDataProps, loading, message } = useTypedSelector((state) => state.currentUser);
   const { displayedName, userIcon } = userDataProps;
-  if (error) return <div>Ошибка миниатюры пользователя: {error}</div>;
+  if (message.error) return <div>Ошибка миниатюры пользователя: {message.text}</div>;
   return (
     <div className="header">
       <NavigationItems />

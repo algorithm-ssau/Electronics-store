@@ -22,11 +22,14 @@ import {
   orderUpdateError,
   orderUpdateSuccess,
 } from "../../ui/order-list/OrderListActions";
-import { Customer } from "../../interfaces/backend-return-types/Customer";
+import { BackendResponseUser } from "../../interfaces/backend-return-types/BackendResponseUser";
 import { OrderOrError } from "../../interfaces/json-interfaces/OrderOrError";
 import { BackendMessage } from "../../interfaces/BackendMessage";
 
-export const fetchOrders = (emailAndPassword: UserDataProps["emailAndPassword"], orderIds: Customer["orderIds"]) => {
+export const fetchOrders = (
+  emailAndPassword: UserDataProps["emailAndPassword"],
+  orderIds: BackendResponseUser["orderIds"]
+) => {
   return async (dispatch: Dispatch) => {
     try {
       if (!emailAndPassword) {
@@ -37,7 +40,7 @@ export const fetchOrders = (emailAndPassword: UserDataProps["emailAndPassword"],
       const response: OrderOrError[] = [];
       await Promise.all(
         orderIds.map(async (orderId) => {
-          const orderOrError: OrderOrError[] = await axios.get(getDBReqURL("ORDER", "GET", `?_id=${orderId}`));
+          const orderOrError: OrderOrError[] = (await axios.get(getDBReqURL("ORDER", "GET", `?_id=${orderId}`))).data;
           response.push(orderOrError[0]);
         })
       );
@@ -58,7 +61,9 @@ export const addOrder = (orderToAdd: Order) => {
     try {
       dispatch(orderAddBegin(orderToAdd));
       const orderToAddDbFormat = normalOrderToDBOrder(orderToAdd);
-      const response: OrderOrError = await axios.post(getDBReqURL("ORDER", "POST", JSON.stringify(orderToAddDbFormat)));
+      const response: OrderOrError = (
+        await axios.post(getDBReqURL("ORDER", "POST", JSON.stringify(orderToAddDbFormat)))
+      ).data;
       if (response.responseType === "Message") {
         dispatch(orderAddError({ error: response.error, text: response.message }));
         return;
@@ -75,10 +80,9 @@ export const updateOrder = (idOrderToUpdate: Order["orderId"], newOrder: Order) 
     try {
       const newOrderBackendFormat = normalOrderToDBOrder(newOrder);
       dispatch(orderUpdateBegin(idOrderToUpdate, newOrder));
-      const response: BackendMessage[] = await axios.put(
-        getDBReqURL("ORDER", "PUT", `?_id=${idOrderToUpdate}`),
-        JSON.stringify(newOrderBackendFormat)
-      );
+      const response: BackendMessage[] = (
+        await axios.put(getDBReqURL("ORDER", "PUT", `?_id=${idOrderToUpdate}`), JSON.stringify(newOrderBackendFormat))
+      ).data;
       const actionMessage = backendMessageToActionMessage(response[0]);
       if (actionMessage.error) {
         dispatch(orderUpdateError(actionMessage));
@@ -95,7 +99,8 @@ export const deleteOrder = (idOrderToDelete: Order["orderId"]) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(orderDeleteBegin(idOrderToDelete));
-      const response: BackendMessage[] = await axios.delete(getDBReqURL("ORDER", "DELETE", `?_id=${idOrderToDelete}`));
+      const response: BackendMessage[] = (await axios.delete(getDBReqURL("ORDER", "DELETE", `?_id=${idOrderToDelete}`)))
+        .data;
       const actionMessage = backendMessageToActionMessage(response[0]);
       if (actionMessage.error) {
         dispatch(orderDeleteError(actionMessage));

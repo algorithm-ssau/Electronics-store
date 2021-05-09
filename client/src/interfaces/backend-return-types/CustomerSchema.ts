@@ -1,4 +1,4 @@
-export interface BackendCustomer {
+export interface CustomerSchema {
   login: string;
   customer_name: string;
   password: string;

@@ -5,7 +5,7 @@ const initialState: ShoppingCartProps = { productsInCart: new Map() };
 
 export const shoppingCartReducer = (state = initialState, action: ShoppingCartAction): ShoppingCartProps => {
   switch (action.type) {
-    case "ADD_ITEM": {
+    case "ITEM_ADD": {
       const idItemToAdd = action.payload.productId;
       const numOfThisItemInCart = state.productsInCart.get(idItemToAdd);
       if (numOfThisItemInCart !== undefined) {
@@ -17,7 +17,7 @@ export const shoppingCartReducer = (state = initialState, action: ShoppingCartAc
       newState.productsInCart.set(idItemToAdd, 1);
       return newState;
     }
-    case "REMOVE_ITEM": {
+    case "ITEM_REMOVE": {
       const idToRemove = action.payload.productId;
       const itemInCart = state.productsInCart.get(idToRemove);
       if (itemInCart === undefined)
@@ -30,9 +30,6 @@ export const shoppingCartReducer = (state = initialState, action: ShoppingCartAc
       const newState = { ...state };
       newState.productsInCart.set(idToRemove, itemInCart - 1);
       return newState;
-    }
-    case "UPDATE_ITEM_COUNT": {
-      return state;
     }
     default:
       return state;

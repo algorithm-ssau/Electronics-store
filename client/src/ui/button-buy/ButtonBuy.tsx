@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { addItemToCart } from "../shopping-cart/ShoppingCartActions";
 import { ButtonBuyProps } from "./ButtonBuyProps";
+import { addItemToCart } from "../../store/action-creators/shoppingCartActionCreator";
 
 export const ButtonBuy: React.FC<ButtonBuyProps> = (props) => {
   const { productId } = props;

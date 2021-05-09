@@ -1,4 +1,3 @@
-import { Simulate } from "react-dom/test-utils";
 import { Order, OrderDB, OrderEntrance } from "../ui/order-list/OrderListProps";
 import { OrderOrError } from "../interfaces/json-interfaces/OrderOrError";
 import { ProductTuple } from "../interfaces/backend-return-types/BackendOrder";
@@ -6,8 +5,9 @@ import { BackendMessage } from "../interfaces/BackendMessage";
 import { ActionMessage } from "../interfaces/ActionMessage";
 import { ProductProps, ProductPropsDB } from "../ui/product/ProductProps";
 import { ProductOrError } from "../interfaces/json-interfaces/ProductOrError";
-import { BackendProduct } from "../interfaces/backend-return-types/BackendProduct";
-import error = Simulate.error;
+import { UserOrError } from "../interfaces/json-interfaces/UserOrError";
+import { UserDataProps, UserDataSignUpProps } from "../ui/user-data/UserDataComponentProps";
+import { CustomerSchema } from "../interfaces/backend-return-types/CustomerSchema";
 
 export const normalOrderToDBOrder = (normalOrder: Order): OrderDB => {
   return {
@@ -50,18 +50,18 @@ export const backendMessageToActionMessage = (backendMessage: BackendMessage): A
   };
 };
 
-export const backendResponseProductToFrontendProduct = (response: ProductOrError): ProductProps => {
-  if (response.responseType === "Data") {
+export const backendResponseProductToFrontendProduct = (productOrError: ProductOrError): ProductProps => {
+  if (productOrError.responseType === "Data") {
     return {
-      id: response.id,
-      name: response.name,
-      price: response.price,
-      imgSrc: response.imgSrc,
-      desc: response.desc,
-      type: response.type,
+      id: productOrError.id,
+      name: productOrError.name,
+      price: productOrError.price,
+      imgSrc: productOrError.imgSrc,
+      desc: productOrError.desc,
+      type: productOrError.type,
     };
   }
-  throw new Error(`response.responseType was "${response.responseType}"`);
+  throw new Error(`response.responseType was "${productOrError.responseType}"`);
 };
 
 export const productToProductDb = (product: ProductProps): ProductPropsDB => {
@@ -71,5 +71,41 @@ export const productToProductDb = (product: ProductProps): ProductPropsDB => {
     img_src: product.imgSrc,
     descr: product.desc,
     type: product.type,
+  };
+};
+
+export const backendResponseUserToFrontendUser = (userOrError: UserOrError): UserDataProps => {
+  if (userOrError.responseType === "Data") {
+    return {
+      emailAndPassword: userOrError.emailAndPassword,
+      displayedName: userOrError.nickname,
+      realName: userOrError.realName,
+      userIcon: userOrError.userIcon,
+      userVerified: userOrError.userVerified,
+    };
+  }
+  throw new Error(`response.responseType was ${userOrError.responseType}`);
+};
+
+export const userSignUpPropsToBackendUserDefault = (userSignUpProps: UserDataSignUpProps): CustomerSchema => {
+  return {
+    account: 10000,
+    avatar_src: userSignUpProps.userIcon,
+    customer_name: userSignUpProps.realName,
+    email: userSignUpProps.emailAndPassword.email,
+    login: userSignUpProps.displayedName,
+    order_ids: [],
+    password: userSignUpProps.emailAndPassword.password,
+    verified: false,
+  };
+};
+
+export const userSignUpPropsToBackendUser = (userSignUpProps: UserDataSignUpProps) => {
+  return {
+    avatar_src: userSignUpProps.userIcon,
+    customer_name: userSignUpProps.realName,
+    email: userSignUpProps.emailAndPassword.email,
+    login: userSignUpProps.displayedName,
+    password: userSignUpProps.emailAndPassword.password,
   };
 };

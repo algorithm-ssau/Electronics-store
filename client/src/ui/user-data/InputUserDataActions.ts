@@ -1,8 +1,7 @@
 import { InputUserDataAction } from "./InputUserDataActionType";
-import { EmailAndPassword, UserDataProps } from "./UserDataComponentProps";
+import { EmailAndPassword, UserDataProps, UserDataSignUpProps } from "./UserDataComponentProps";
 import { ActionMessage } from "../../interfaces/ActionMessage";
-import { BackendCustomer } from "../../interfaces/backend-return-types/BackendCustomer";
-import { Customer } from "../../interfaces/backend-return-types/Customer";
+import { CustomerSchema } from "../../interfaces/backend-return-types/CustomerSchema";
 
 export const userLoginBegin = (emailAndPassword: EmailAndPassword): InputUserDataAction => ({
   type: "USER_LOGIN_BEGIN",
@@ -16,13 +15,13 @@ export const userLoginError = (errorMessage: ActionMessage): InputUserDataAction
   type: "USER_LOGIN_ERROR",
   payload: { errorMessage },
 });
-export const userRegisterBegin = (customerDb: BackendCustomer): InputUserDataAction => ({
+export const userRegisterBegin = (customerSchema: CustomerSchema): InputUserDataAction => ({
   type: "USER_REGISTER_BEGIN",
-  payload: { customerDb },
+  payload: { customerSchema },
 });
-export const userRegisterSuccess = (customerJustAdded: Customer): InputUserDataAction => ({
+export const userRegisterSuccess = (backendResponseUser: UserDataProps): InputUserDataAction => ({
   type: "USER_REGISTER_SUCCESS",
-  payload: { customerJustAdded },
+  payload: { backendResponseUser },
 });
 export const userRegisterError = (errorMessage: ActionMessage): InputUserDataAction => ({
   type: "USER_REGISTER_ERROR",
@@ -30,10 +29,10 @@ export const userRegisterError = (errorMessage: ActionMessage): InputUserDataAct
 });
 export const userUpdateBegin = (
   oldEmailAndPassword: EmailAndPassword,
-  newUserDbFormat: BackendCustomer
+  newUserDataSignUpProps: UserDataSignUpProps
 ): InputUserDataAction => ({
   type: "USER_UPDATE_BEGIN",
-  payload: { oldEmailAndPassword, newUserDbFormat },
+  payload: { oldEmailAndPassword, newUserDataSignUpProps },
 });
 export const userUpdateSuccess = (infoMessage: ActionMessage): InputUserDataAction => ({
   type: "USER_UPDATE_SUCCESS",
@@ -58,9 +57,8 @@ export const userDeleteAccountError = (errorMessage: ActionMessage): InputUserDa
 export const userLogoutBegin = (): InputUserDataAction => ({
   type: "USER_LOGOUT_BEGIN",
 });
-export const userLogoutSuccess = (infoMessage: ActionMessage): InputUserDataAction => ({
+export const userLogoutSuccess = (): InputUserDataAction => ({
   type: "USER_LOGOUT_SUCCESS",
-  payload: { infoMessage },
 });
 export const userLogoutError = (errorMessage: ActionMessage): InputUserDataAction => ({
   type: "USER_LOGOUT_ERROR",
