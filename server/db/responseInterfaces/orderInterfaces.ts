@@ -8,14 +8,14 @@ export interface Cart{
 export interface OrderProps{
     responseType: String,
     id: String,
-    orderStatus: Number,
+    orderStatus: String,
     products: Cart[],
     date: Date,
     total: Number
 }
 
 export interface  OrderResponse extends Document{
-    status: Number,
+    status: String,
     products: Cart[],
     date: Date,
     total: Number
