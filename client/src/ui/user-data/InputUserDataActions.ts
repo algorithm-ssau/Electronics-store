@@ -1,8 +1,8 @@
 import { InputUserDataAction } from "./InputUserDataActionType";
 import { EmailAndPassword, UserDataProps } from "./UserDataComponentProps";
 import { ActionMessage } from "../../interfaces/ActionMessage";
-import { CustomerBE } from "../../interfaces/CustomerBE";
-import { Customer } from "../../interfaces/Customer";
+import { BackendCustomer } from "../../interfaces/backend-return-types/BackendCustomer";
+import { Customer } from "../../interfaces/backend-return-types/Customer";
 
 export const userLoginBegin = (emailAndPassword: EmailAndPassword): InputUserDataAction => ({
   type: "USER_LOGIN_BEGIN",
@@ -16,7 +16,7 @@ export const userLoginError = (errorMessage: ActionMessage): InputUserDataAction
   type: "USER_LOGIN_ERROR",
   payload: { errorMessage },
 });
-export const userRegisterBegin = (customerDb: CustomerBE): InputUserDataAction => ({
+export const userRegisterBegin = (customerDb: BackendCustomer): InputUserDataAction => ({
   type: "USER_REGISTER_BEGIN",
   payload: { customerDb },
 });
@@ -30,7 +30,7 @@ export const userRegisterError = (errorMessage: ActionMessage): InputUserDataAct
 });
 export const userUpdateBegin = (
   oldEmailAndPassword: EmailAndPassword,
-  newUserDbFormat: CustomerBE
+  newUserDbFormat: BackendCustomer
 ): InputUserDataAction => ({
   type: "USER_UPDATE_BEGIN",
   payload: { oldEmailAndPassword, newUserDbFormat },

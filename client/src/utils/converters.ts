@@ -1,5 +1,5 @@
 import { Order, OrderDB, OrderListProps } from "../ui/order-list/OrderListProps";
-import {Customer} from "../interfaces/Customer";
+import {Customer} from "../interfaces/backend-return-types/Customer";
 
 export const normalOrderToDBOrder = (normalOrder: Order): OrderDB => {
   return {

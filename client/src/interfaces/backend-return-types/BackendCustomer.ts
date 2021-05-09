@@ -1,4 +1,4 @@
-export interface CustomerBE {
+export interface BackendCustomer {
   login: string;
   customer_name: string;
   password: string;

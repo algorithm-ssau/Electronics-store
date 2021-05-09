@@ -18,7 +18,8 @@ import {
   orderUpdateError,
   orderUpdateSuccess,
 } from "../../ui/order-list/OrderListActions";
-import { Customer } from "../../interfaces/Customer";
+import { Customer } from "../../interfaces/backend-return-types/Customer";
+import {OrderGetParamsId} from "../../interfaces/json-interfaces/OrderGetParamsId";
 
 export const fetchOrders = (emailAndPassword: UserDataProps["emailAndPassword"], orderIds: Customer["orderIds"]) => {
   return async (dispatch: Dispatch) => {
@@ -31,10 +32,10 @@ export const fetchOrders = (emailAndPassword: UserDataProps["emailAndPassword"],
       const orders: OrderListProps["orders"] = [];
       await Promise.all(
         orderIds.map(async (orderId) => {
-          const orderOrError = await axios.get(
+          const orderOrError: OrderGetParamsId = await axios.get(
             getDBReqURL("ORDER", "GET", `?_id=${orderId}`)
           );
-          if (orderOrError.response[0].body.) {
+          if (orderOrError.body.) {
           }
         })
       );
