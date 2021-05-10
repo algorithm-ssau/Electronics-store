@@ -14,6 +14,7 @@ export interface UserDataProps {
     realName: String;
     account: Number;
     orders: String[];
+    isAdmin: Boolean;
 }
 
 export interface CustomerResponse extends Document{
