@@ -13,7 +13,8 @@ export const parseCustomers = (res: CustomerResponse[]): UserDataProps[] => {
             },
             realName: customer.customer_name,
             account: customer.account,
-            orders: customer.order_ids
+            orders: customer.order_ids,
+            isAdmin: customer._id == process.env.ADMIN_ID
         }
     })
 };
