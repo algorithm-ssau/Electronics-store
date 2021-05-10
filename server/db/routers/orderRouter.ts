@@ -49,7 +49,11 @@ orderRouter.post("/orders/post",async(req,res)=>{
                     customer.set('order_ids', customerOrders);
                     Customer.findByIdAndUpdate({_id: customerId}, customer)
                         .then(() => {
-                            res.send(parseOrders([order]));
+                            res.send([{
+                                responseType: "Message",
+                                error: false,
+                                message: "Order was successfully created"
+                            }])
                         });
                 });
         } else res.send([{
