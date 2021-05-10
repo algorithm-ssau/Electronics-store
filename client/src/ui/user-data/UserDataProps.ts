@@ -13,7 +13,7 @@ export interface UserDataSignUpProps {
 }
 
 export interface UserData {
-  emailAndPassword: UserDataSignUpProps["emailAndPassword"] | undefined;P
+  emailAndPassword: UserDataSignUpProps["emailAndPassword"] | undefined;
   displayedName: UserDataSignUpProps["displayedName"];
   realName: UserDataSignUpProps["realName"];
   userIcon: UserDataSignUpProps["userIcon"];

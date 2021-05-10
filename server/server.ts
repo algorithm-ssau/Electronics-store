@@ -6,6 +6,8 @@ import {orderRouter} from "./db/routers/orderRouter";
 import {productRouter} from "./db/routers/productRouter";
 import * as express from 'express'
 
+process.title = "EStoreServer";
+
 dotenv.config()
 
 var corsOptions = {
