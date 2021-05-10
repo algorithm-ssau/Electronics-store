@@ -1,6 +1,10 @@
 from fastapi import FastAPI
 from dotenv import dotenv_values
 import json
+import setproctitle as spt
+
+spt.setproctitle("pyapi")
+print("Current process title: ", spt.getproctitle())
 
 app = FastAPI()
 
