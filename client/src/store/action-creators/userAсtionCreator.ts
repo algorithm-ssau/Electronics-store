@@ -117,27 +117,6 @@ export const deleteAccount = (emailAndPassword: EmailAndPassword) => {
   };
 };
 
-export const isAdmin = (emailAndPassword: EmailAndPassword) => {
-  return async (dispatch: Dispatch) => {
-    try {
-      dispatch(userDeleteAccountBegin(emailAndPassword));
-      const response: BackendMessage[] = (
-        await axios.get(
-          getDBReqURL("IS_ADMIN", "GET", `?email=${emailAndPassword.email}&password=${emailAndPassword.password}`)
-        )
-      ).data;
-      const actionMessage = backendMessageToActionMessage(response[0]);
-      if (actionMessage.error) {
-        dispatch(userDeleteAccountError(actionMessage));
-        return;
-      }
-      dispatch(userDeleteAccountSuccess(actionMessage));
-    } catch (e) {
-      dispatch(userDeleteAccountError({ error: true, text: e.message }));
-    }
-  };
-};
-
 export const logOut = () => {
   return async (dispatch: Dispatch) => {
     try {
