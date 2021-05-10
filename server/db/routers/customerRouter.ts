@@ -98,26 +98,4 @@ customerRouter.delete("/customers/delete",(req,res)=>{
         });
 });
 
-customerRouter.get("/customers/isadmin",(req,res)=>{
-    const { filter, skip, limit, sort, projection, population } = aqp(req.query);
-    Customer.findOne(filter)
-        .then(customer =>{
-            if (customer != null) {
-                if (customer._id == process.env.ADMIN_ID) {
-                    res.send([{
-                        responseType: "Data",
-                        isAdmin: true
-                    }])
-                } else res.send([{
-                    responseType: "Data",
-                    isAdmin: false
-                }])
-            }
-            else res.send([{
-                responseType: "Message",
-                error: true,
-                message: "Customer not found"
-            }])
-        })
-})
 export {customerRouter};

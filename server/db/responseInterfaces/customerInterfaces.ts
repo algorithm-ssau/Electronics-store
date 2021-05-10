@@ -13,6 +13,8 @@ export interface UserDataProps {
     userVerified: Boolean;
     realName: String;
     account: Number;
+    orders: String[];
+    isAdmin: Boolean;
 }
 
 export interface CustomerResponse extends Document{
@@ -22,6 +24,6 @@ export interface CustomerResponse extends Document{
     password: String,
     account: Number,
     avatar_src: String,
-    order_ids: [String],
+    order_ids: String[],
     verified: Boolean
 }

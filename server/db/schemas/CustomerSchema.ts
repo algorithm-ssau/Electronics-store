@@ -6,7 +6,7 @@ const CustomerSchema = new Schema({
     email: {type: String, default: ""},
     login: {type:String, default: ""},
     password: {type: String, default: ""},
-    account: {type: Number, default: 0},
+    account: {type: Number, default: 10000},
     avatar_src: {type: String, default: ""},
     order_ids: {type: [String], default: []},
     verified: {type: Boolean, default: false},
