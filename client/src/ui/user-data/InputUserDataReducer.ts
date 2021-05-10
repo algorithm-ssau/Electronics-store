@@ -1,7 +1,7 @@
-import { UserDataComponentProps } from "./UserDataComponentProps";
+import { UserDataProps } from "./UserDataProps";
 import { InputUserDataAction } from "./InputUserDataActionType";
 
-const initialState: UserDataComponentProps = {
+const initialState: UserDataProps = {
   userDataProps: {
     emailAndPassword: undefined,
     displayedName: "Guest",
@@ -13,7 +13,7 @@ const initialState: UserDataComponentProps = {
   message: { error: false, text: "" },
 };
 
-export const currentUserReducer = (state = initialState, action: InputUserDataAction): UserDataComponentProps => {
+export const currentUserReducer = (state = initialState, action: InputUserDataAction): UserDataProps => {
   switch (action.type) {
     case "USER_LOGIN_BEGIN":
       return {

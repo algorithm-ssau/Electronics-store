@@ -7,7 +7,7 @@ import {
   backendResponseOrderToFrontendOrder,
   normalOrderToDBOrder,
 } from "../../utils/converters";
-import { UserDataProps } from "../../ui/user-data/UserDataComponentProps";
+import { UserData } from "../../ui/user-data/UserDataProps";
 import {
   orderAddBegin,
   orderAddError,
@@ -27,7 +27,7 @@ import { OrderOrError } from "../../interfaces/json-interfaces/OrderOrError";
 import { BackendMessage } from "../../interfaces/BackendMessage";
 
 export const fetchOrders = (
-  emailAndPassword: UserDataProps["emailAndPassword"],
+  emailAndPassword: UserData["emailAndPassword"],
   orderIds: BackendResponseUser["orderIds"]
 ) => {
   return async (dispatch: Dispatch) => {
@@ -56,6 +56,7 @@ export const fetchOrders = (
   };
 };
 
+// todo
 export const addOrder = (orderToAdd: Order) => {
   return async (dispatch: Dispatch) => {
     try {

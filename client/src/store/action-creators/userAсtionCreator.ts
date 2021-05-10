@@ -17,7 +17,7 @@ import {
   userUpdateError,
   userUpdateSuccess,
 } from "../../ui/user-data/InputUserDataActions";
-import { EmailAndPassword, UserDataSignUpProps } from "../../ui/user-data/UserDataComponentProps";
+import { EmailAndPassword, UserDataSignUpProps } from "../../ui/user-data/UserDataProps";
 import { getDBReqURL } from "../../utils/URLs";
 import { UserOrError } from "../../interfaces/json-interfaces/UserOrError";
 import {
@@ -103,6 +103,27 @@ export const deleteAccount = (emailAndPassword: EmailAndPassword) => {
       const response: BackendMessage[] = (
         await axios.delete(
           getDBReqURL("CUSTOMER", "DELETE", `?email=${emailAndPassword.email}&password=${emailAndPassword.password}`)
+        )
+      ).data;
+      const actionMessage = backendMessageToActionMessage(response[0]);
+      if (actionMessage.error) {
+        dispatch(userDeleteAccountError(actionMessage));
+        return;
+      }
+      dispatch(userDeleteAccountSuccess(actionMessage));
+    } catch (e) {
+      dispatch(userDeleteAccountError({ error: true, text: e.message }));
+    }
+  };
+};
+
+export const isAdmin = (emailAndPassword: EmailAndPassword) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(userDeleteAccountBegin(emailAndPassword));
+      const response: BackendMessage[] = (
+        await axios.get(
+          getDBReqURL("IS_ADMIN", "GET", `?email=${emailAndPassword.email}&password=${emailAndPassword.password}`)
         )
       ).data;
       const actionMessage = backendMessageToActionMessage(response[0]);

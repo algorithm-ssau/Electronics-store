@@ -8,6 +8,10 @@
 function getDBReqURL(entity: string, method: string, req = ""): string {
   let tURL: string = "";
   switch (entity) {
+    case "IS_ADMIN": {
+      tURL = "api/customers/is_admin";
+      break;
+    }
     case "CUSTOMER": {
       tURL = "api/customers";
       break;

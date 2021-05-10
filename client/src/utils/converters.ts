@@ -6,7 +6,7 @@ import { ActionMessage } from "../interfaces/ActionMessage";
 import { ProductProps, ProductPropsDB } from "../ui/product/ProductProps";
 import { ProductOrError } from "../interfaces/json-interfaces/ProductOrError";
 import { UserOrError } from "../interfaces/json-interfaces/UserOrError";
-import { UserDataProps, UserDataSignUpProps } from "../ui/user-data/UserDataComponentProps";
+import { UserData, UserDataSignUpProps } from "../ui/user-data/UserDataProps";
 import { CustomerSchema } from "../interfaces/backend-return-types/CustomerSchema";
 
 export const normalOrderToDBOrder = (normalOrder: Order): OrderDB => {
@@ -74,7 +74,7 @@ export const productToProductDb = (product: ProductProps): ProductPropsDB => {
   };
 };
 
-export const backendResponseUserToFrontendUser = (userOrError: UserOrError): UserDataProps => {
+export const backendResponseUserToFrontendUser = (userOrError: UserOrError): UserData => {
   if (userOrError.responseType === "Data") {
     return {
       emailAndPassword: userOrError.emailAndPassword,

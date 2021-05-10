@@ -1,5 +1,5 @@
 import { InputUserDataAction } from "./InputUserDataActionType";
-import { EmailAndPassword, UserDataProps, UserDataSignUpProps } from "./UserDataComponentProps";
+import { EmailAndPassword, UserData, UserDataSignUpProps } from "./UserDataProps";
 import { ActionMessage } from "../../interfaces/ActionMessage";
 import { CustomerSchema } from "../../interfaces/backend-return-types/CustomerSchema";
 
@@ -7,7 +7,7 @@ export const userLoginBegin = (emailAndPassword: EmailAndPassword): InputUserDat
   type: "USER_LOGIN_BEGIN",
   payload: { emailAndPassword },
 });
-export const userLoginSuccess = (userData: UserDataProps): InputUserDataAction => ({
+export const userLoginSuccess = (userData: UserData): InputUserDataAction => ({
   type: "USER_LOGIN_SUCCESS",
   payload: { userData },
 });
@@ -19,7 +19,7 @@ export const userRegisterBegin = (customerSchema: CustomerSchema): InputUserData
   type: "USER_REGISTER_BEGIN",
   payload: { customerSchema },
 });
-export const userRegisterSuccess = (backendResponseUser: UserDataProps): InputUserDataAction => ({
+export const userRegisterSuccess = (backendResponseUser: UserData): InputUserDataAction => ({
   type: "USER_REGISTER_SUCCESS",
   payload: { backendResponseUser },
 });

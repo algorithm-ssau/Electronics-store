@@ -12,16 +12,17 @@ export interface UserDataSignUpProps {
   userIcon: string;
 }
 
-export interface UserDataProps {
-  emailAndPassword: UserDataSignUpProps["emailAndPassword"] | undefined; // Guest
+export interface UserData {
+  emailAndPassword: UserDataSignUpProps["emailAndPassword"] | undefined;P
   displayedName: UserDataSignUpProps["displayedName"];
   realName: UserDataSignUpProps["realName"];
   userIcon: UserDataSignUpProps["userIcon"];
   userVerified: boolean;
+  isAdmin: boolean;
 }
 
-export interface UserDataComponentProps {
-  userDataProps: UserDataProps;
+export interface UserDataProps {
+  userDataProps: UserData;
   loading: boolean;
   message: ActionMessage;
 }

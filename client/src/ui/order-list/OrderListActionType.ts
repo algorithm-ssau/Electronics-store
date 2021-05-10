@@ -1,6 +1,6 @@
 import { Order, OrderListProps } from "./OrderListProps";
 import { ActionMessage } from "../../interfaces/ActionMessage";
-import { EmailAndPassword } from "../user-data/UserDataComponentProps";
+import { EmailAndPassword } from "../user-data/UserDataProps";
 
 export type OrderListActionType =
   | { type: "ORDERS_FETCH_BEGIN"; payload: { emailAndPassword: EmailAndPassword } }

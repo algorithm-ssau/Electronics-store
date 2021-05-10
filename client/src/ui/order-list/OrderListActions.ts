@@ -1,7 +1,7 @@
 import { OrderListActionType } from "./OrderListActionType";
 import { Order, OrderListProps } from "./OrderListProps";
 import { ActionMessage } from "../../interfaces/ActionMessage";
-import { EmailAndPassword } from "../user-data/UserDataComponentProps";
+import { EmailAndPassword } from "../user-data/UserDataProps";
 
 export const ordersFetchBegin = (emailAndPassword: EmailAndPassword): OrderListActionType => ({
   type: "ORDERS_FETCH_BEGIN",
