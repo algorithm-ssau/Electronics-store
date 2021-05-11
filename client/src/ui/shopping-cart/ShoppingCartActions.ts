@@ -1,14 +1,11 @@
 import { ShoppingCartAction } from "./ShoppingCartActionType";
+import { ProductProps } from "../product/ProductProps";
 
-export const addItemToCart = (productId: string): ShoppingCartAction => ({
-  type: "ADD_ITEM",
+export const itemAddPerform = (productId: ProductProps["id"]): ShoppingCartAction => ({
+  type: "ITEM_ADD",
   payload: { productId },
 });
-export const removeItemFromCart = (productId: string): ShoppingCartAction => ({
-  type: "REMOVE_ITEM",
+export const itemRemovePerform = (productId: ProductProps["id"]): ShoppingCartAction => ({
+  type: "ITEM_REMOVE",
   payload: { productId },
-});
-export const updateItemCount = (productId: string, amount: number): ShoppingCartAction => ({
-  type: "UPDATE_ITEM_COUNT",
-  payload: { productId, amount },
 });

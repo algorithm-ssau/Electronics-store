@@ -1,5 +1,4 @@
 import React from "react";
-import { addItemToCart } from "../../ui/shopping-cart/ShoppingCartActions";
 
 export const Registration = () => (
   <div>

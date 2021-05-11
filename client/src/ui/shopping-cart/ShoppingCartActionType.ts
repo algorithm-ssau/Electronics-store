@@ -1,4 +1,5 @@
+import { ProductProps } from "../product/ProductProps";
+
 export type ShoppingCartAction =
-  | { type: "ADD_ITEM"; payload: { productId: string } }
-  | { type: "REMOVE_ITEM"; payload: { productId: string } } // product id
-  | { type: "UPDATE_ITEM_COUNT"; payload: { productId: string; amount: number } };
+  | { type: "ITEM_ADD"; payload: { productId: ProductProps["id"] } }
+  | { type: "ITEM_REMOVE"; payload: { productId: ProductProps["id"] } };

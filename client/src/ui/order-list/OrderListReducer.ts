@@ -1,106 +1,106 @@
-import { ProductListProps } from "./ProductListProps";
-import { ProductListActionType } from "./ProductListActionType";
+import { OrderListProps } from "./OrderListProps";
+import { OrderListActionType } from "./OrderListActionType";
 
-const initialState: ProductListProps = {
-  products: [],
+const initialState: OrderListProps = {
+  orders: [],
   loading: false,
   message: { error: false, text: "" },
 };
 
-export const productListReducer = (state = initialState, action: ProductListActionType): ProductListProps => {
+export const orderListReducer = (state = initialState, action: OrderListActionType): OrderListProps => {
   switch (action.type) {
-    case "PRODUCTS_FETCH_BEGIN":
+    case "ORDERS_FETCH_BEGIN":
       return {
         ...state,
         loading: true,
         message: {
           ...state.message,
           error: false,
-          text: "Fetching products",
+          text: "Fetching orders",
         },
       };
-    case "PRODUCTS_FETCH_SUCCESS":
+    case "ORDERS_FETCH_SUCCESS":
       return {
         ...state,
-        products: action.payload.products,
+        orders: action.payload.orders,
         loading: false,
         message: {
           ...state.message,
           error: false,
-          text: `Successfully fetched products: ${action.payload.products}`,
+          text: `Successfully fetched orders: ${action.payload.orders}`,
         },
       };
-    case "PRODUCTS_FETCH_ERROR":
+    case "ORDERS_FETCH_ERROR":
       return {
         ...state,
         loading: false,
         message: action.payload.errorMessage,
       };
-    case "PRODUCT_ADD_BEGIN":
+    case "ORDER_ADD_BEGIN":
       return {
         ...state,
         loading: true,
         message: {
           ...state.message,
           error: false,
-          text: `Adding product ${action.payload.productToAddDbFormat}`,
+          text: `Adding order ${action.payload.orderToAdd}`,
         },
       };
-    case "PRODUCT_ADD_SUCCESS":
+    case "ORDER_ADD_SUCCESS":
       return {
         ...state,
         loading: false,
         message: {
           ...state.message,
           error: false,
-          text: `Product added with id of ${action.payload.productJustAdded.id}`,
+          text: `Order added with id of ${action.payload.orderJustAdded.orderId}`,
         },
       };
-    case "PRODUCT_ADD_ERROR":
+    case "ORDER_ADD_ERROR":
       return {
         ...state,
         loading: false,
         message: action.payload.errorMessage,
       };
-    case "PRODUCT_UPDATE_BEGIN":
+    case "ORDER_UPDATE_BEGIN":
       return {
         ...state,
         loading: true,
         message: {
           ...state.message,
           error: false,
-          text: `Updating product with id ${action.payload.idProductToUpdate} to ${action.payload.newProductDbFormat}`,
+          text: `Updating order with id ${action.payload.idOrderToUpdate} to ${action.payload.newOrder}`,
         },
       };
-    case "PRODUCT_UPDATE_SUCCESS":
+    case "ORDER_UPDATE_SUCCESS":
       return {
         ...state,
         loading: false,
         message: action.payload.infoMessage,
       };
-    case "PRODUCT_UPDATE_ERROR":
+    case "ORDER_UPDATE_ERROR":
       return {
         ...state,
         loading: false,
         message: action.payload.errorMessage,
       };
-    case "PRODUCT_DELETE_BEGIN":
+    case "ORDER_DELETE_BEGIN":
       return {
         ...state,
         loading: true,
         message: {
           ...state.message,
           error: false,
-          text: `Deleting product with id ${action.payload.idProductToDelete}`,
+          text: `Deleting order with id ${action.payload.idOrderToDelete}`,
         },
       };
-    case "PRODUCT_DELETE_SUCCESS":
+    case "ORDER_DELETE_SUCCESS":
       return {
         ...state,
         loading: false,
         message: action.payload.infoMessage,
       };
-    case "PRODUCT_DELETE_ERROR":
+    case "ORDER_DELETE_ERROR":
       return {
         ...state,
         loading: false,

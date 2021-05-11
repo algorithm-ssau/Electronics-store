@@ -1,6 +1,4 @@
-import { UserDataProps } from "./UserDataComponentProps";
-
-export const inputUserDataMock: UserDataProps[] = [
+export const inputUserDataMock = [
   {
     emailAndPassword: {
       email: "console@gmail.com",

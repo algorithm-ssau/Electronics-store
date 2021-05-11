@@ -2,14 +2,14 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { ProductList } from "../../ui/product-list/ProductList";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { fetchProductList } from "../../store/action-creators/productListActionCreator";
+import { fetchProducts } from "../../store/action-creators/productListActionCreator";
 
 export const PageProductCatalogue: React.FC = () => {
-  const { products, error, loading } = useTypedSelector((state) => state.productList);
+  const { products, loading, message } = useTypedSelector((state) => state.productList);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchProductList());
+    dispatch(fetchProducts());
   }, [dispatch]);
 
   const [filterText, setFilterText] = useState("");
@@ -61,8 +61,8 @@ export const PageProductCatalogue: React.FC = () => {
   if (loading) {
     return <h1>Загрузка...</h1>;
   }
-  if (error) {
-    return <h1>{error}</h1>;
+  if (message.error) {
+    return <h1>{message.text}</h1>;
   }
   return (
     <>

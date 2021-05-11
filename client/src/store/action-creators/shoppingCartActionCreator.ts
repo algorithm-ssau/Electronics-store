@@ -1,13 +1,15 @@
 import { Dispatch } from "redux";
+import { ProductProps } from "../../ui/product/ProductProps";
+import { itemAddPerform, itemRemovePerform } from "../../ui/shopping-cart/ShoppingCartActions";
 
-export const addItemToCart = () => {
+export const addItemToCart = (productId: ProductProps["id"]) => {
   return async (dispatch: Dispatch) => {
-    try {
-      setTimeout(() => {
-        // do smth
-      }, 2000);
-    } catch (e) {
-      // handle error
-    }
+    dispatch(itemAddPerform(productId));
+  };
+};
+
+export const removeItemFromCart = (productId: ProductProps["id"]) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(itemRemovePerform(productId));
   };
 };
