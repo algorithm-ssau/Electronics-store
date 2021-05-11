@@ -56,7 +56,6 @@ export const fetchOrders = (
   };
 };
 
-// todo
 export const addOrder = (orderToAdd: Order) => {
   return async (dispatch: Dispatch) => {
     try {
