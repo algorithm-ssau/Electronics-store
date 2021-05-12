@@ -7,7 +7,7 @@ export interface EmailAndPassword {
 
 export interface UserDataProps {
     responseType: String;
-    emailAndPassword: EmailAndPassword | undefined; // user is not logged in
+    emailAndPassword: EmailAndPassword | undefined; // page-profile is not logged in
     nickname: String;
     userIcon: String;
     userVerified: Boolean;

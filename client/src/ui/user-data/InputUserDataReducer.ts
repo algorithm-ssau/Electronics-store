@@ -9,6 +9,7 @@ const initialState: UserDataProps = {
     userIcon: "https://pereezd-neva.ru/assets/template/img/spectehnika/d5fa0e2330973dc6b7571d881a345d6b.png",
     userVerified: false,
     isAdmin: false,
+    account: 0,
   },
   loading: false,
   message: { error: false, text: "" },

@@ -1,12 +1,12 @@
 import React from "react";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { PageProductCatalogue } from "./pages/product-catalogue/PageProductCatalogue";
+import { PageProductCatalogue } from "./pages/page-product-catalogue/PageProductCatalogue";
 import { Navigation } from "./ui/navigation/Navigation";
-import { ShoppingCartPage } from "./pages/shopping-cart/ShoppingCartPage";
-import { User } from "./pages/user/User";
-import { Registration } from "./pages/registration/Registration";
-import { ErrorPage } from "./pages/error-page/ErrorPage";
+import { ShoppingCartPage } from "./pages/page-shopping-cart/ShoppingCartPage";
+import { User } from "./pages/page-profile/User";
+import { SignUpOrIn } from "./pages/page-sign-in-or-up/Registration";
+import { ErrorPage } from "./pages/page-404/ErrorPage";
 
 process.title = "EStoreClient";
 
@@ -25,7 +25,7 @@ export const App: React.FC = () => {
           <User />
         </Route>
         <Route path="/Register">
-          <Registration />
+          <SignUpOrIn />
         </Route>
         <Route path="*">
           <ErrorPage />
