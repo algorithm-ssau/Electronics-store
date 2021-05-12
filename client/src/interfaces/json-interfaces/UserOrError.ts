@@ -10,7 +10,7 @@ export interface UserGetData {
   emailAndPassword: BackendResponseUser["emailAndPassword"];
   realName: BackendResponseUser["realName"];
   account: BackendResponseUser["account"];
-  isAdmin: BackendResponseUser["isAdmin"]
+  isAdmin: BackendResponseUser["isAdmin"];
 }
 
 export interface UserGetMessage {

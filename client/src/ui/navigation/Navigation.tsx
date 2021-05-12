@@ -6,7 +6,9 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 export const Navigation = () => {
   const { userDataProps, loading, message } = useTypedSelector((state) => state.currentUser);
   const { displayedName, userIcon } = userDataProps;
-  if (message.error) return <div>Ошибка миниатюры пользователя: {message.text}</div>;
+  if (message.error) {
+    return <div>Ошибка миниатюры пользователя: {message.text}</div>;
+  }
   return (
     <div className="header">
       <NavigationItems />

@@ -25,6 +25,7 @@ import {
 import { BackendResponseUser } from "../../interfaces/backend-return-types/BackendResponseUser";
 import { OrderOrError } from "../../interfaces/json-interfaces/OrderOrError";
 import { BackendMessage } from "../../interfaces/BackendMessage";
+import { logger } from "../../utils/logger";
 
 export const fetchOrders = (
   emailAndPassword: UserData["emailAndPassword"],
@@ -38,12 +39,11 @@ export const fetchOrders = (
       }
       dispatch(ordersFetchBegin(emailAndPassword));
       const response: OrderOrError[] = [];
-      await Promise.all(
-        orderIds.map(async (orderId) => {
-          const orderOrError: OrderOrError[] = (await axios.get(getDBReqURL("ORDER", "GET", `?_id=${orderId}`))).data;
-          response.push(orderOrError[0]);
-        })
-      );
+      const results = await Promise.all(
+        orderIds.map((orderId) => axios.get(getDBReqURL("ORDER", "GET", `?_id=${orderId}`)))
+      )
+        .then((resp) => resp.forEach((item) => response.push(item.data[0])))
+        .catch((error) => logger.log(error));
       const errorFetches = response.filter((orderOrError) => orderOrError.responseType === "Message");
       if (errorFetches.length !== 0) {
         dispatch(ordersFetchError({ error: true, text: `Failed to fetch ${errorFetches.length} order(s)` }));
