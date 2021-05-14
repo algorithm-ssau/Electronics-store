@@ -7,6 +7,7 @@ import { ShoppingCartPage } from "./pages/page-shopping-cart/ShoppingCartPage";
 import { User } from "./pages/page-profile/User";
 import { SignUpOrIn } from "./pages/page-sign-in-or-up/Registration";
 import { ErrorPage } from "./pages/page-404/ErrorPage";
+import { Landing } from "./pages/page-landing/Landing";
 
 process.title = "EStoreClient";
 
@@ -16,6 +17,9 @@ export const App: React.FC = () => {
       <Navigation />
       <Switch>
         <Route exact path="/">
+          <Landing />
+        </Route>
+        <Route path="/Products">
           <PageProductCatalogue />
         </Route>
         <Route path="/ShoppingCart">
@@ -24,7 +28,7 @@ export const App: React.FC = () => {
         <Route path="/User">
           <User />
         </Route>
-        <Route path="/Register">
+        <Route path="/SignUpOrIn">
           <SignUpOrIn />
         </Route>
         <Route path="*">

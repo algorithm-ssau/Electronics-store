@@ -4,7 +4,7 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { signIn } from "../../store/action-creators/userAсtionCreator";
 import { EmailAndPassword } from "../user-data/UserDataProps";
 
-const SignIn = () => {
+export const SignIn = () => {
   const userState = useTypedSelector((state) => state.currentUser);
   const initialState = userState.userDataProps.emailAndPassword
     ? userState.userDataProps.emailAndPassword

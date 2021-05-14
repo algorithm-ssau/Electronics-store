@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { ProductList } from "../../ui/product-list/ProductList";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { fetchProducts } from "../../store/action-creators/productListActionCreator";
+import { LoadingLayout } from "../../ui/loading-layout/LoadingLayout";
 
 export const PageProductCatalogue: React.FC = () => {
   const { products, loading, message } = useTypedSelector((state) => state.productList);
@@ -58,9 +59,6 @@ export const PageProductCatalogue: React.FC = () => {
     setFilterPriceLess(e.target.value);
   };
 
-  if (loading) {
-    return <h1>Загрузка...</h1>;
-  }
   if (message.error) {
     return <h1>{message.text}</h1>;
   }
@@ -71,6 +69,7 @@ export const PageProductCatalogue: React.FC = () => {
           className="searchProduct"
           type="text"
           value={filterText}
+          readOnly={loading}
           onChange={onChangeFilterText}
           placeholder="Название товара"
         />
@@ -78,6 +77,7 @@ export const PageProductCatalogue: React.FC = () => {
         <input
           className="inputPrice"
           type="text"
+          readOnly={loading}
           value={filterPriceMore}
           onChange={onChangeFilterPriceMore}
           placeholder="0"
@@ -86,13 +86,17 @@ export const PageProductCatalogue: React.FC = () => {
         <input
           className="inputPrice"
           type="text"
+          readOnly={loading}
           value={filterPriceLess}
           onChange={onChangeFilterPriceLess}
           placeholder="∞"
         />
       </div>
       <div>
-        <ProductList products={displayedProducts} />
+        <h2>Каталог товаров</h2>
+        <LoadingLayout isActive={loading}>
+          <ProductList products={displayedProducts} />
+        </LoadingLayout>
       </div>
     </>
   );

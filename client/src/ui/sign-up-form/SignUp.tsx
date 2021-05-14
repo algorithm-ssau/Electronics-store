@@ -25,7 +25,7 @@ export const SignUp = () => {
   const [password, setPassword] = useState(initialState.emailAndPassword.password);
   const [imageSource, setImageSource] = useState(initialState.userIcon);
   const handleSignUpClick = () => {
-    // dispatch(signUp());
+    dispatch(signUp({ displayedName, realName, emailAndPassword: { email, password }, userIcon: imageSource }));
   };
 
   return (
@@ -33,35 +33,35 @@ export const SignUp = () => {
       <span className="textLogIn">регистрация</span>
       <input
         type="text"
-        placeholder="Иванов Иван Иванович"
+        placeholder="Настоящее имя"
         className="inputDataRegistration"
         value={realName}
         onChange={(event) => setRealName(event.target.value)}
       />
       <input
         type="text"
-        placeholder="Иванов Иван Иванович"
+        placeholder="Отображаемое имя"
         className="inputDataRegistration"
         value={displayedName}
         onChange={(event) => setDisplayedName(event.target.value)}
       />
       <input
         type="text"
-        placeholder="E-mail"
+        placeholder="Почта"
         className="inputDataRegistration"
         value={email}
         onChange={(event) => setEmail(event.target.value)}
       />
       <input
         type="password"
-        placeholder="Password"
+        placeholder="Пароль"
         className="inputDataRegistration"
         value={password}
         onChange={(event) => setPassword(event.target.value)}
       />
       <input
         type="text"
-        placeholder="Путь к картинке"
+        placeholder="Путь к иконке"
         className="inputDataRegistration"
         value={imageSource}
         onChange={(event) => setImageSource(event.target.value)}

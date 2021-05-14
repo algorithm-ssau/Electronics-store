@@ -1,34 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { SignUp } from "../../ui/sign-up-form/SignUp";
+import { SignIn } from "../../ui/sign-in-form/SignIn";
+import { userIsRegistered } from "../../utils/utils";
+import { logOut } from "../../store/action-creators/userAсtionCreator";
 
 export const SignUpOrIn = () => {
   const dispatch = useDispatch();
   const userState = useTypedSelector((state) => state.currentUser);
-  const showSignIn = userState.userDataProps.emailAndPassword === undefined || userState.message.error;
-  const showSignUp = true;
+  const showExitFromProfile = userIsRegistered(userState.userDataProps.emailAndPassword) || userState.message.error;
+  const [signInOrSignUp, setSignInOrSignUp] = useState<"SIGN_IN" | "SIGN_UP">("SIGN_IN");
+
+  const performLogOut = () => {
+    dispatch(logOut());
+  };
+
+  if (showExitFromProfile) {
+    return (
+      <div>
+        <div>Чтобы зарегистрироваться или войти, выйдите из своего профиля</div>
+        <button type="button" className="loginIn" onClick={performLogOut}>
+          <span className="descriptionLogIn">ВЫЙТИ</span>
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div>
-      <div className="loginInForm">
-        <span className="textLogIn">вход</span>
-        <input type="text" placeholder="E-mail" className="inputDataRegistration" />
-        <input type="password" placeholder="Password" className="inputDataRegistration" />
-        <button type="button" className="loginIn">
-          <span className="descriptionLogIn">ВОЙТИ</span>
-        </button>
-        <span className="buttonRegistration">зарегистрироваться</span>
-      </div>
-      <div className="loginInForm">
-        <span className="textLogIn">регистрация</span>
-        <input type="text" placeholder="Фамилия" className="inputDataRegistration" />
-        <input type="text" placeholder="Имя" className="inputDataRegistration" />
-        <input type="text" placeholder="Отчество" className="inputDataRegistration" />
-        <input type="text" placeholder="E-mail" className="inputDataRegistration" />
-        <input type="password" placeholder="Password" className="inputDataRegistration" />
-        <button type="button" className="registrationButton">
-          <span className="descriptionLogIn">зарегистрироваться</span>
-        </button>
-      </div>
+      {signInOrSignUp === "SIGN_IN" && (
+        <div>
+          <SignIn />
+          <div>
+            <p>Еще не член нашего клуба?</p>
+            <button type="button" className="loginIn" onClick={() => setSignInOrSignUp("SIGN_UP")}>
+              <span className="descriptionLogIn">Зарегистрироваться</span>
+            </button>
+          </div>
+        </div>
+      )}
+      {signInOrSignUp === "SIGN_UP" && (
+        <div>
+          <SignUp />
+          <div>
+            <p>Уже участник нашего клуба?</p>
+            <button
+              type="button"
+              className="loginIn"
+              onClick={() => {
+                setSignInOrSignUp("SIGN_IN");
+              }}
+            >
+              <span className="descriptionLogIn">Войти</span>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

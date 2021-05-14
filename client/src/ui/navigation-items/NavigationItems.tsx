@@ -6,16 +6,19 @@ export const NavigationItems = () => {
     <nav>
       <ul>
         <li className="listItem">
-          <Link to="/">Products</Link>
+          <Link to="/">Начальная страница</Link>
         </li>
         <li className="listItem">
-          <Link to="/User">User Profile</Link>
+          <Link to="/Products">Товары</Link>
         </li>
         <li className="listItem">
-          <Link to="/Register">Register</Link>
+          <Link to="/ShoppingCart">Корзина</Link>
         </li>
         <li className="listItem">
-          <Link to="/ShoppingCart">Shopping cart</Link>
+          <Link to="/SignUpOrIn">Вход</Link>
+        </li>
+        <li className="listItem">
+          <Link to="/User">Профиль</Link>
         </li>
       </ul>
     </nav>

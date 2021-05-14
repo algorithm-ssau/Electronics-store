@@ -1,0 +1,25 @@
+.root {
+    position: relative;
+    height: 100%;
+}
+
+.overlay {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: rgba(black, 0.5);
+    transition: 1s ease opacity;
+    transition-delay: 0.5s;
+}
+
+.hidden {
+    transition: none;
+    opacity: 0;
+}
