@@ -73,5 +73,5 @@ export const getPyApiReqURL = (side: ApiEntityType, mode: ApiModeType = "") => {
     default:
       break;
   }
-  return `http://localhost:5000/${tURL}`;
+  return `http://localhost:8000/${tURL}`;
 };

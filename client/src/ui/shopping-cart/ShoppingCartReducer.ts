@@ -33,6 +33,12 @@ export const shoppingCartReducer = (state = initialState, action: ShoppingCartAc
       newState.productsInCart.set(idItemToRemove, numOfThisItemInCart - 1);
       return newState;
     }
+    case "CART_CLEAR":
+      return {
+        ...state,
+        totalPrice: 0,
+        productsInCart: new Map(),
+      };
     default:
       return state;
   }

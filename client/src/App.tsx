@@ -8,6 +8,7 @@ import { User } from "./pages/page-profile/User";
 import { SignUpOrIn } from "./pages/page-sign-in-or-up/Registration";
 import { ErrorPage } from "./pages/page-404/ErrorPage";
 import { Landing } from "./pages/page-landing/Landing";
+import { PageTeam } from "./pages/page-team/PageTeam";
 
 process.title = "EStoreClient";
 
@@ -30,6 +31,9 @@ export const App: React.FC = () => {
         </Route>
         <Route path="/signUpOrIn">
           <SignUpOrIn />
+        </Route>
+        <Route path="/team">
+          <PageTeam />
         </Route>
         <Route path="*">
           <ErrorPage />

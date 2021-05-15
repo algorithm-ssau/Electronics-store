@@ -11,6 +11,7 @@ export interface UserGetData {
   realName: BackendResponseUser["realName"];
   account: BackendResponseUser["account"];
   isAdmin: BackendResponseUser["isAdmin"];
+  orders: BackendResponseUser["orders"];
 }
 
 export interface UserGetMessage {

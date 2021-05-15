@@ -10,6 +10,7 @@ const initialState: UserDataProps = {
     userVerified: false,
     isAdmin: false,
     account: 0,
+    orders: [],
   },
   loading: false,
   message: { error: false, text: "" },

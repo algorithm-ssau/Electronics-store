@@ -3,13 +3,13 @@ import { TableProps } from "./TableProps";
 import { getUniqueId } from "../../utils/uniqueId";
 
 export const EStoreTable: React.FC<TableProps> = (props) => {
-  const { body, columnWidths, columnHeights } = props;
+  const { body } = props;
   return (
     <table>
-      {body.map((line) => {
+      {body.map((line, i) => {
         return (
           <tr key={getUniqueId()}>
-            {line.map((cell) => {
+            {line.map((cell, j) => {
               return <td key={getUniqueId()}>{cell}</td>;
             })}
           </tr>

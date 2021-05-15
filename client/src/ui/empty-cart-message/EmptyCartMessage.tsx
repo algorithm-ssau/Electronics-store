@@ -1,10 +1,11 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import { getNavigationLinkTo } from "../../utils/getNavigationLinkTo";
 
 export const EmptyCartMessage: React.FC = () => {
   const history = useHistory();
   const handleStartBuyingClick = () => {
-    history.push("/products");
+    history.push(getNavigationLinkTo("PAGE_PRODUCT-CATALOGUE"));
   };
   return (
     <div>

@@ -15,6 +15,7 @@ import {
   orderDeleteBegin,
   orderDeleteError,
   orderDeleteSuccess,
+  ordersClearPerform,
   ordersFetchBegin,
   ordersFetchError,
   ordersFetchSuccess,
@@ -30,7 +31,7 @@ import { OrderToAddProps } from "../../interfaces/backend-send-types/OrderToAddP
 
 export const fetchOrders = (
   emailAndPassword: UserData["emailAndPassword"],
-  orderIds: BackendResponseUser["orderIds"]
+  orderIds: BackendResponseUser["orders"]
 ) => {
   return async (dispatch: Dispatch) => {
     try {
@@ -40,9 +41,7 @@ export const fetchOrders = (
       }
       dispatch(ordersFetchBegin(emailAndPassword));
       const response: OrderOrError[] = [];
-      const results = await Promise.all(
-        orderIds.map((orderId) => axios.get(getDBReqURL("ORDER", "GET", `?_id=${orderId}`)))
-      )
+      await Promise.all(orderIds.map((orderId) => axios.get(getDBReqURL("ORDER", "GET", `?_id=${orderId}`))))
         .then((resp) => resp.forEach((item) => response.push(item.data[0])))
         .catch((error) => logger.log(error));
       const errorFetches = response.filter((orderOrError) => orderOrError.responseType === "Message");
@@ -57,11 +56,19 @@ export const fetchOrders = (
   };
 };
 
+export const clearOrders = () => {
+  return async (dispatch: Dispatch) => {
+    dispatch(ordersClearPerform());
+  };
+};
+
 export const addOrder = (orderToAdd: OrderToAddProps) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(orderAddBegin(orderToAdd));
-      const response: OrderOrError = (await axios.post(getDBReqURL("ORDER", "POST", JSON.stringify(orderToAdd)))).data;
+      logger.log(orderToAdd);
+      const response: OrderOrError = (await axios.post(getDBReqURL("ORDER", "POST"), JSON.stringify(orderToAdd))).data;
+      logger.log(response);
       if (response.responseType === "Message") {
         dispatch(orderAddError({ error: response.error, text: response.message }));
         return;

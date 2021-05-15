@@ -3,11 +3,13 @@ import { useDispatch } from "react-redux";
 import { Product } from "../product/Product";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { addItemToCart, removeItemFromCart } from "../../store/action-creators/shoppingCartActionCreator";
-import { MakePurchaseComponent } from "../button-make-purchase/MakePurchaseComponent";
+import { MakePurchaseComponent } from "../make-purchase-components/MakePurchaseComponent";
 
 export const ShoppingCart = () => {
   const { productsInCart, totalPrice } = useTypedSelector((state) => state.shoppingCart);
   const { products } = useTypedSelector((state) => state.productList);
+  const { userDataProps } = useTypedSelector((state) => state.currentUser);
+  const { emailAndPassword, userVerified } = userDataProps;
   const dispatch = useDispatch();
 
   return (
@@ -15,7 +17,11 @@ export const ShoppingCart = () => {
       <div>
         <div>Итоговая стоимость: ${totalPrice}</div>
       </div>
-      <MakePurchaseComponent />
+      <MakePurchaseComponent
+        isVerified={userVerified}
+        emailAndPassword={emailAndPassword}
+        productsInCart={productsInCart}
+      />
       <div className="product">
         {Array.from(productsInCart).map((itemInCart) => {
           const productId = itemInCart[0];

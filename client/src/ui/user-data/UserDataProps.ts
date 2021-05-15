@@ -20,6 +20,7 @@ export interface UserData {
   account: number;
   userVerified: boolean;
   isAdmin: boolean;
+  orders: string[];
 }
 
 export interface UserDataProps {

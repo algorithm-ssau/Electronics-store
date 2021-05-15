@@ -5,6 +5,7 @@ import { SignUp } from "../../ui/sign-up-form/SignUp";
 import { SignIn } from "../../ui/sign-in-form/SignIn";
 import { userIsRegistered } from "../../utils/utils";
 import { logOut } from "../../store/action-creators/userAсtionCreator";
+import { clearOrders } from "../../store/action-creators/orderListActionCreator";
 
 export const SignUpOrIn = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ export const SignUpOrIn = () => {
 
   const performLogOut = () => {
     dispatch(logOut());
+    dispatch(clearOrders());
   };
 
   if (showExitFromProfile) {

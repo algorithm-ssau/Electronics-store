@@ -16,6 +16,9 @@ export const ordersFetchError = (errorMessage: ActionMessage): OrderListActionTy
   type: "ORDERS_FETCH_ERROR",
   payload: { errorMessage },
 });
+export const ordersClearPerform = (): OrderListActionType => ({
+  type: "ORDERS_CLEAR_PERFORM",
+});
 export const orderAddBegin = (orderToAdd: OrderToAddProps): OrderListActionType => ({
   type: "ORDER_ADD_BEGIN",
   payload: { orderToAdd },

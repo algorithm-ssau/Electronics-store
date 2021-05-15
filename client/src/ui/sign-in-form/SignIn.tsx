@@ -3,15 +3,20 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { signIn } from "../../store/action-creators/userAсtionCreator";
 import { EmailAndPassword } from "../user-data/UserDataProps";
+import { getNavigationLinkTo } from "../../utils/getNavigationLinkTo";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { fetchOrders } from "../../store/action-creators/orderListActionCreator";
 
 export const SignIn = () => {
   const initialState = { email: "", password: "" };
   const history = useHistory();
   const [emailAndPassword, setEmailAndPassword] = useState<EmailAndPassword>(initialState);
   const dispatch = useDispatch();
+  const orderIds = useTypedSelector((state) => state.currentUser.userDataProps.orders);
   const handleSignInClick = () => {
     dispatch(signIn(emailAndPassword));
-    history.push("/products");
+    dispatch(fetchOrders(emailAndPassword, orderIds));
+    history.push(getNavigationLinkTo("PAGE_PRODUCT-CATALOGUE"));
   };
 
   return (

@@ -7,6 +7,7 @@ export type OrderListActionType =
   | { type: "ORDERS_FETCH_BEGIN"; payload: { emailAndPassword: EmailAndPassword } }
   | { type: "ORDERS_FETCH_SUCCESS"; payload: { orders: OrderListProps["orders"] } }
   | { type: "ORDERS_FETCH_ERROR"; payload: { errorMessage: ActionMessage } }
+  | { type: "ORDERS_CLEAR_PERFORM" }
   | { type: "ORDER_ADD_BEGIN"; payload: { orderToAdd: OrderToAddProps } }
   | { type: "ORDER_ADD_SUCCESS"; payload: { orderJustAdded: Order } }
   | { type: "ORDER_ADD_ERROR"; payload: { errorMessage: ActionMessage } }

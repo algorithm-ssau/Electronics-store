@@ -8,6 +8,6 @@ export interface BackendResponseUser {
   };
   realName: string;
   account: number;
-  orderIds: string[];
+  orders: string[];
   isAdmin: boolean;
 }

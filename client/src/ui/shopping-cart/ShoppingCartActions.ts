@@ -9,3 +9,6 @@ export const itemRemovePerform = (product: ProductProps): ShoppingCartAction => 
   type: "ITEM_REMOVE",
   payload: { product },
 });
+export const cartClear = (): ShoppingCartAction => ({
+  type: "CART_CLEAR",
+});

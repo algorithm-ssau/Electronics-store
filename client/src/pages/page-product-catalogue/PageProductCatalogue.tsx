@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { ProductList } from "../../ui/product-list/ProductList";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { fetchProducts } from "../../store/action-creators/productListActionCreator";
-import { LoadingLayout } from "../../ui/loading-layout/LoadingLayout";
+import { LoadingLayout } from "../../pure-components/loading-layout/LoadingLayout";
 
 export const PageProductCatalogue: React.FC = () => {
   const { products, loading, message } = useTypedSelector((state) => state.productList);
