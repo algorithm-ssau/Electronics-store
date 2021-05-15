@@ -4,8 +4,6 @@ import { useHistory } from "react-router-dom";
 import { signUp } from "../../store/action-creators/userAсtionCreator";
 import { EmailAndPassword, UserDataSignUpProps } from "../user-data/UserDataProps";
 import { getNavigationLinkTo } from "../../utils/getNavigationLinkTo";
-import { fetchOrders } from "../../store/action-creators/orderListActionCreator";
-import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 export const SignUp = () => {
   const history = useHistory();
@@ -24,11 +22,9 @@ export const SignUp = () => {
   const [email, setEmail] = useState(initialState.emailAndPassword.email);
   const [password, setPassword] = useState(initialState.emailAndPassword.password);
   const [imageSource, setImageSource] = useState(initialState.userIcon);
-  const orderIds = useTypedSelector((state) => state.currentUser.userDataProps.orders);
   const handleSignUpClick = () => {
     const emailAndPassword: EmailAndPassword = { email, password };
     dispatch(signUp({ displayedName, realName, emailAndPassword, userIcon: imageSource }));
-    dispatch(fetchOrders(emailAndPassword, orderIds));
     history.push(getNavigationLinkTo("PAGE_PRODUCT-CATALOGUE"));
   };
 

@@ -27,6 +27,8 @@ import {
   userSignUpPropsToBackendUserDefault,
 } from "../../utils/converters";
 import { BackendMessage } from "../../interfaces/BackendMessage";
+import { CustomerSchema } from "../../interfaces/backend-return-types/CustomerSchema";
+import { logger } from "../../utils/logger";
 
 export const signIn = (emailAndPassword: EmailAndPassword) => {
   return async (dispatch: Dispatch) => {
@@ -52,7 +54,8 @@ export const signIn = (emailAndPassword: EmailAndPassword) => {
 export const signUp = (userSignUpProps: UserDataSignUpProps) => {
   return async (dispatch: Dispatch) => {
     try {
-      const userToSignUpBackendFormat = userSignUpPropsToBackendUserDefault(userSignUpProps);
+      const userToSignUpBackendFormat: CustomerSchema = userSignUpPropsToBackendUserDefault(userSignUpProps);
+      logger.log(userToSignUpBackendFormat);
       dispatch(userRegisterBegin(userToSignUpBackendFormat));
       const response: UserOrError[] = (
         await axios.post(getDBReqURL("CUSTOMER", "POST"), JSON.stringify(userToSignUpBackendFormat))

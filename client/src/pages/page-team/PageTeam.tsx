@@ -14,12 +14,20 @@ export const PageTeam: React.FC = () => {
     "Team Lead": unavailableText,
   });
   useEffect(() => {
+    let componentIsMounted = true;
     setDevsAreLoading(true);
     fetchDevelopers()
-      .then((devs: DevelopersData) => setTeam(devs))
+      .then((devs: DevelopersData) => {
+        if (componentIsMounted) {
+          setTeam(devs);
+          setDevsAreLoading(false);
+        }
+      })
       .catch((error) => logger.log(error));
-    setDevsAreLoading(false);
-  }, [team]);
+    return () => {
+      componentIsMounted = false;
+    };
+  }, []);
 
   return (
     <div>
