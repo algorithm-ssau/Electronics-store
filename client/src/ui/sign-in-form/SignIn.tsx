@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { useHistory } from "react-router-dom";
 import { signIn } from "../../store/action-creators/userAсtionCreator";
 import { EmailAndPassword } from "../user-data/UserDataProps";
 
 export const SignIn = () => {
-  const userState = useTypedSelector((state) => state.currentUser);
-  const initialState = userState.userDataProps.emailAndPassword
-    ? userState.userDataProps.emailAndPassword
-    : { email: "", password: "" };
+  const initialState = { email: "", password: "" };
+  const history = useHistory();
   const [emailAndPassword, setEmailAndPassword] = useState<EmailAndPassword>(initialState);
   const dispatch = useDispatch();
   const handleSignInClick = () => {
     dispatch(signIn(emailAndPassword));
+    history.push("/products");
   };
 
   return (

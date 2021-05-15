@@ -19,16 +19,16 @@ export const App: React.FC = () => {
         <Route exact path="/">
           <Landing />
         </Route>
-        <Route path="/Products">
+        <Route path="/products">
           <PageProductCatalogue />
         </Route>
-        <Route path="/ShoppingCart">
+        <Route path="/shoppingCart">
           <ShoppingCartPage />
         </Route>
-        <Route path="/User">
+        <Route path="/user">
           <User />
         </Route>
-        <Route path="/SignUpOrIn">
+        <Route path="/signUpOrIn">
           <SignUpOrIn />
         </Route>
         <Route path="*">

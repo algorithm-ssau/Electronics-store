@@ -26,6 +26,7 @@ import { BackendResponseUser } from "../../interfaces/backend-return-types/Backe
 import { OrderOrError } from "../../interfaces/json-interfaces/OrderOrError";
 import { BackendMessage } from "../../interfaces/BackendMessage";
 import { logger } from "../../utils/logger";
+import { OrderToAddProps } from "../../interfaces/backend-send-types/OrderToAddProps";
 
 export const fetchOrders = (
   emailAndPassword: UserData["emailAndPassword"],
@@ -56,14 +57,11 @@ export const fetchOrders = (
   };
 };
 
-export const addOrder = (orderToAdd: Order) => {
+export const addOrder = (orderToAdd: OrderToAddProps) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(orderAddBegin(orderToAdd));
-      const orderToAddDbFormat = normalOrderToDBOrder(orderToAdd);
-      const response: OrderOrError = (
-        await axios.post(getDBReqURL("ORDER", "POST", JSON.stringify(orderToAddDbFormat)))
-      ).data;
+      const response: OrderOrError = (await axios.post(getDBReqURL("ORDER", "POST", JSON.stringify(orderToAdd)))).data;
       if (response.responseType === "Message") {
         dispatch(orderAddError({ error: response.error, text: response.message }));
         return;

@@ -5,7 +5,7 @@ import { UserMiniatureProps } from "./UserMiniatureProps";
 export const UserMiniature: React.FC<UserMiniatureProps> = (props) => {
   const { name, icon } = props;
   return (
-    <Link to="/User">
+    <Link to="/user">
       <div>
         <div className="nameUser">{`${name}`}</div>
         <div>

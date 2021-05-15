@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { useHistory } from "react-router-dom";
 import { signUp } from "../../store/action-creators/userAсtionCreator";
 import { UserDataSignUpProps } from "../user-data/UserDataProps";
 
 export const SignUp = () => {
-  const userState = useTypedSelector((state) => state.currentUser);
-  const { userDataProps } = userState;
-  const displayForGuest = true;
-  const displayForAlreadyRegisteredUser = !displayForGuest;
+  const history = useHistory();
   const initialState: UserDataSignUpProps = {
     displayedName: "",
     emailAndPassword: {
@@ -26,6 +23,7 @@ export const SignUp = () => {
   const [imageSource, setImageSource] = useState(initialState.userIcon);
   const handleSignUpClick = () => {
     dispatch(signUp({ displayedName, realName, emailAndPassword: { email, password }, userIcon: imageSource }));
+    history.push("/products");
   };
 
   return (

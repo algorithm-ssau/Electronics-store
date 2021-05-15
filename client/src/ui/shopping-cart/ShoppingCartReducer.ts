@@ -1,34 +1,36 @@
 import { ShoppingCartProps } from "./ShoppingCartProps";
 import { ShoppingCartAction } from "./ShoppingCartActionType";
 
-const initialState: ShoppingCartProps = { productsInCart: new Map() };
+const initialState: ShoppingCartProps = {
+  productsInCart: new Map(),
+  totalPrice: 0,
+};
 
 export const shoppingCartReducer = (state = initialState, action: ShoppingCartAction): ShoppingCartProps => {
   switch (action.type) {
     case "ITEM_ADD": {
-      const idItemToAdd = action.payload.productId;
+      const idItemToAdd = action.payload.product.id;
       const numOfThisItemInCart = state.productsInCart.get(idItemToAdd);
+      const newState: ShoppingCartProps = { ...state, totalPrice: state.totalPrice + action.payload.product.price };
       if (numOfThisItemInCart !== undefined) {
-        const newState = { ...state };
         newState.productsInCart.set(idItemToAdd, numOfThisItemInCart + 1);
         return newState;
       }
-      const newState = { ...state };
       newState.productsInCart.set(idItemToAdd, 1);
       return newState;
     }
     case "ITEM_REMOVE": {
-      const idToRemove = action.payload.productId;
-      const itemInCart = state.productsInCart.get(idToRemove);
-      if (itemInCart === undefined)
-        throw new TypeError("Something went wrong, product to remove from cart is undefined");
-      if (itemInCart === 1) {
-        const newState = { ...state };
-        newState.productsInCart.delete(idToRemove);
+      const idItemToRemove = action.payload.product.id;
+      const numOfThisItemInCart = state.productsInCart.get(idItemToRemove);
+      if (numOfThisItemInCart === undefined) {
+        throw new Error(`Something went terribly wrong: no product in cart with id ${idItemToRemove}`);
+      }
+      const newState: ShoppingCartProps = { ...state, totalPrice: state.totalPrice - action.payload.product.price };
+      if (numOfThisItemInCart === 1) {
+        newState.productsInCart.delete(idItemToRemove);
         return newState;
       }
-      const newState = { ...state };
-      newState.productsInCart.set(idToRemove, itemInCart - 1);
+      newState.productsInCart.set(idItemToRemove, numOfThisItemInCart - 1);
       return newState;
     }
     default:

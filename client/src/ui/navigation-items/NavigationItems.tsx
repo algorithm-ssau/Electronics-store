@@ -9,16 +9,16 @@ export const NavigationItems = () => {
           <Link to="/">Начальная страница</Link>
         </li>
         <li className="listItem">
-          <Link to="/Products">Товары</Link>
+          <Link to="/products">Товары</Link>
         </li>
         <li className="listItem">
-          <Link to="/ShoppingCart">Корзина</Link>
+          <Link to="/shoppingCart">Корзина</Link>
         </li>
         <li className="listItem">
-          <Link to="/SignUpOrIn">Вход</Link>
+          <Link to="/signUpOrIn">Вход</Link>
         </li>
         <li className="listItem">
-          <Link to="/User">Профиль</Link>
+          <Link to="/user">Профиль</Link>
         </li>
       </ul>
     </nav>
