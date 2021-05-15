@@ -17,8 +17,10 @@ export interface UserData {
   displayedName: UserDataSignUpProps["displayedName"];
   realName: UserDataSignUpProps["realName"];
   userIcon: UserDataSignUpProps["userIcon"];
+  account: number;
   userVerified: boolean;
   isAdmin: boolean;
+  orders: string[];
 }
 
 export interface UserDataProps {

@@ -67,19 +67,7 @@
       }
     ],
     "react/jsx-key": "error",
-    "import/no-extraneous-dependencies": ["warn", {"devDependencies": true}],
-//    "import/no-extraneous-dependencies": [
-//      "error",
-//      {
-//        "devDependencies": [
-//          "**/*.test.js",
-//          "**/*.test.jsx",
-//          "**/*.test.ts",
-//          "**/*.test.tsx",
-//          "src/tests/**/*"
-//        ]
-//      }
-//    ],
+    "import/no-extraneous-dependencies": ["warn", {"packageDir": "./"}],
     "react/jsx-props-no-spreading": "off",
     "import/prefer-default-export": "off",
     "react/jsx-boolean-value": "off",

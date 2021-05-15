@@ -8,7 +8,6 @@ export const ProductList: React.FC<{ products: ProductListProps["products"] }> =
   const { products } = props;
   return (
     <div>
-      <h2>Каталог товаров</h2>
       <div className="product">
         {products.map((product: ProductProps) => (
           <div className="productBlock" key={product.id}>

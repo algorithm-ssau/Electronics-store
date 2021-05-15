@@ -1,12 +1,14 @@
 import React from "react";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { PageProductCatalogue } from "./pages/product-catalogue/PageProductCatalogue";
+import { PageProductCatalogue } from "./pages/page-product-catalogue/PageProductCatalogue";
 import { Navigation } from "./ui/navigation/Navigation";
-import { ShoppingCartPage } from "./pages/shopping-cart/ShoppingCartPage";
-import { User } from "./pages/user/User";
-import { Registration } from "./pages/registration/Registration";
-import { ErrorPage } from "./pages/error-page/ErrorPage";
+import { ShoppingCartPage } from "./pages/page-shopping-cart/ShoppingCartPage";
+import { User } from "./pages/page-profile/User";
+import { SignUpOrIn } from "./pages/page-sign-in-or-up/Registration";
+import { ErrorPage } from "./pages/page-404/ErrorPage";
+import { Landing } from "./pages/page-landing/Landing";
+import { PageTeam } from "./pages/page-team/PageTeam";
 
 process.title = "EStoreClient";
 
@@ -16,16 +18,22 @@ export const App: React.FC = () => {
       <Navigation />
       <Switch>
         <Route exact path="/">
+          <Landing />
+        </Route>
+        <Route path="/products">
           <PageProductCatalogue />
         </Route>
-        <Route path="/ShoppingCart">
+        <Route path="/shoppingCart">
           <ShoppingCartPage />
         </Route>
-        <Route path="/User">
+        <Route path="/user">
           <User />
         </Route>
-        <Route path="/Register">
-          <Registration />
+        <Route path="/signUpOrIn">
+          <SignUpOrIn />
+        </Route>
+        <Route path="/team">
+          <PageTeam />
         </Route>
         <Route path="*">
           <ErrorPage />

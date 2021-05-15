@@ -1,3 +1,6 @@
+import { ProductProps } from "../product/ProductProps";
+
 export interface ShoppingCartProps {
-  productsInCart: Map<string, number>;
+  productsInCart: Map<ProductProps["id"], number>;
+  totalPrice: number;
 }

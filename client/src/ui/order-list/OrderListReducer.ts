@@ -36,6 +36,17 @@ export const orderListReducer = (state = initialState, action: OrderListActionTy
         loading: false,
         message: action.payload.errorMessage,
       };
+    case "ORDERS_CLEAR_PERFORM":
+      return {
+        ...state,
+        loading: false,
+        orders: [],
+        message: {
+          ...state.message,
+          error: false,
+          text: "Orders cleared",
+        },
+      };
     case "ORDER_ADD_BEGIN":
       return {
         ...state,

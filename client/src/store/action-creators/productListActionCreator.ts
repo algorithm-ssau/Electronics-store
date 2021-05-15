@@ -23,12 +23,14 @@ import {
 } from "../../utils/converters";
 import { ProductProps } from "../../ui/product/ProductProps";
 import { BackendMessage } from "../../interfaces/BackendMessage";
+import { delay } from "../../utils/delay";
 
 export const fetchProducts = () => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(productsFetchBegin());
       const response: ProductOrError[] = (await axios.get(getDBReqURL("PRODUCT", "GET"))).data;
+      await delay(5000);
       if (response[0].responseType === "Message") {
         dispatch(productsFetchError({ error: response[0].error, text: response[0].message }));
         return;

@@ -2,6 +2,7 @@ import { OrderListActionType } from "./OrderListActionType";
 import { Order, OrderListProps } from "./OrderListProps";
 import { ActionMessage } from "../../interfaces/ActionMessage";
 import { EmailAndPassword } from "../user-data/UserDataProps";
+import { OrderToAddProps } from "../../interfaces/backend-send-types/OrderToAddProps";
 
 export const ordersFetchBegin = (emailAndPassword: EmailAndPassword): OrderListActionType => ({
   type: "ORDERS_FETCH_BEGIN",
@@ -15,7 +16,10 @@ export const ordersFetchError = (errorMessage: ActionMessage): OrderListActionTy
   type: "ORDERS_FETCH_ERROR",
   payload: { errorMessage },
 });
-export const orderAddBegin = (orderToAdd: Order): OrderListActionType => ({
+export const ordersClearPerform = (): OrderListActionType => ({
+  type: "ORDERS_CLEAR_PERFORM",
+});
+export const orderAddBegin = (orderToAdd: OrderToAddProps): OrderListActionType => ({
   type: "ORDER_ADD_BEGIN",
   payload: { orderToAdd },
 });

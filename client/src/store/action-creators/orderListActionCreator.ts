@@ -15,6 +15,7 @@ import {
   orderDeleteBegin,
   orderDeleteError,
   orderDeleteSuccess,
+  ordersClearPerform,
   ordersFetchBegin,
   ordersFetchError,
   ordersFetchSuccess,
@@ -25,10 +26,12 @@ import {
 import { BackendResponseUser } from "../../interfaces/backend-return-types/BackendResponseUser";
 import { OrderOrError } from "../../interfaces/json-interfaces/OrderOrError";
 import { BackendMessage } from "../../interfaces/BackendMessage";
+import { logger } from "../../utils/logger";
+import { OrderToAddProps } from "../../interfaces/backend-send-types/OrderToAddProps";
 
 export const fetchOrders = (
   emailAndPassword: UserData["emailAndPassword"],
-  orderIds: BackendResponseUser["orderIds"]
+  orderIds: BackendResponseUser["orders"]
 ) => {
   return async (dispatch: Dispatch) => {
     try {
@@ -38,12 +41,9 @@ export const fetchOrders = (
       }
       dispatch(ordersFetchBegin(emailAndPassword));
       const response: OrderOrError[] = [];
-      await Promise.all(
-        orderIds.map(async (orderId) => {
-          const orderOrError: OrderOrError[] = (await axios.get(getDBReqURL("ORDER", "GET", `?_id=${orderId}`))).data;
-          response.push(orderOrError[0]);
-        })
-      );
+      await Promise.all(orderIds.map((orderId) => axios.get(getDBReqURL("ORDER", "GET", `?_id=${orderId}`))))
+        .then((resp) => resp.forEach((item) => response.push(item.data[0])))
+        .catch((error) => logger.log(error));
       const errorFetches = response.filter((orderOrError) => orderOrError.responseType === "Message");
       if (errorFetches.length !== 0) {
         dispatch(ordersFetchError({ error: true, text: `Failed to fetch ${errorFetches.length} order(s)` }));
@@ -56,14 +56,19 @@ export const fetchOrders = (
   };
 };
 
-export const addOrder = (orderToAdd: Order) => {
+export const clearOrders = () => {
+  return async (dispatch: Dispatch) => {
+    dispatch(ordersClearPerform());
+  };
+};
+
+export const addOrder = (orderToAdd: OrderToAddProps) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(orderAddBegin(orderToAdd));
-      const orderToAddDbFormat = normalOrderToDBOrder(orderToAdd);
-      const response: OrderOrError = (
-        await axios.post(getDBReqURL("ORDER", "POST", JSON.stringify(orderToAddDbFormat)))
-      ).data;
+      logger.log(orderToAdd);
+      const response: OrderOrError = (await axios.post(getDBReqURL("ORDER", "POST"), JSON.stringify(orderToAdd))).data;
+      logger.log(response);
       if (response.responseType === "Message") {
         dispatch(orderAddError({ error: response.error, text: response.message }));
         return;

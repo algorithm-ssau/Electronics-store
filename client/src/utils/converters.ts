@@ -83,6 +83,8 @@ export const backendResponseUserToFrontendUser = (userOrError: UserOrError): Use
       userIcon: userOrError.userIcon,
       userVerified: userOrError.userVerified,
       isAdmin: userOrError.isAdmin,
+      account: userOrError.account,
+      orders: userOrError.orders,
     };
   }
   throw new Error(`response.responseType was ${userOrError.responseType}`);

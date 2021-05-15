@@ -1,11 +1,14 @@
 import { ShoppingCartAction } from "./ShoppingCartActionType";
 import { ProductProps } from "../product/ProductProps";
 
-export const itemAddPerform = (productId: ProductProps["id"]): ShoppingCartAction => ({
+export const itemAddPerform = (product: ProductProps): ShoppingCartAction => ({
   type: "ITEM_ADD",
-  payload: { productId },
+  payload: { product },
 });
-export const itemRemovePerform = (productId: ProductProps["id"]): ShoppingCartAction => ({
+export const itemRemovePerform = (product: ProductProps): ShoppingCartAction => ({
   type: "ITEM_REMOVE",
-  payload: { productId },
+  payload: { product },
+});
+export const cartClear = (): ShoppingCartAction => ({
+  type: "CART_CLEAR",
 });

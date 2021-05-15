@@ -1,9 +1,9 @@
 import {Customer} from "../schemas/CustomerSchema";
 
 /**
- * Utility function to check existence of current user's login in database
- * @param login Login of current user
- * @returns true if user with current login not exists, false otherwise
+ * Utility function to check existence of current page-profile's login in database
+ * @param login Login of current page-profile
+ * @returns true if page-profile with current login not exists, false otherwise
  */
 async function checkLoginExist(login: String):Promise<Boolean>{
     let customer = Customer.findOne({login: login});
@@ -11,9 +11,9 @@ async function checkLoginExist(login: String):Promise<Boolean>{
 }
 
 /**
- * Utility function to check existence of current user's email in database
- * @param email Email of current user
- * @returns true if user with current login not exists, false otherwise
+ * Utility function to check existence of current page-profile's email in database
+ * @param email Email of current page-profile
+ * @returns true if page-profile with current login not exists, false otherwise
  */
 async function checkEmailExist(email: String):Promise<Boolean>{
     let customer = Customer.findOne({email: email});
@@ -22,10 +22,10 @@ async function checkEmailExist(email: String):Promise<Boolean>{
 
 /**
  * Utility function to check the amount of money in the account
- * @param email Email of current user
- * @param password Password of current user
+ * @param email Email of current page-profile
+ * @param password Password of current page-profile
  * @param total Total value of product cart
- * @return true if user has enough money to pay, false otherwise
+ * @return true if page-profile has enough money to pay, false otherwise
  */
 async function checkAccount(email: String, password: String, total: number):Promise<Boolean>{
     let customer = await Customer.findOne({email: email, password:password});
