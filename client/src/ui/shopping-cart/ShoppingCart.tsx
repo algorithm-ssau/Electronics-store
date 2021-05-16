@@ -34,11 +34,11 @@ export const ShoppingCart = () => {
             <div key={product.id}>
               <Product {...product} />
               <div>
-                <button type="button" onClick={() => dispatch(removeItemFromCart(productId))}>
+                <button type="button" onClick={async () => dispatch(removeItemFromCart(productId))}>
                   -
                 </button>
                 <p>{productAmount}</p>
-                <button type="button" onClick={() => dispatch(addItemToCart(productId))}>
+                <button type="button" onClick={async () => dispatch(addItemToCart(productId))}>
                   +
                 </button>
               </div>

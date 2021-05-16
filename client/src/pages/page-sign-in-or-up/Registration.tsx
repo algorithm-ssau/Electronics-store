@@ -13,9 +13,9 @@ export const SignUpOrIn = () => {
   const showExitFromProfile = userIsRegistered(userState.userDataProps.emailAndPassword) || userState.message.error;
   const [signInOrSignUp, setSignInOrSignUp] = useState<"SIGN_IN" | "SIGN_UP">("SIGN_IN");
 
-  const performLogOut = () => {
-    dispatch(logOut());
-    dispatch(clearOrders());
+  const performLogOut = async () => {
+    await dispatch(logOut());
+    await dispatch(clearOrders());
   };
 
   if (showExitFromProfile) {

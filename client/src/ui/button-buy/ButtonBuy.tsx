@@ -8,7 +8,7 @@ export const ButtonBuy: React.FC<ButtonBuyProps> = (props) => {
   const dispatch = useDispatch();
   return (
     <div>
-      <button type="button" onClick={() => dispatch(addItemToCart(productId))}>
+      <button type="button" onClick={async () => dispatch(addItemToCart(productId))}>
         Купить
       </button>
     </div>

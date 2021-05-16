@@ -2,6 +2,7 @@ import React from "react";
 import { UserDataProps } from "./UserDataProps";
 import { checkIsGuest } from "../../utils/utils";
 import { LoadingLayout } from "../../pure-components/loading-layout/LoadingLayout";
+import { AdminData } from "../admin-data/AdminData";
 
 export const UserData: React.FC<UserDataProps> = (props) => {
   const { userDataProps, loading, message } = props;
@@ -18,13 +19,13 @@ export const UserData: React.FC<UserDataProps> = (props) => {
         </div>
         <div className="singleLineBlocks">
           <div className="userDescription">
-            {isAdmin && <h5>Администратор</h5>}
+            {isAdmin && <AdminData />}
             <h5>{displayedName}</h5>
             {!userVerified && !isGuest && (
               <h5>Вы не прошли верификацию, дождитесь пока один из администраторов не верифицирует вас</h5>
             )}
             {!isGuest && <h5>Настоящее имя: {realName}</h5>}
-            {!isGuest && <h5>Баланс: ${account}</h5>}
+            {!isGuest && userVerified && <h5>Баланс: ${account}</h5>}
           </div>
         </div>
       </div>

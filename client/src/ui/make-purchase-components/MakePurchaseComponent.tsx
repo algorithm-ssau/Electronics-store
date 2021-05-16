@@ -15,7 +15,8 @@ export const MakePurchaseComponent: React.FC<MakePurchaseComponentProps> = (prop
   if (!isVerified) {
     return <NotVerifiedPurchaseComponent />;
   }
-  if (emailAndPassword !== undefined)
-    return <OkPurchaseComponent emailAndPassword={emailAndPassword} productsInCart={productsInCart} />;
+  if (emailAndPassword !== undefined) {
+    return <OkPurchaseComponent productsInCart={productsInCart} />;
+  }
   throw new Error("guest check incorrect, emailAndPassword are undefined");
 };

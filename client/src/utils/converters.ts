@@ -9,7 +9,7 @@ import { UserOrError } from "../interfaces/json-interfaces/UserOrError";
 import { UserData, UserDataSignUpProps } from "../ui/user-data/UserDataProps";
 import { CustomerSchema } from "../interfaces/backend-return-types/CustomerSchema";
 
-export const normalOrderToDBOrder = (normalOrder: Order): OrderDB => {
+export const normalOrderToBackendOrder = (normalOrder: Order): OrderDB => {
   return {
     status: normalOrder.orderStatus,
     products: normalOrder.products.map((product) => {

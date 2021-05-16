@@ -27,24 +27,26 @@ import {
   userSignUpPropsToBackendUserDefault,
 } from "../../utils/converters";
 import { BackendMessage } from "../../interfaces/BackendMessage";
+import { CustomerSchema } from "../../interfaces/backend-return-types/CustomerSchema";
 
 export const signIn = (emailAndPassword: EmailAndPassword) => {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch(userLoginBegin(emailAndPassword));
+      await dispatch(userLoginBegin(emailAndPassword));
       const response: UserOrError[] = (
         await axios.get(
           getDBReqURL("CUSTOMER", "GET", `?email=${emailAndPassword.email}&password=${emailAndPassword.password}`)
         )
       ).data;
       if (response[0].responseType === "Message") {
-        dispatch(userLoginError({ error: response[0].error, text: response[0].message }));
+        const message = { error: response[0].error, text: response[0].message };
+        await dispatch(userLoginError(message));
         return;
       }
       const userData = backendResponseUserToFrontendUser(response[0]);
-      dispatch(userLoginSuccess(userData));
+      await dispatch(userLoginSuccess(userData));
     } catch (e) {
-      dispatch(userLoginError({ error: true, text: e.message }));
+      await dispatch(userLoginError({ error: true, text: e.message }));
     }
   };
 };
@@ -52,19 +54,24 @@ export const signIn = (emailAndPassword: EmailAndPassword) => {
 export const signUp = (userSignUpProps: UserDataSignUpProps) => {
   return async (dispatch: Dispatch) => {
     try {
-      const userToSignUpBackendFormat = userSignUpPropsToBackendUserDefault(userSignUpProps);
-      dispatch(userRegisterBegin(userToSignUpBackendFormat));
+      const userToSignUpBackendFormat: CustomerSchema = userSignUpPropsToBackendUserDefault(userSignUpProps);
+      await dispatch(userRegisterBegin(userToSignUpBackendFormat));
       const response: UserOrError[] = (
-        await axios.post(getDBReqURL("CUSTOMER", "POST"), JSON.stringify(userToSignUpBackendFormat))
+        await axios.post(getDBReqURL("CUSTOMER", "POST"), JSON.stringify(userToSignUpBackendFormat), {
+          headers: {
+            "content-type": "application/json",
+          },
+        })
       ).data;
       if (response[0].responseType === "Message") {
-        dispatch(userRegisterError({ error: response[0].error, text: response[0].message }));
+        const message = { error: response[0].error, text: response[0].message };
+        await dispatch(userRegisterError(message));
         return;
       }
       const userJustRegistered = backendResponseUserToFrontendUser(response[0]);
-      dispatch(userRegisterSuccess(userJustRegistered));
+      await dispatch(userRegisterSuccess(userJustRegistered));
     } catch (e) {
-      dispatch(userRegisterError({ error: true, text: e.message }));
+      await dispatch(userRegisterError({ error: true, text: e.message }));
     }
   };
 };
@@ -72,7 +79,7 @@ export const signUp = (userSignUpProps: UserDataSignUpProps) => {
 export const updateUserInfo = (oldEmailAndPassword: EmailAndPassword, newUserDataProps: UserDataSignUpProps) => {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch(userUpdateBegin(oldEmailAndPassword, newUserDataProps));
+      await dispatch(userUpdateBegin(oldEmailAndPassword, newUserDataProps));
       const newUserDataBackendFormat = userSignUpPropsToBackendUser(newUserDataProps);
       const response: BackendMessage[] = (
         await axios.put(
@@ -86,12 +93,12 @@ export const updateUserInfo = (oldEmailAndPassword: EmailAndPassword, newUserDat
       ).data;
       const actionMessage = backendMessageToActionMessage(response[0]);
       if (actionMessage.error) {
-        dispatch(userUpdateError(actionMessage));
+        await dispatch(userUpdateError(actionMessage));
         return;
       }
-      dispatch(userUpdateSuccess(actionMessage));
+      await dispatch(userUpdateSuccess(actionMessage));
     } catch (e) {
-      dispatch(userUpdateError({ error: true, text: e.message }));
+      await dispatch(userUpdateError({ error: true, text: e.message }));
     }
   };
 };
@@ -99,7 +106,7 @@ export const updateUserInfo = (oldEmailAndPassword: EmailAndPassword, newUserDat
 export const deleteAccount = (emailAndPassword: EmailAndPassword) => {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch(userDeleteAccountBegin(emailAndPassword));
+      await dispatch(userDeleteAccountBegin(emailAndPassword));
       const response: BackendMessage[] = (
         await axios.delete(
           getDBReqURL("CUSTOMER", "DELETE", `?email=${emailAndPassword.email}&password=${emailAndPassword.password}`)
@@ -107,12 +114,12 @@ export const deleteAccount = (emailAndPassword: EmailAndPassword) => {
       ).data;
       const actionMessage = backendMessageToActionMessage(response[0]);
       if (actionMessage.error) {
-        dispatch(userDeleteAccountError(actionMessage));
+        await dispatch(userDeleteAccountError(actionMessage));
         return;
       }
-      dispatch(userDeleteAccountSuccess(actionMessage));
+      await dispatch(userDeleteAccountSuccess(actionMessage));
     } catch (e) {
-      dispatch(userDeleteAccountError({ error: true, text: e.message }));
+      await dispatch(userDeleteAccountError({ error: true, text: e.message }));
     }
   };
 };
@@ -120,10 +127,10 @@ export const deleteAccount = (emailAndPassword: EmailAndPassword) => {
 export const logOut = () => {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch(userLogoutBegin());
-      dispatch(userLogoutSuccess());
+      await dispatch(userLogoutBegin());
+      await dispatch(userLogoutSuccess());
     } catch (e) {
-      dispatch(userLogoutError({ error: true, text: e.message }));
+      await dispatch(userLogoutError({ error: true, text: e.message }));
     }
   };
 };
