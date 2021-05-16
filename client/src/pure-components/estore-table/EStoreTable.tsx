@@ -9,7 +9,7 @@ export const EStoreTable: React.FC<TableProps> = (props) => {
       {body.map((line, i) => {
         const cells = (
           <tr key={getUniqueId()}>
-            {line.map((cell, j) => {
+            {line.map((cell) => {
               return <td key={getUniqueId()}>{cell}</td>;
             })}
           </tr>

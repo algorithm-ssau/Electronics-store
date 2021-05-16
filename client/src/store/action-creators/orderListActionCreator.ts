@@ -34,9 +34,9 @@ export const fetchOrders = () => {
       const { emailAndPassword } = store.getState().currentUser.userDataProps;
       const orderIds = store.getState().currentUser.userDataProps.orders;
       if (emailAndPassword === undefined) {
-        return dispatch(
-          ordersFetchError({ error: true, text: "Failed to fetch orders, emailAndPassword was undefined" })
-        );
+        const errorMessage = { error: true, text: "Failed to fetch orders, emailAndPassword was undefined" };
+        await dispatch(ordersFetchError(errorMessage));
+        return;
       }
       await dispatch(ordersFetchBegin(emailAndPassword));
       const response: OrderOrError[] = [];
@@ -49,20 +49,21 @@ export const fetchOrders = () => {
         .catch((error) => logger.log(error));
       const errorFetches = response.filter((orderOrError) => orderOrError.responseType === "Message");
       if (errorFetches.length !== 0) {
-        return dispatch(ordersFetchError({ error: true, text: `Failed to fetch ${errorFetches.length} order(s)` }));
+        const message = { error: true, text: `Failed to fetch ${errorFetches.length} order(s)` };
+        await dispatch(ordersFetchError(message));
+        return;
       }
-      return dispatch(
-        ordersFetchSuccess(response.map((orderOrError) => backendResponseOrderToFrontendOrder(orderOrError)))
-      );
+      const orders = response.map((orderOrError) => backendResponseOrderToFrontendOrder(orderOrError));
+      await dispatch(ordersFetchSuccess(orders));
     } catch (e) {
-      return dispatch(ordersFetchError({ error: true, text: e.message }));
+      await dispatch(ordersFetchError({ error: true, text: e.message }));
     }
   };
 };
 
 export const clearOrders = () => {
   return async (dispatch: Dispatch) => {
-    return dispatch(ordersClearPerform());
+    await dispatch(ordersClearPerform());
   };
 };
 
@@ -78,11 +79,13 @@ export const addOrder = (orderToAdd: OrderToAddBackendFormat) => {
         })
       ).data;
       if (response[0].responseType === "Message") {
-        return dispatch(orderAddError({ error: response[0].error, text: response[0].message }));
+        const message = { error: response[0].error, text: response[0].message };
+        await dispatch(orderAddError(message));
+        return;
       }
-      return dispatch(orderAddSuccess(backendResponseOrderToFrontendOrder(response[0])));
+      await dispatch(orderAddSuccess(backendResponseOrderToFrontendOrder(response[0])));
     } catch (e) {
-      return dispatch(orderAddError({ error: true, text: e.message }));
+      await dispatch(orderAddError({ error: true, text: e.message }));
     }
   };
 };
@@ -97,11 +100,12 @@ export const updateOrder = (idOrderToUpdate: Order["orderId"], newOrder: Order) 
       ).data;
       const actionMessage = backendMessageToActionMessage(response[0]);
       if (actionMessage.error) {
-        return dispatch(orderUpdateError(actionMessage));
+        await dispatch(orderUpdateError(actionMessage));
+        return;
       }
-      return dispatch(orderUpdateSuccess(actionMessage));
+      await dispatch(orderUpdateSuccess(actionMessage));
     } catch (e) {
-      return dispatch(orderUpdateError({ error: true, text: e.message }));
+      await dispatch(orderUpdateError({ error: true, text: e.message }));
     }
   };
 };
@@ -114,11 +118,12 @@ export const deleteOrder = (idOrderToDelete: Order["orderId"]) => {
         .data;
       const actionMessage = backendMessageToActionMessage(response[0]);
       if (actionMessage.error) {
-        return dispatch(orderDeleteError(actionMessage));
+        await dispatch(orderDeleteError(actionMessage));
+        return;
       }
-      return dispatch(orderDeleteSuccess(actionMessage));
+      await dispatch(orderDeleteSuccess(actionMessage));
     } catch (e) {
-      return dispatch(orderDeleteError({ error: true, text: e.message }));
+      await dispatch(orderDeleteError({ error: true, text: e.message }));
     }
   };
 };

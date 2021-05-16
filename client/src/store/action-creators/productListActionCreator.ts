@@ -31,13 +31,15 @@ export const fetchProducts = () => {
       const response: ProductOrError[] = (await axios.get(getDBReqURL("PRODUCT", "GET"))).data;
       // await delay(5000);
       if (response[0].responseType === "Message") {
-        return dispatch(productsFetchError({ error: response[0].error, text: response[0].message }));
+        const message = { error: response[0].error, text: response[0].message };
+        await dispatch(productsFetchError(message));
+        return;
       }
-      return dispatch(
+      await dispatch(
         productsFetchSuccess(response.map((productOrError) => backendResponseProductToFrontendProduct(productOrError)))
       );
     } catch (e) {
-      return dispatch(productsFetchError({ error: true, text: e.message }));
+      await dispatch(productsFetchError({ error: true, text: e.message }));
     }
   };
 };
@@ -55,11 +57,13 @@ export const addProduct = (productToAdd: ProductProps) => {
         })
       ).data;
       if (response[0].responseType === "Message") {
-        return dispatch(productAddError({ error: response[0].error, text: response[0].message }));
+        const message = { error: response[0].error, text: response[0].message };
+        await dispatch(productAddError(message));
+        return;
       }
-      return dispatch(productAddSuccess(backendResponseProductToFrontendProduct(response[0])));
+      await dispatch(productAddSuccess(backendResponseProductToFrontendProduct(response[0])));
     } catch (e) {
-      return dispatch(productAddError({ error: true, text: e.message }));
+      await dispatch(productAddError({ error: true, text: e.message }));
     }
   };
 };
@@ -77,11 +81,12 @@ export const updateProduct = (idProductToUpdate: ProductProps["id"], newProduct:
       ).data;
       const actionMessage = backendMessageToActionMessage(response[0]);
       if (actionMessage.error) {
-        return dispatch(productUpdateError(actionMessage));
+        await dispatch(productUpdateError(actionMessage));
+        return;
       }
-      return dispatch(productUpdateSuccess(actionMessage));
+      await dispatch(productUpdateSuccess(actionMessage));
     } catch (e) {
-      return dispatch(productUpdateError({ error: true, text: e.message }));
+      await dispatch(productUpdateError({ error: true, text: e.message }));
     }
   };
 };
@@ -95,11 +100,12 @@ export const deleteProduct = (idProductToDelete: ProductProps["id"]) => {
       ).data;
       const actionMessage = backendMessageToActionMessage(response[0]);
       if (actionMessage.error) {
-        return dispatch(productDeleteError(actionMessage));
+        await dispatch(productDeleteError(actionMessage));
+        return;
       }
-      return dispatch(productDeleteSuccess(actionMessage));
+      await dispatch(productDeleteSuccess(actionMessage));
     } catch (e) {
-      return dispatch(productDeleteError({ error: true, text: e.message }));
+      await dispatch(productDeleteError({ error: true, text: e.message }));
     }
   };
 };

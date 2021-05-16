@@ -25,7 +25,7 @@ export const UserData: React.FC<UserDataProps> = (props) => {
               <h5>Вы не прошли верификацию, дождитесь пока один из администраторов не верифицирует вас</h5>
             )}
             {!isGuest && <h5>Настоящее имя: {realName}</h5>}
-            {!isGuest && <h5>Баланс: ${account}</h5>}
+            {!isGuest && userVerified && <h5>Баланс: ${account}</h5>}
           </div>
         </div>
       </div>

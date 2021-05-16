@@ -11,9 +11,12 @@ export const SignIn: React.FC = () => {
   const history = useHistory();
   const [emailAndPassword, setEmailAndPassword] = useState<EmailAndPassword>(initialState);
   const dispatch = useDispatch();
-  const handleSignInClick = async () => {
+  const dispatchChainSignIn = async () => {
     await dispatch(signIn(emailAndPassword));
     await dispatch(fetchOrders());
+  };
+  const handleSignInClick = async () => {
+    await dispatchChainSignIn();
     history.push(getNavigationLinkTo("PAGE_PRODUCT-CATALOGUE"));
   };
 

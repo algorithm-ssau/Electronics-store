@@ -14,6 +14,12 @@ export const OkPurchaseComponent: React.FC<OkPurchaseComponentProps> = (props) =
   const dispatch = useDispatch();
   const { emailAndPassword } = useTypedSelector((state) => state.currentUser).userDataProps;
   const history = useHistory();
+  const dispatchChainMakePurchase = async (order: OrderToAddBackendFormat) => {
+    await dispatch(addOrder(order));
+    await dispatch(clearCart());
+    await dispatch(signIn({ email: order.email, password: order.password }));
+    await dispatch(fetchOrders());
+  };
   const makePurchase = async () => {
     if (emailAndPassword === undefined) {
       history.push(getNavigationLinkTo("PAGE_SIGN-UP-OR-SIGN-IN"));
@@ -26,14 +32,8 @@ export const OkPurchaseComponent: React.FC<OkPurchaseComponentProps> = (props) =
       email: emailAndPassword.email,
       password: emailAndPassword.password,
     };
-    await Promise.all([
-      dispatch(addOrder(order)),
-      dispatch(clearCart()),
-      dispatch(signIn(emailAndPassword)),
-      dispatch(fetchOrders()),
-    ]).then(() => {
-      history.push(getNavigationLinkTo("PAGE_PROFILE"));
-    });
+    await dispatchChainMakePurchase(order);
+    history.push(getNavigationLinkTo("PAGE_PROFILE"));
   };
   return (
     <button type="button" className="loginIn" onClick={makePurchase}>

@@ -22,10 +22,15 @@ export const SignUp = () => {
   const [email, setEmail] = useState(initialState.emailAndPassword.email);
   const [password, setPassword] = useState(initialState.emailAndPassword.password);
   const [imageSource, setImageSource] = useState(initialState.userIcon);
-  const handleSignUpClick = () => {
+  const dispatchChainLogOut = async (userSignUpProps: UserDataSignUpProps) => {
+    const { emailAndPassword } = userSignUpProps;
+    await dispatch(signUp(userSignUpProps));
+    await dispatch(signIn(emailAndPassword));
+  };
+  const handleSignUpClick = async () => {
     const emailAndPassword: EmailAndPassword = { email, password };
-    dispatch(signUp({ displayedName, realName, emailAndPassword, userIcon: imageSource }));
-    dispatch(signIn(emailAndPassword));
+    const userSignUpProps: UserDataSignUpProps = { displayedName, realName, emailAndPassword, userIcon: imageSource };
+    await dispatchChainLogOut(userSignUpProps);
     history.push(getNavigationLinkTo("PAGE_PRODUCT-CATALOGUE"));
   };
 

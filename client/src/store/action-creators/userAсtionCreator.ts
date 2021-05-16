@@ -32,21 +32,21 @@ import { CustomerSchema } from "../../interfaces/backend-return-types/CustomerSc
 export const signIn = (emailAndPassword: EmailAndPassword) => {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch(userLoginBegin(emailAndPassword));
+      await dispatch(userLoginBegin(emailAndPassword));
       const response: UserOrError[] = (
         await axios.get(
           getDBReqURL("CUSTOMER", "GET", `?email=${emailAndPassword.email}&password=${emailAndPassword.password}`)
         )
       ).data;
       if (response[0].responseType === "Message") {
-        dispatch(userLoginError({ error: response[0].error, text: response[0].message }));
+        const message = { error: response[0].error, text: response[0].message };
+        await dispatch(userLoginError(message));
+        return;
       }
       const userData = backendResponseUserToFrontendUser(response[0]);
-      dispatch(userLoginSuccess(userData));
-      return userData;
+      await dispatch(userLoginSuccess(userData));
     } catch (e) {
-      dispatch(userLoginError({ error: true, text: e.message }));
-      return e;
+      await dispatch(userLoginError({ error: true, text: e.message }));
     }
   };
 };
@@ -64,12 +64,14 @@ export const signUp = (userSignUpProps: UserDataSignUpProps) => {
         })
       ).data;
       if (response[0].responseType === "Message") {
-        return dispatch(userRegisterError({ error: response[0].error, text: response[0].message }));
+        const message = { error: response[0].error, text: response[0].message };
+        await dispatch(userRegisterError(message));
+        return;
       }
       const userJustRegistered = backendResponseUserToFrontendUser(response[0]);
-      return dispatch(userRegisterSuccess(userJustRegistered));
+      await dispatch(userRegisterSuccess(userJustRegistered));
     } catch (e) {
-      return dispatch(userRegisterError({ error: true, text: e.message }));
+      await dispatch(userRegisterError({ error: true, text: e.message }));
     }
   };
 };
@@ -91,11 +93,12 @@ export const updateUserInfo = (oldEmailAndPassword: EmailAndPassword, newUserDat
       ).data;
       const actionMessage = backendMessageToActionMessage(response[0]);
       if (actionMessage.error) {
-        return dispatch(userUpdateError(actionMessage));
+        await dispatch(userUpdateError(actionMessage));
+        return;
       }
-      return dispatch(userUpdateSuccess(actionMessage));
+      await dispatch(userUpdateSuccess(actionMessage));
     } catch (e) {
-      return dispatch(userUpdateError({ error: true, text: e.message }));
+      await dispatch(userUpdateError({ error: true, text: e.message }));
     }
   };
 };
@@ -111,11 +114,12 @@ export const deleteAccount = (emailAndPassword: EmailAndPassword) => {
       ).data;
       const actionMessage = backendMessageToActionMessage(response[0]);
       if (actionMessage.error) {
-        return dispatch(userDeleteAccountError(actionMessage));
+        await dispatch(userDeleteAccountError(actionMessage));
+        return;
       }
-      return dispatch(userDeleteAccountSuccess(actionMessage));
+      await dispatch(userDeleteAccountSuccess(actionMessage));
     } catch (e) {
-      return dispatch(userDeleteAccountError({ error: true, text: e.message }));
+      await dispatch(userDeleteAccountError({ error: true, text: e.message }));
     }
   };
 };
@@ -124,9 +128,9 @@ export const logOut = () => {
   return async (dispatch: Dispatch) => {
     try {
       await dispatch(userLogoutBegin());
-      return dispatch(userLogoutSuccess());
+      await dispatch(userLogoutSuccess());
     } catch (e) {
-      return dispatch(userLogoutError({ error: true, text: e.message }));
+      await dispatch(userLogoutError({ error: true, text: e.message }));
     }
   };
 };
