@@ -17,11 +17,11 @@ export const OrderHistory: FC<OrderHistoryProps> = ({ numOfOrders, isGuest }) =>
           <div>
             <h2>История покупок</h2>
             <h3>{orderHistoryText}</h3>
+            <div className="dataPurchase">
+              <OrderList />
+            </div>
           </div>
         )}
-      </div>
-      <div className="dataPurchase">
-        <OrderList />
       </div>
     </div>
   );

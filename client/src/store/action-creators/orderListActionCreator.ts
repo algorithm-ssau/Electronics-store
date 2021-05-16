@@ -5,9 +5,8 @@ import { Order } from "../../ui/order-list/OrderListProps";
 import {
   backendMessageToActionMessage,
   backendResponseOrderToFrontendOrder,
-  normalOrderToDBOrder,
+  normalOrderToBackendOrder,
 } from "../../utils/converters";
-import { UserData } from "../../ui/user-data/UserDataProps";
 import {
   orderAddBegin,
   orderAddError,
@@ -23,59 +22,67 @@ import {
   orderUpdateError,
   orderUpdateSuccess,
 } from "../../ui/order-list/OrderListActions";
-import { BackendResponseUser } from "../../interfaces/backend-return-types/BackendResponseUser";
 import { OrderOrError } from "../../interfaces/json-interfaces/OrderOrError";
 import { BackendMessage } from "../../interfaces/BackendMessage";
 import { logger } from "../../utils/logger";
-import { OrderToAddProps } from "../../interfaces/backend-send-types/OrderToAddProps";
+import { OrderToAddBackendFormat } from "../../interfaces/backend-send-types/OrderToAddBackendFormat";
+import { store } from "../store";
 
-export const fetchOrders = (
-  emailAndPassword: UserData["emailAndPassword"],
-  orderIds: BackendResponseUser["orders"]
-) => {
+export const fetchOrders = () => {
   return async (dispatch: Dispatch) => {
     try {
-      if (!emailAndPassword) {
-        dispatch(ordersFetchSuccess([]));
-        return;
+      const { emailAndPassword } = store.getState().currentUser.userDataProps;
+      const orderIds = store.getState().currentUser.userDataProps.orders;
+      if (emailAndPassword === undefined) {
+        return dispatch(
+          ordersFetchError({ error: true, text: "Failed to fetch orders, emailAndPassword was undefined" })
+        );
       }
-      dispatch(ordersFetchBegin(emailAndPassword));
+      await dispatch(ordersFetchBegin(emailAndPassword));
       const response: OrderOrError[] = [];
       await Promise.all(orderIds.map((orderId) => axios.get(getDBReqURL("ORDER", "GET", `?_id=${orderId}`))))
-        .then((resp) => resp.forEach((item) => response.push(item.data[0])))
+        .then((resp) =>
+          resp.forEach((item) => {
+            response.push(item.data[0]);
+          })
+        )
         .catch((error) => logger.log(error));
       const errorFetches = response.filter((orderOrError) => orderOrError.responseType === "Message");
       if (errorFetches.length !== 0) {
-        dispatch(ordersFetchError({ error: true, text: `Failed to fetch ${errorFetches.length} order(s)` }));
-        return;
+        return dispatch(ordersFetchError({ error: true, text: `Failed to fetch ${errorFetches.length} order(s)` }));
       }
-      dispatch(ordersFetchSuccess(response.map((orderOrError) => backendResponseOrderToFrontendOrder(orderOrError))));
+      return dispatch(
+        ordersFetchSuccess(response.map((orderOrError) => backendResponseOrderToFrontendOrder(orderOrError)))
+      );
     } catch (e) {
-      dispatch(ordersFetchError({ error: true, text: e.message }));
+      return dispatch(ordersFetchError({ error: true, text: e.message }));
     }
   };
 };
 
 export const clearOrders = () => {
   return async (dispatch: Dispatch) => {
-    dispatch(ordersClearPerform());
+    return dispatch(ordersClearPerform());
   };
 };
 
-export const addOrder = (orderToAdd: OrderToAddProps) => {
+export const addOrder = (orderToAdd: OrderToAddBackendFormat) => {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch(orderAddBegin(orderToAdd));
-      logger.log(orderToAdd);
-      const response: OrderOrError = (await axios.post(getDBReqURL("ORDER", "POST"), JSON.stringify(orderToAdd))).data;
-      logger.log(response);
-      if (response.responseType === "Message") {
-        dispatch(orderAddError({ error: response.error, text: response.message }));
-        return;
+      await dispatch(orderAddBegin(orderToAdd));
+      const response: OrderOrError[] = (
+        await axios.post(getDBReqURL("ORDER", "POST"), JSON.stringify(orderToAdd), {
+          headers: {
+            "content-type": "application/json",
+          },
+        })
+      ).data;
+      if (response[0].responseType === "Message") {
+        return dispatch(orderAddError({ error: response[0].error, text: response[0].message }));
       }
-      dispatch(orderAddSuccess(backendResponseOrderToFrontendOrder(response)));
+      return dispatch(orderAddSuccess(backendResponseOrderToFrontendOrder(response[0])));
     } catch (e) {
-      dispatch(orderAddError({ error: true, text: e.message }));
+      return dispatch(orderAddError({ error: true, text: e.message }));
     }
   };
 };
@@ -83,19 +90,18 @@ export const addOrder = (orderToAdd: OrderToAddProps) => {
 export const updateOrder = (idOrderToUpdate: Order["orderId"], newOrder: Order) => {
   return async (dispatch: Dispatch) => {
     try {
-      const newOrderBackendFormat = normalOrderToDBOrder(newOrder);
-      dispatch(orderUpdateBegin(idOrderToUpdate, newOrder));
+      const newOrderBackendFormat = normalOrderToBackendOrder(newOrder);
+      await dispatch(orderUpdateBegin(idOrderToUpdate, newOrder));
       const response: BackendMessage[] = (
         await axios.put(getDBReqURL("ORDER", "PUT", `?_id=${idOrderToUpdate}`), JSON.stringify(newOrderBackendFormat))
       ).data;
       const actionMessage = backendMessageToActionMessage(response[0]);
       if (actionMessage.error) {
-        dispatch(orderUpdateError(actionMessage));
-        return;
+        return dispatch(orderUpdateError(actionMessage));
       }
-      dispatch(orderUpdateSuccess(actionMessage));
+      return dispatch(orderUpdateSuccess(actionMessage));
     } catch (e) {
-      dispatch(orderUpdateError({ error: true, text: e.message }));
+      return dispatch(orderUpdateError({ error: true, text: e.message }));
     }
   };
 };
@@ -103,17 +109,16 @@ export const updateOrder = (idOrderToUpdate: Order["orderId"], newOrder: Order) 
 export const deleteOrder = (idOrderToDelete: Order["orderId"]) => {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch(orderDeleteBegin(idOrderToDelete));
+      await dispatch(orderDeleteBegin(idOrderToDelete));
       const response: BackendMessage[] = (await axios.delete(getDBReqURL("ORDER", "DELETE", `?_id=${idOrderToDelete}`)))
         .data;
       const actionMessage = backendMessageToActionMessage(response[0]);
       if (actionMessage.error) {
-        dispatch(orderDeleteError(actionMessage));
-        return;
+        return dispatch(orderDeleteError(actionMessage));
       }
-      dispatch(orderDeleteSuccess(actionMessage));
+      return dispatch(orderDeleteSuccess(actionMessage));
     } catch (e) {
-      dispatch(orderDeleteError({ error: true, text: e.message }));
+      return dispatch(orderDeleteError({ error: true, text: e.message }));
     }
   };
 };

@@ -28,7 +28,6 @@ import {
 } from "../../utils/converters";
 import { BackendMessage } from "../../interfaces/BackendMessage";
 import { CustomerSchema } from "../../interfaces/backend-return-types/CustomerSchema";
-import { logger } from "../../utils/logger";
 
 export const signIn = (emailAndPassword: EmailAndPassword) => {
   return async (dispatch: Dispatch) => {
@@ -41,12 +40,13 @@ export const signIn = (emailAndPassword: EmailAndPassword) => {
       ).data;
       if (response[0].responseType === "Message") {
         dispatch(userLoginError({ error: response[0].error, text: response[0].message }));
-        return;
       }
       const userData = backendResponseUserToFrontendUser(response[0]);
       dispatch(userLoginSuccess(userData));
+      return userData;
     } catch (e) {
       dispatch(userLoginError({ error: true, text: e.message }));
+      return e;
     }
   };
 };
@@ -55,19 +55,21 @@ export const signUp = (userSignUpProps: UserDataSignUpProps) => {
   return async (dispatch: Dispatch) => {
     try {
       const userToSignUpBackendFormat: CustomerSchema = userSignUpPropsToBackendUserDefault(userSignUpProps);
-      logger.log(userToSignUpBackendFormat);
-      dispatch(userRegisterBegin(userToSignUpBackendFormat));
+      await dispatch(userRegisterBegin(userToSignUpBackendFormat));
       const response: UserOrError[] = (
-        await axios.post(getDBReqURL("CUSTOMER", "POST"), JSON.stringify(userToSignUpBackendFormat))
+        await axios.post(getDBReqURL("CUSTOMER", "POST"), JSON.stringify(userToSignUpBackendFormat), {
+          headers: {
+            "content-type": "application/json",
+          },
+        })
       ).data;
       if (response[0].responseType === "Message") {
-        dispatch(userRegisterError({ error: response[0].error, text: response[0].message }));
-        return;
+        return dispatch(userRegisterError({ error: response[0].error, text: response[0].message }));
       }
       const userJustRegistered = backendResponseUserToFrontendUser(response[0]);
-      dispatch(userRegisterSuccess(userJustRegistered));
+      return dispatch(userRegisterSuccess(userJustRegistered));
     } catch (e) {
-      dispatch(userRegisterError({ error: true, text: e.message }));
+      return dispatch(userRegisterError({ error: true, text: e.message }));
     }
   };
 };
@@ -75,7 +77,7 @@ export const signUp = (userSignUpProps: UserDataSignUpProps) => {
 export const updateUserInfo = (oldEmailAndPassword: EmailAndPassword, newUserDataProps: UserDataSignUpProps) => {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch(userUpdateBegin(oldEmailAndPassword, newUserDataProps));
+      await dispatch(userUpdateBegin(oldEmailAndPassword, newUserDataProps));
       const newUserDataBackendFormat = userSignUpPropsToBackendUser(newUserDataProps);
       const response: BackendMessage[] = (
         await axios.put(
@@ -89,12 +91,11 @@ export const updateUserInfo = (oldEmailAndPassword: EmailAndPassword, newUserDat
       ).data;
       const actionMessage = backendMessageToActionMessage(response[0]);
       if (actionMessage.error) {
-        dispatch(userUpdateError(actionMessage));
-        return;
+        return dispatch(userUpdateError(actionMessage));
       }
-      dispatch(userUpdateSuccess(actionMessage));
+      return dispatch(userUpdateSuccess(actionMessage));
     } catch (e) {
-      dispatch(userUpdateError({ error: true, text: e.message }));
+      return dispatch(userUpdateError({ error: true, text: e.message }));
     }
   };
 };
@@ -102,7 +103,7 @@ export const updateUserInfo = (oldEmailAndPassword: EmailAndPassword, newUserDat
 export const deleteAccount = (emailAndPassword: EmailAndPassword) => {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch(userDeleteAccountBegin(emailAndPassword));
+      await dispatch(userDeleteAccountBegin(emailAndPassword));
       const response: BackendMessage[] = (
         await axios.delete(
           getDBReqURL("CUSTOMER", "DELETE", `?email=${emailAndPassword.email}&password=${emailAndPassword.password}`)
@@ -110,12 +111,11 @@ export const deleteAccount = (emailAndPassword: EmailAndPassword) => {
       ).data;
       const actionMessage = backendMessageToActionMessage(response[0]);
       if (actionMessage.error) {
-        dispatch(userDeleteAccountError(actionMessage));
-        return;
+        return dispatch(userDeleteAccountError(actionMessage));
       }
-      dispatch(userDeleteAccountSuccess(actionMessage));
+      return dispatch(userDeleteAccountSuccess(actionMessage));
     } catch (e) {
-      dispatch(userDeleteAccountError({ error: true, text: e.message }));
+      return dispatch(userDeleteAccountError({ error: true, text: e.message }));
     }
   };
 };
@@ -123,10 +123,10 @@ export const deleteAccount = (emailAndPassword: EmailAndPassword) => {
 export const logOut = () => {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch(userLogoutBegin());
-      dispatch(userLogoutSuccess());
+      await dispatch(userLogoutBegin());
+      return dispatch(userLogoutSuccess());
     } catch (e) {
-      dispatch(userLogoutError({ error: true, text: e.message }));
+      return dispatch(userLogoutError({ error: true, text: e.message }));
     }
   };
 };

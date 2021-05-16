@@ -6,19 +6,19 @@ import { fetchProduct } from "../../network/fetchProduct";
 export const addItemToCart = (productId: ProductProps["id"]) => {
   return async (dispatch: Dispatch) => {
     const product = await fetchProduct(productId);
-    dispatch(itemAddPerform(product));
+    return dispatch(itemAddPerform(product));
   };
 };
 
 export const removeItemFromCart = (productId: ProductProps["id"]) => {
   return async (dispatch: Dispatch) => {
     const product = await fetchProduct(productId);
-    dispatch(itemRemovePerform(product));
+    return dispatch(itemRemovePerform(product));
   };
 };
 
 export const clearCart = () => {
   return async (dispatch: Dispatch) => {
-    dispatch(cartClear());
+    return dispatch(cartClear());
   };
 };

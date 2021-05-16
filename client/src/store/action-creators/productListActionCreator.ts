@@ -23,23 +23,21 @@ import {
 } from "../../utils/converters";
 import { ProductProps } from "../../ui/product/ProductProps";
 import { BackendMessage } from "../../interfaces/BackendMessage";
-import { delay } from "../../utils/delay";
 
 export const fetchProducts = () => {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch(productsFetchBegin());
+      await dispatch(productsFetchBegin());
       const response: ProductOrError[] = (await axios.get(getDBReqURL("PRODUCT", "GET"))).data;
-      await delay(5000);
+      // await delay(5000);
       if (response[0].responseType === "Message") {
-        dispatch(productsFetchError({ error: response[0].error, text: response[0].message }));
-        return;
+        return dispatch(productsFetchError({ error: response[0].error, text: response[0].message }));
       }
-      dispatch(
+      return dispatch(
         productsFetchSuccess(response.map((productOrError) => backendResponseProductToFrontendProduct(productOrError)))
       );
     } catch (e) {
-      dispatch(productsFetchError({ error: true, text: e.message }));
+      return dispatch(productsFetchError({ error: true, text: e.message }));
     }
   };
 };
@@ -48,17 +46,20 @@ export const addProduct = (productToAdd: ProductProps) => {
   return async (dispatch: Dispatch) => {
     try {
       const productToAddBackendFormat = productToProductDb(productToAdd);
-      dispatch(productAddBegin(productToAddBackendFormat));
-      const response: ProductOrError = (
-        await axios.post(getDBReqURL("PRODUCT", "POST"), JSON.stringify(productToAddBackendFormat))
+      await dispatch(productAddBegin(productToAddBackendFormat));
+      const response: ProductOrError[] = (
+        await axios.post(getDBReqURL("PRODUCT", "POST"), JSON.stringify(productToAddBackendFormat), {
+          headers: {
+            "content-type": "application/json",
+          },
+        })
       ).data;
-      if (response.responseType === "Message") {
-        dispatch(productAddError({ error: response.error, text: response.message }));
-        return;
+      if (response[0].responseType === "Message") {
+        return dispatch(productAddError({ error: response[0].error, text: response[0].message }));
       }
-      dispatch(productAddSuccess(backendResponseProductToFrontendProduct(response)));
+      return dispatch(productAddSuccess(backendResponseProductToFrontendProduct(response[0])));
     } catch (e) {
-      dispatch(productAddError({ error: true, text: e.message }));
+      return dispatch(productAddError({ error: true, text: e.message }));
     }
   };
 };
@@ -67,7 +68,7 @@ export const updateProduct = (idProductToUpdate: ProductProps["id"], newProduct:
   return async (dispatch: Dispatch) => {
     try {
       const newProductBackendFormat = productToProductDb(newProduct);
-      dispatch(productUpdateBegin(idProductToUpdate, newProductBackendFormat));
+      await dispatch(productUpdateBegin(idProductToUpdate, newProductBackendFormat));
       const response: BackendMessage[] = (
         await axios.put(
           getDBReqURL("PRODUCT", "PUT", `?_id=${idProductToUpdate}`),
@@ -76,12 +77,11 @@ export const updateProduct = (idProductToUpdate: ProductProps["id"], newProduct:
       ).data;
       const actionMessage = backendMessageToActionMessage(response[0]);
       if (actionMessage.error) {
-        dispatch(productUpdateError(actionMessage));
-        return;
+        return dispatch(productUpdateError(actionMessage));
       }
-      dispatch(productUpdateSuccess(actionMessage));
+      return dispatch(productUpdateSuccess(actionMessage));
     } catch (e) {
-      dispatch(productUpdateError({ error: true, text: e.message }));
+      return dispatch(productUpdateError({ error: true, text: e.message }));
     }
   };
 };
@@ -89,18 +89,17 @@ export const updateProduct = (idProductToUpdate: ProductProps["id"], newProduct:
 export const deleteProduct = (idProductToDelete: ProductProps["id"]) => {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch(productDeleteBegin(idProductToDelete));
+      await dispatch(productDeleteBegin(idProductToDelete));
       const response: BackendMessage[] = (
         await axios.delete(getDBReqURL("PRODUCT", "DELETE", `?_id=${idProductToDelete}`))
       ).data;
       const actionMessage = backendMessageToActionMessage(response[0]);
       if (actionMessage.error) {
-        dispatch(productDeleteError(actionMessage));
-        return;
+        return dispatch(productDeleteError(actionMessage));
       }
-      dispatch(productDeleteSuccess(actionMessage));
+      return dispatch(productDeleteSuccess(actionMessage));
     } catch (e) {
-      dispatch(productDeleteError({ error: true, text: e.message }));
+      return dispatch(productDeleteError({ error: true, text: e.message }));
     }
   };
 };

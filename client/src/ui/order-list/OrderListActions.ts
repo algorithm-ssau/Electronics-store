@@ -2,7 +2,7 @@ import { OrderListActionType } from "./OrderListActionType";
 import { Order, OrderListProps } from "./OrderListProps";
 import { ActionMessage } from "../../interfaces/ActionMessage";
 import { EmailAndPassword } from "../user-data/UserDataProps";
-import { OrderToAddProps } from "../../interfaces/backend-send-types/OrderToAddProps";
+import { OrderToAddBackendFormat } from "../../interfaces/backend-send-types/OrderToAddBackendFormat";
 
 export const ordersFetchBegin = (emailAndPassword: EmailAndPassword): OrderListActionType => ({
   type: "ORDERS_FETCH_BEGIN",
@@ -19,7 +19,7 @@ export const ordersFetchError = (errorMessage: ActionMessage): OrderListActionTy
 export const ordersClearPerform = (): OrderListActionType => ({
   type: "ORDERS_CLEAR_PERFORM",
 });
-export const orderAddBegin = (orderToAdd: OrderToAddProps): OrderListActionType => ({
+export const orderAddBegin = (orderToAdd: OrderToAddBackendFormat): OrderListActionType => ({
   type: "ORDER_ADD_BEGIN",
   payload: { orderToAdd },
 });

@@ -4,18 +4,16 @@ import { useHistory } from "react-router-dom";
 import { signIn } from "../../store/action-creators/userAсtionCreator";
 import { EmailAndPassword } from "../user-data/UserDataProps";
 import { getNavigationLinkTo } from "../../utils/getNavigationLinkTo";
-import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { fetchOrders } from "../../store/action-creators/orderListActionCreator";
 
-export const SignIn = () => {
+export const SignIn: React.FC = () => {
   const initialState = { email: "", password: "" };
   const history = useHistory();
   const [emailAndPassword, setEmailAndPassword] = useState<EmailAndPassword>(initialState);
   const dispatch = useDispatch();
-  const orderIds = useTypedSelector((state) => state.currentUser.userDataProps.orders);
-  const handleSignInClick = () => {
-    dispatch(signIn(emailAndPassword));
-    dispatch(fetchOrders(emailAndPassword, orderIds));
+  const handleSignInClick = async () => {
+    await dispatch(signIn(emailAndPassword));
+    await dispatch(fetchOrders());
     history.push(getNavigationLinkTo("PAGE_PRODUCT-CATALOGUE"));
   };
 
@@ -30,7 +28,10 @@ export const SignIn = () => {
           value={emailAndPassword.email}
           onChange={(event) =>
             setEmailAndPassword((prevState) => {
-              return { ...prevState, email: event.target.value };
+              return {
+                ...prevState,
+                email: event.target.value,
+              };
             })
           }
         />
