@@ -1,0 +1,28 @@
+version: "3"
+services:
+  client:
+    depends_on:
+      - server
+      - python-api
+    image: client:prod
+    command: serve -n -s build -l 3000
+    ports:
+      - 80:3000
+    volumes:
+      - estore:/client
+  server:
+    image: server:prod
+    command: npm run start
+    ports:
+      - 5000:5000
+    volumes:
+      - estore:/server
+  python-api:
+    image: api:prod
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
+    ports:
+      - 8000:8000
+    volumes:
+      - estore:/api/python-api
+volumes:
+  estore:

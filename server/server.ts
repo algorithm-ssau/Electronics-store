@@ -10,9 +10,12 @@ process.title = "EStoreServer";
 
 dotenv.config()
 
-var corsOptions = {
-    origin: 'http://localhost:3000',
-    methods: ['GET', 'PUT', 'POST', 'DELETE']
+const corsOptions = {
+    origin: ["http://localhost", "http://localhost:3000"],
+    methods: ['GET', 'PUT', 'POST', 'DELETE'],
+    headers: {
+        "Access-Control-Allow-Origin: ": "*",
+    }
 }
 
 const app = express()
