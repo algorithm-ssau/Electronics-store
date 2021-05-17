@@ -138,6 +138,8 @@ a:focus{
 .nameUser {
   text-align: center;
   color: #555;
+  float: left;
+  margin-top: 13%;
 }
 
 .singleLineBlocks {
@@ -160,6 +162,17 @@ a:focus{
   border-radius: 100px;
   border: 4px solid #03429a;
   box-shadow: 0 0 7px #03429a;
+}
+
+.userImageSmall{
+  margin-left: 50%;
+  width: 64px;
+  height: 64px;
+  border-radius: 100px;
+  box-shadow: 0 0 7px #03429a;
+  float: right;
+  margin-right: -5%;
+  margin-bottom: 2%;
 }
 
 .userDescription {
