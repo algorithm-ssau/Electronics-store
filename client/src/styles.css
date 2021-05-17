@@ -33,7 +33,7 @@ body {
   margin: 0 10% 0 10%;
   width: 80%;
   box-shadow: 0 0 45px #dbdada;
-  height: 100vh;
+  height: 100%;
 }
 
 .searchProduct {
@@ -205,10 +205,15 @@ a:focus{
 
 .loginInForm {
   width: 50%;
-  margin: 5% 25% 25%;
+  margin: 5% 25% 0%;
   border: 3px solid #00165ead;
   padding: 20px 6px;
   border-radius: 20px;
+}
+
+.stillNotWithUs{
+  margin: 1% 41%;
+  width: max-content;
 }
 
 .inputDataRegistration {
@@ -264,8 +269,36 @@ a:focus{
   background: #0358f6;
 }
 
+.bottomRegistrationButton:hover {
+  background: #1f65e5;
+}
+
+.bottomRegistrationButton:focus {
+  background: #0358f6;
+}
+
+.bottomRegistrationButton{
+  margin: 0% 40.5% 1%;
+  padding: 1%;
+  background: #4785fa;
+}
+
+.bottomSignInButton:hover {
+  background: #1f65e5;
+}
+
+.bottomSignInButton:focus {
+  background: #0358f6;
+}
+
+.bottomSignInButton{
+  margin: 0% 47% 1%;
+  padding: 1%;
+  background: #4785fa;
+}
+
 .registrationButton {
-  width: 40%;
+  width: 65%;
   margin: 3%;
   padding: 2%;
   background: #4785fa;

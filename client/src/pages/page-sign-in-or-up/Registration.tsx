@@ -35,8 +35,8 @@ export const SignUpOrIn = () => {
         <div>
           <SignIn />
           <div>
-            <p>Еще не член нашего клуба?</p>
-            <button type="button" className="loginIn" onClick={() => setSignInOrSignUp("SIGN_UP")}>
+            <div className="stillNotWithUs">Еще не член нашего клуба?</div>
+            <button type="button" className="bottomRegistrationButton" onClick={() => setSignInOrSignUp("SIGN_UP")}>
               <span className="descriptionLogIn">Зарегистрироваться</span>
             </button>
           </div>
@@ -46,10 +46,10 @@ export const SignUpOrIn = () => {
         <div>
           <SignUp />
           <div>
-            <p>Уже участник нашего клуба?</p>
+            <div className="stillNotWithUs">Уже участник нашего клуба?</div>
             <button
               type="button"
-              className="loginIn"
+              className="bottomSignInButton"
               onClick={() => {
                 setSignInOrSignUp("SIGN_IN");
               }}
