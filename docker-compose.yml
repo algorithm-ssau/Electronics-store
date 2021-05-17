@@ -9,18 +9,20 @@ services:
     ports:
       - 80:3000
     volumes:
-      - estore/client
+      - estore:/client
   server:
     image: server:prod
     command: npm run start
     ports:
       - 5000:5000
     volumes:
-      - estore/server
+      - estore:/server
   python-api:
     image: api:prod
     command: uvicorn main:app --host 0.0.0.0 --port 8000
     ports:
       - 8000:8000
     volumes:
-      - estore/api/python-api
+      - estore:/api/python-api
+volumes:
+  estore:
