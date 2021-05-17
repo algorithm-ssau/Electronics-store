@@ -12,7 +12,7 @@ building:
 3) docker build -t client:prod .
 
 running:
-1) docker run -it -p 3000:3000 client:prod
+1) docker run -it -p 8080:80 client:prod
 
 Server: Express + Node.js + MongoDB
 
