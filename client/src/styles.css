@@ -33,8 +33,7 @@ body {
   margin: 0 10% 0 10%;
   width: 80%;
   box-shadow: 0 0 45px #dbdada;
-  height: 100%;
-  overflow: auto;
+  height: 100vh;
 }
 
 .searchProduct {
