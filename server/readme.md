@@ -36,4 +36,3 @@ Product это продукт, который может приобрести п
         3) Дату последнего обновления Сервера (/api/appinfo/server/last_update)
         4) Дату последнего обновления Клиента (/api/appinfo/client/last_update)
         5) Список разработчиков с указанием позиций в команде (/api/appinfo/developers)
-

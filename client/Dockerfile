@@ -2,14 +2,10 @@ FROM node:14 as react-build
 
 WORKDIR /app
 
-ENV PATH /app/node_modules/.bin:$PATH
+COPY . .
 
-COPY package.json ./
-COPY package-lock.json ./
+RUN npm i
+RUN npm i -g serve
+RUN npm run build
 
-RUN npm install
-RUN npm install react-scripts@3.4.1 -g --silent
-
-COPY . ./
-
-CMD ["npm", "start"]
+CMD ["serve", "-n", "-s", "build", "-l", "3000"]
