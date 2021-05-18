@@ -10,10 +10,10 @@ print("Current process title: ", spt.getproctitle())
 
 app = FastAPI()
 
+environment = dotenv_values('.env')
 
 origins = [
-    "http://localhost",
-    "http://localhost:3000",
+    environment['CLIENT_HOST'] + ':' + environment['CLIENT_PORT']
 ]
 
 app.add_middleware(
@@ -23,8 +23,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-environment = dotenv_values('.env')
 
 @app.get('/api/appinfo/server/version')
 async def get_server_version():

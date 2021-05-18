@@ -31,7 +31,7 @@ export const getDBReqURL = (entity: DataBaseEntityType, method: DataBaseMethodTy
       break;
   }
 
-  return `http://localhost:5000/${tURL}/${method.toLowerCase()}/${req}`;
+  return `${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/${tURL}/${method.toLowerCase()}/${req}`;
 };
 
 /**

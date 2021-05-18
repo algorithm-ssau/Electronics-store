@@ -33,6 +33,11 @@ export const signIn = (emailAndPassword: EmailAndPassword) => {
   return async (dispatch: Dispatch) => {
     try {
       await dispatch(userLoginBegin(emailAndPassword));
+      if (emailAndPassword.email === "" || emailAndPassword.password === "") {
+        const message = { error: true, text: "Пожалуйста, введите логин и пароль" };
+        await dispatch(userLoginError(message));
+        return;
+      }
       const response: UserOrError[] = (
         await axios.get(
           getDBReqURL("CUSTOMER", "GET", `?email=${emailAndPassword.email}&password=${emailAndPassword.password}`)
