@@ -93,7 +93,7 @@ export const PageProductCatalogue: React.FC = () => {
         />
       </div>
       <div>
-        <h2>Каталог товаров</h2>
+        <span className="catalogProducts">Каталог товаров</span>
         <LoadingLayout isActive={loading}>
           <ProductList products={displayedProducts} />
         </LoadingLayout>
