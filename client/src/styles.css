@@ -321,8 +321,59 @@ a:focus{
   z-index: 1;
 }
 
-
 .loader {
   width: 100px;
   height: 100px;
+}
+
+.employeeTeamImage {
+  width: 67px;
+  height: 67px;
+  border-radius: 100px;
+  box-shadow: 0 0 7px #03429a;
+  float: right;
+  position: relative;
+  overflow:hidden;
+}
+
+.teamDeveloperBlockImg {
+  float: left;
+  font-size: 30px;
+  width: 20%;
+  text-align: left;
+  margin-right: 4%;
+  margin-top: 2%;
+}
+
+.teamDeveloperBlockText {
+  float: right;
+  font-size: 20px;
+  width: 76%;
+  text-align: left;
+  margin-top: 2%;
+}
+
+.namePost {
+  float: left;
+  font-size: 32px;
+  width: 100%;
+  text-align: left;
+  font-weight: 400;
+  margin-left: 5%;
+}
+
+.teamDevelopersBlockList {
+  font-size: 20px;
+  line-height: 76px;
+  float: right;
+  width: 76%;
+  text-align: left;
+}
+
+.teamDevelopers {
+  font-size: 35px;
+  width: 100%;
+  text-align: center;
+  font-weight: 700;
+  margin-left: 37%;
 }
