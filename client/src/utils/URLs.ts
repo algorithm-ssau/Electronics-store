@@ -31,7 +31,7 @@ export const getDBReqURL = (entity: DataBaseEntityType, method: DataBaseMethodTy
       break;
   }
 
-  return `http://localhost:5000/${tURL}/${method.toLowerCase()}/${req}`;
+  return `http://${window.location.hostname}:5000/${tURL}/${method.toLowerCase()}/${req}`;
 };
 
 /**
@@ -73,5 +73,5 @@ export const getPyApiReqURL = (side: ApiEntityType, mode: ApiModeType = "") => {
     default:
       break;
   }
-  return `http://localhost:8000/${tURL}`;
+  return `http://${window.location.hostname}:8000/${tURL}`;
 };

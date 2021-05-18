@@ -3,35 +3,31 @@
 Purpose of this project is to create simple electronics store website
 using modern technologies and tools.
 
+In order to build this project, it is convenient to have docker installed.
 
 Frontend: React + TypeScript + Redux
-
-building:
-1) download and install docker
-2) cd client
-3) docker build -t client:prod .
-
-running:
-1) docker run -it -p 8080:80 client:prod
-
 Server: Express + Node.js + MongoDB
-
-building:
-1) download and install docker
-2) cd server
-3) docker build -t server:prod .
-
-running:
-1) docker run -it -p 5000:5000 server:prod
-
 API: Python
 
-building:
-1) download and install docker
-2) cd python-api
-3) docker build -t api:prod .
+Building for YOUR_TARGET_NAME, where YOUR_TARGET_NAME is one of the following:
+   1) localhost
+   2) gcloud
+   3) mywire 
+gcloud means google cloud.
 
-running:
-1) docker run -it -p 80:8000 api:prod
+Building for YOUR_TARGET_NAME:
+1) cd client
+2) docker build -f YOUR_TARGET_NAME.Dockerfile -t client:YOUR_TARGET_NAME .
+3) cd ../server
+4) docker build -f YOUR_TARGET_NAME.Dockerfile -t server:YOUR_TARGET_NAME .
+5) cd ../python-api
+6) docker build -f YOUR_TARGET_NAME.Dockerfile -t api:YOUR_TARGET_NAME .
+OR:
+   1) cd scripts
+   2) sh build-for-YOUR_TARGET_NAME.sh
+    
+Running for YOUR_TARGET_NAME:
+1) docker compose -f docker-compose-YOUR_TARGET_NAME.yml up
 
-OR if you do not have docker installed, you can visit Dockerfile in each folder to see and copy its build instructions
+If you do not have docker installed, you can visit Dockerfile in each folder to see and copy its build instructions.
+Pay attention to .env files though.
