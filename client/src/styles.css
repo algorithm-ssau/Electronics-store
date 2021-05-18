@@ -34,6 +34,7 @@ body {
   width: 80%;
   box-shadow: 0 0 45px #dbdada;
   height: 100%;
+  min-height: 100vh;
 }
 
 .searchProduct {
