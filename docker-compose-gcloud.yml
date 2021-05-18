@@ -4,7 +4,7 @@ services:
     depends_on:
       - server
       - python-api
-    image: client:prod
+    image: client:gcloud
     command: serve -n -s build -l 3000
     ports:
       - 8080:80
@@ -12,13 +12,13 @@ services:
       - estore:/client
   server:
     image: server:prod
-    command: npm run start
+    command: npm run gcloud
     ports:
       - 5000:5000
     volumes:
       - estore:/server
   python-api:
-    image: api:prod
+    image: api:glcoud
     command: uvicorn main:app --host 0.0.0.0 --port 8000
     ports:
       - 8000:8000
