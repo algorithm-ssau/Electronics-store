@@ -4,21 +4,21 @@ services:
     depends_on:
       - server
       - python-api
-    image: client:mywire
+    image: client:prod
     command: serve -n -s build -l 3000
     ports:
-      - 8080:3000
+      - 80:3000
     volumes:
       - estore:/client
   server:
-    image: server:mywire
+    image: server:prod
     command: npm run start
     ports:
       - 5000:5000
     volumes:
       - estore:/server
   python-api:
-    image: api:mywire
+    image: api:prod
     command: uvicorn main:app --host 0.0.0.0 --port 8000
     ports:
       - 8000:8000

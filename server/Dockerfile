@@ -7,4 +7,4 @@ COPY . .
 RUN npm i
 RUN npm ci --only=production
 
-CMD ["npm", "run", "start:mywire"]
+CMD ["npm", "run", "start"]

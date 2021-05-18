@@ -13,7 +13,15 @@ app = FastAPI()
 environment = dotenv_values('.env')
 
 origins = [
-    environment['CLIENT_HOST'] + ':' + environment['CLIENT_PORT']
+          "http://localhost", # localhost
+          "http://localhost:3000", # localhost
+          "http://localhost:8080", # localhost
+          "http://127.0.0.1:3000", # localhost external
+          "http://127.0.0.1:8080", # localhost external
+          "http://34.134.114.154:3000", # google cloud
+          "http://34.134.114.154:8080", # google cloud
+          "http://estore.mywire.org:3000", # mywire
+          "http://estore.mywire.org:8080", # mywire
 ]
 
 app.add_middleware(

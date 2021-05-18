@@ -2,7 +2,6 @@ FROM tiangolo/uvicorn-gunicorn-fastapi:python3.7
 
 WORKDIR /app
 COPY . .
-ADD envs/gcloud.env .env
 
 RUN pip install -r pip_packages.txt
 
