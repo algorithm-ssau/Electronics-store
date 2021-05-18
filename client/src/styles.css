@@ -12,12 +12,13 @@ body {
 }
 
 .productImage {
-  width: 256px;
+  width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
 .productBorder {
+  height: 90%;
   border: 2px solid gray;
   background: aliceblue;
 }
@@ -29,12 +30,29 @@ body {
   justify-items: center;
 }
 
+.productSizeImage {
+  height: 40%;
+}
+
+.productButtonBlock {
+  margin-left: 25%;
+  margin-top: 4%;
+  width: 40%;
+  height: 7%;
+  background-color: aqua;
+}
+
+.buttonBlock {
+  width: 100%;
+  height: 100%;
+}
+
 .Application {
   margin: 0 10% 0 10%;
   width: 80%;
   box-shadow: 0 0 45px #dbdada;
-  height: 100vh;
-  overflow: auto;
+  height: 100%;
+  min-height: 100vh;
 }
 
 .searchProduct {
@@ -53,7 +71,7 @@ body {
 }
 
 .productBlock {
-  max-width: 300px;
+  width: 300px;
   overflow: hidden;
   padding: 15px;
   box-shadow: 0 0 15px #ddd;
@@ -138,6 +156,8 @@ a:focus{
 .nameUser {
   text-align: center;
   color: #555;
+  float: left;
+  margin-top: 22px;
 }
 
 .singleLineBlocks {
@@ -160,6 +180,16 @@ a:focus{
   border-radius: 100px;
   border: 4px solid #03429a;
   box-shadow: 0 0 7px #03429a;
+}
+
+.userImageSmall{
+  width: 64px;
+  height: 64px;
+  border-radius: 100px;
+  box-shadow: 0 0 7px #03429a;
+  float: right;
+  margin-right: -10%;
+  margin-bottom: 2%;
 }
 
 .userDescription {
@@ -194,10 +224,15 @@ a:focus{
 
 .loginInForm {
   width: 50%;
-  margin: 5% 25% 25%;
+  margin: 5% 25% 0%;
   border: 3px solid #00165ead;
   padding: 20px 6px;
   border-radius: 20px;
+}
+
+.stillNotWithUs{
+  margin: 1% 41%;
+  width: max-content;
 }
 
 .inputDataRegistration {
@@ -253,8 +288,36 @@ a:focus{
   background: #0358f6;
 }
 
+.bottomRegistrationButton:hover {
+  background: #1f65e5;
+}
+
+.bottomRegistrationButton:focus {
+  background: #0358f6;
+}
+
+.bottomRegistrationButton{
+  margin: 0% 40.5% 1%;
+  padding: 1%;
+  background: #4785fa;
+}
+
+.bottomSignInButton:hover {
+  background: #1f65e5;
+}
+
+.bottomSignInButton:focus {
+  background: #0358f6;
+}
+
+.bottomSignInButton{
+  margin: 0% 47% 1%;
+  padding: 1%;
+  background: #4785fa;
+}
+
 .registrationButton {
-  width: 40%;
+  width: 65%;
   margin: 3%;
   padding: 2%;
   background: #4785fa;
@@ -277,8 +340,65 @@ a:focus{
   z-index: 1;
 }
 
-
 .loader {
   width: 100px;
   height: 100px;
+}
+
+.employeeTeamImage {
+  width: 67px;
+  height: 67px;
+  border-radius: 100px;
+  box-shadow: 0 0 7px #03429a;
+  float: right;
+  position: relative;
+  overflow:hidden;
+}
+
+.teamDeveloperBlockImg {
+  float: left;
+  font-size: 30px;
+  width: 20%;
+  text-align: left;
+  margin-right: 4%;
+  margin-top: 2%;
+}
+
+.teamDeveloperBlockText {
+  float: right;
+  font-size: 20px;
+  width: 76%;
+  text-align: left;
+  margin-top: 2%;
+}
+
+.namePost {
+  float: left;
+  font-size: 32px;
+  width: 100%;
+  text-align: left;
+  font-weight: 400;
+  margin-left: 5%;
+}
+
+.teamDevelopersBlockList {
+  font-size: 20px;
+  line-height: 76px;
+  float: right;
+  width: 76%;
+  text-align: left;
+}
+
+.teamDevelopers {
+  font-size: 35px;
+  width: 100%;
+  text-align: center;
+  font-weight: 700;
+  margin-left: 37%;
+}
+
+.catalogProducts {
+  margin-left: 1%;
+  font-size: 30px;
+  font-weight: 700;
 }

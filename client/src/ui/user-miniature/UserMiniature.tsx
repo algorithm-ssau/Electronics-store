@@ -8,9 +8,7 @@ export const UserMiniature: React.FC<UserMiniatureProps> = (props) => {
     <Link to="/user">
       <div>
         <div className="nameUser">{`${name}`}</div>
-        <div>
-          <img alt={icon} src={icon} />
-        </div>
+        <img alt={icon} className="userImageSmall" src={icon} />
       </div>
     </Link>
   );
