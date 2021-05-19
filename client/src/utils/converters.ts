@@ -7,7 +7,6 @@ import { ProductProps, ProductPropsDB } from "../ui/product/ProductProps";
 import { ProductOrError } from "../interfaces/json-interfaces/ProductOrError";
 import { UserOrError } from "../interfaces/json-interfaces/UserOrError";
 import { UserData, UserDataSignUpProps } from "../ui/user-data/UserDataProps";
-import { CustomerSchema } from "../interfaces/backend-return-types/CustomerSchema";
 
 export const normalOrderToBackendOrder = (normalOrder: Order): OrderDB => {
   return {
@@ -90,16 +89,21 @@ export const backendResponseUserToFrontendUser = (userOrError: UserOrError): Use
   throw new Error(`response.responseType was ${userOrError.responseType}`);
 };
 
-export const userSignUpPropsToBackendUserDefault = (userSignUpProps: UserDataSignUpProps): CustomerSchema => {
+export interface CorrectSignUpProps {
+  login: string;
+  customer_name: string;
+  password: string;
+  email: string;
+  avatar_src?: string;
+}
+
+export const userSignUpPropsToBackendUserDefault = (userSignUpProps: UserDataSignUpProps): CorrectSignUpProps => {
   return {
-    account: 10000,
-    avatar_src: userSignUpProps.userIcon,
+    avatar_src: userSignUpProps.userIcon === "" ? undefined : userSignUpProps.userIcon,
     customer_name: userSignUpProps.realName,
     email: userSignUpProps.emailAndPassword.email,
     login: userSignUpProps.displayedName,
-    order_ids: [],
     password: userSignUpProps.emailAndPassword.password,
-    verified: false,
   };
 };
 

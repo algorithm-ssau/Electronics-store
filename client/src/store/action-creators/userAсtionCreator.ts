@@ -23,11 +23,11 @@ import { UserOrError } from "../../interfaces/json-interfaces/UserOrError";
 import {
   backendMessageToActionMessage,
   backendResponseUserToFrontendUser,
+  CorrectSignUpProps,
   userSignUpPropsToBackendUser,
   userSignUpPropsToBackendUserDefault,
 } from "../../utils/converters";
 import { BackendMessage } from "../../interfaces/BackendMessage";
-import { CustomerSchema } from "../../interfaces/backend-return-types/CustomerSchema";
 
 export const signIn = (emailAndPassword: EmailAndPassword) => {
   return async (dispatch: Dispatch) => {
@@ -59,7 +59,7 @@ export const signIn = (emailAndPassword: EmailAndPassword) => {
 export const signUp = (userSignUpProps: UserDataSignUpProps) => {
   return async (dispatch: Dispatch) => {
     try {
-      const userToSignUpBackendFormat: CustomerSchema = userSignUpPropsToBackendUserDefault(userSignUpProps);
+      const userToSignUpBackendFormat: CorrectSignUpProps = userSignUpPropsToBackendUserDefault(userSignUpProps);
       await dispatch(userRegisterBegin(userToSignUpBackendFormat));
       const response: UserOrError[] = (
         await axios.post(getDBReqURL("CUSTOMER", "POST"), JSON.stringify(userToSignUpBackendFormat), {

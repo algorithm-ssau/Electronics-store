@@ -6,6 +6,8 @@ import {getCustomerId, getOrderId} from "../utils/getIDs";
 import {checkAccount} from "../utils/checks";
 import {Customer} from "../schemas/CustomerSchema";
 
+const cors = require('cors')
+
 const orderRouter = Router();
 
 orderRouter.get("/orders/get",(req,res)=>{
@@ -28,7 +30,9 @@ orderRouter.get("/orders/get",(req,res)=>{
         });
 });
 
-orderRouter.post("/orders/post",async(req,res)=>{
+
+orderRouter.post("/orders/post", cors())
+orderRouter.post("/orders/post",cors(), async(req,res)=>{
     const customerId = await getCustomerId({email: req.body.email, password: req.body.password});
     if (customerId!=null) {
         const total: number = await getTotal(req.body.products);
@@ -69,7 +73,8 @@ orderRouter.post("/orders/post",async(req,res)=>{
     }])
 });
 
-orderRouter.put("/orders/update",async(req,res)=>{
+orderRouter.put("/orders/update", cors())
+orderRouter.put("/orders/update",cors(), async(req,res)=>{
     const { filter, skip, limit, sort, projection, population } = aqp(req.query);
     let id = await getOrderId(filter);
     if (id != null) {
@@ -89,7 +94,8 @@ orderRouter.put("/orders/update",async(req,res)=>{
     }])
 });
 
-orderRouter.delete("/orders/delete",(req,res)=>{
+orderRouter.delete("/orders/delete", cors())
+orderRouter.delete("/orders/delete", cors(), (req,res)=>{
     const { filter, skip, limit, sort, projection, population } = aqp(req.query);
     Order.deleteOne(filter)
         .then((order)=> {
