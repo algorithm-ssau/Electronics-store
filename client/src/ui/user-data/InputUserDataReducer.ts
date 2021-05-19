@@ -52,7 +52,7 @@ export const currentUserReducer = (state = initialState, action: InputUserDataAc
         message: {
           ...state.message,
           error: false,
-          text: `Signing up new user with credentials: ${action.payload.customerSchema}`,
+          text: `Signing up new user with credentials: ${action.payload.correctSignUpProps}`,
         },
       };
     case "USER_REGISTER_SUCCESS":

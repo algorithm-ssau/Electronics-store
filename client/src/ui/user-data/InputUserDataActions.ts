@@ -1,7 +1,7 @@
 import { InputUserDataAction } from "./InputUserDataActionType";
 import { EmailAndPassword, UserData, UserDataSignUpProps } from "./UserDataProps";
 import { ActionMessage } from "../../interfaces/ActionMessage";
-import { CustomerSchema } from "../../interfaces/backend-return-types/CustomerSchema";
+import { CorrectSignUpProps } from "../../utils/converters";
 
 export const userLoginBegin = (emailAndPassword: EmailAndPassword): InputUserDataAction => ({
   type: "USER_LOGIN_BEGIN",
@@ -15,9 +15,9 @@ export const userLoginError = (errorMessage: ActionMessage): InputUserDataAction
   type: "USER_LOGIN_ERROR",
   payload: { errorMessage },
 });
-export const userRegisterBegin = (customerSchema: CustomerSchema): InputUserDataAction => ({
+export const userRegisterBegin = (correctSignUpProps: CorrectSignUpProps): InputUserDataAction => ({
   type: "USER_REGISTER_BEGIN",
-  payload: { customerSchema },
+  payload: { correctSignUpProps },
 });
 export const userRegisterSuccess = (backendResponseUser: UserData): InputUserDataAction => ({
   type: "USER_REGISTER_SUCCESS",

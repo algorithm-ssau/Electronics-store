@@ -75,6 +75,8 @@ export const addOrder = (orderToAdd: OrderToAddBackendFormat) => {
         await axios.post(getDBReqURL("ORDER", "POST"), JSON.stringify(orderToAdd), {
           headers: {
             "content-type": "application/json",
+            "Access-Control-Allow-Headers":
+              "Access-Control-Allow-Headers, Origin, X-Requested-Width, Content-Type, Accept",
           },
         })
       ).data;

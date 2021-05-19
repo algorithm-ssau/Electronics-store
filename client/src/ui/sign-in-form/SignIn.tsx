@@ -5,6 +5,7 @@ import { signIn } from "../../store/action-creators/userAсtionCreator";
 import { EmailAndPassword } from "../user-data/UserDataProps";
 import { getNavigationLinkTo } from "../../utils/getNavigationLinkTo";
 import { fetchOrders } from "../../store/action-creators/orderListActionCreator";
+import { checkIsGuest } from "../../utils/utils";
 
 export const SignIn: React.FC = () => {
   const initialState = { email: "", password: "" };
@@ -17,7 +18,9 @@ export const SignIn: React.FC = () => {
   };
   const handleSignInClick = async () => {
     await dispatchChainSignIn();
-    history.push(getNavigationLinkTo("PAGE_PRODUCT-CATALOGUE"));
+    if (!checkIsGuest(emailAndPassword)) {
+      history.push(getNavigationLinkTo("PAGE_PRODUCT-CATALOGUE"));
+    }
   };
 
   return (

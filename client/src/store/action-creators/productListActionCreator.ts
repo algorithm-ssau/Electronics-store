@@ -53,6 +53,8 @@ export const addProduct = (productToAdd: ProductProps) => {
         await axios.post(getDBReqURL("PRODUCT", "POST"), JSON.stringify(productToAddBackendFormat), {
           headers: {
             "content-type": "application/json",
+            "Access-Control-Allow-Headers":
+              "Access-Control-Allow-Headers, Origin, X-Requested-Width, Content-Type, Accept",
           },
         })
       ).data;
