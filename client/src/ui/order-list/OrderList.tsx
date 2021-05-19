@@ -28,8 +28,10 @@ export const OrderList: React.FC = () => {
             };
             return (
               <div key={getUniqueId()}>
-                <ProductMiniature {...curMiniature} />
-                <div>Штук: {count}</div>
+                <div className="orderProduct">
+                  <ProductMiniature {...curMiniature} />
+                </div>
+                <div className="orderProductCount">Штук: {count}</div>
               </div>
             );
           })

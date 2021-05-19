@@ -56,6 +56,15 @@ body {
   margin-right: 54%;
 }
 
+.orderProduct{
+  float:left;
+}
+
+.orderProductCount{
+  float: right;
+  margin-top: 52%;
+}
+
 .plusButton{
   width: 24px;
   height: 24px;
@@ -94,6 +103,15 @@ body {
   overflow: hidden;
   padding: 15px;
   box-shadow: 0 0 15px #ddd;
+  margin: 10px 0;
+  position: relative;
+}
+
+
+.orderProductBlock {
+  width: 200px;
+  overflow: hidden;
+  padding: 15px;
   margin: 10px 0;
   position: relative;
 }
