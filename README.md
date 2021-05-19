@@ -176,7 +176,7 @@ Customer, Order, Product.
 
 | Описание | Иные сервисы | EStore |
 |----------------|:---------:|----------------:|
-| Дней с момента добавления поиска | [Google stadia](https://stadia.google.com/): >500 | 1< |
+| Дней до добавления поиска | [Google stadia](https://stadia.google.com/): >500 | 1< |
 | Средняя скорость поиска | [Ситилинк](https://www.citilink.ru/): ~3-5 секунд | < 0.01 секунды |
 | Корзина сохраняется, если случайно забыли зайти | [Aliexpress](https://aliexpress.ru/): нет | да |
 
