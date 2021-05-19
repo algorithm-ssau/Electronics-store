@@ -31,16 +31,23 @@ export const ShoppingCart = () => {
             return <div>Продукт не найден</div>;
           }
           return (
-            <div key={product.id}>
+            <div className="productBlock" key={product.id}>
               <Product {...product} />
-              <div>
-                <button type="button" onClick={async () => dispatch(removeItemFromCart(productId))}>
-                  -
-                </button>
-                <p>{productAmount}</p>
-                <button type="button" onClick={async () => dispatch(addItemToCart(productId))}>
-                  +
-                </button>
+              <div className="productPlusMinusButtonBlock">
+                <p className="productPlusMinusButtonText">Количество: {productAmount} </p>
+                <div className="productPlusMinusButton">
+                  <button className="plusButton" type="button" onClick={async () => dispatch(addItemToCart(productId))}>
+                    +
+                  </button>
+                  <br />
+                  <button
+                    className="plusButton"
+                    type="button"
+                    onClick={async () => dispatch(removeItemFromCart(productId))}
+                  >
+                    -
+                  </button>
+                </div>
               </div>
             </div>
           );

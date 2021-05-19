@@ -42,6 +42,25 @@ body {
   background-color: aqua;
 }
 
+.productPlusMinusButtonBlock{
+  width: 100%;
+  height: 100%;
+}
+
+.productPlusMinusButtonText{
+  float:left;
+}
+
+.productPlusMinusButton{
+  float:right;
+  margin-right: 54%;
+}
+
+.plusButton{
+  width: 24px;
+  height: 24px;
+}
+
 .buttonBlock {
   width: 100%;
   height: 100%;
