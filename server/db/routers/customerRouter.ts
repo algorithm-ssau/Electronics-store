@@ -4,6 +4,7 @@ import {checkLoginExist,checkEmailExist} from "../utils/checks";
 import { parseCustomers } from '../utils/customerParser';
 import * as aqp from 'api-query-params';
 import { getCustomerId } from '../utils/getIDs';
+const cors = require('cors');
 
 const customerRouter = Router();
 
@@ -27,7 +28,8 @@ customerRouter.get("/customers/get",(req,res)=>{
     });
 });
 
-customerRouter.post("/customers/post",async(req,res)=>{
+customerRouter.options("/customers/post", cors())
+customerRouter.post("/customers/post", cors(), async(req,res)=>{
     let loginFlag = await checkLoginExist(req.body.login);
     let emailFlag = await checkEmailExist(req.body.email);
     if (loginFlag && emailFlag) {
@@ -59,7 +61,8 @@ customerRouter.post("/customers/post",async(req,res)=>{
     }
 });
 
-customerRouter.put("/customers/update",async(req,res)=>{
+customerRouter.options("/customers/update", cors())
+customerRouter.put("/customers/update", cors(), async(req,res)=>{
     const { filter, skip, limit, sort, projection, population } = aqp(req.query);
     let id = await getCustomerId(filter);
     if (id != null) {
@@ -79,7 +82,8 @@ customerRouter.put("/customers/update",async(req,res)=>{
     }])
 });
 
-customerRouter.delete("/customers/delete",(req,res)=>{
+customerRouter.options("/customers/delete", cors())
+customerRouter.delete("/customers/delete", cors(),(req,res)=>{
     const { filter, skip, limit, sort, projection, population } = aqp(req.query);
     Customer.deleteOne(filter)
         .then((customer)=>{

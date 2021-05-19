@@ -3,6 +3,8 @@ import {Product} from "../schemas/ProductSchema";
 import { parseProducts} from "../utils/productParser";
 import * as aqp from 'api-query-params';
 import {getProductId} from "../utils/getIDs";
+import {orderRouter} from "./orderRouter";
+const cors = require('cors')
 
 const productRouter = Router();
 
@@ -26,14 +28,16 @@ productRouter.get("/products/get",(req, res)=>{
         });
 });
 
-productRouter.post("/products/post",(req, res)=>{
+productRouter.post("/products/post", cors())
+productRouter.post("/products/post",cors(), (req, res)=>{
     Product.create(req.body)
         .then(product =>{
             res.send(parseProducts([product]));
         });
 });
 
-productRouter.put("/products/update",async(req, res)=>{
+productRouter.put("/products/update", cors())
+productRouter.put("/products/update", cors(), async(req, res)=>{
     const { filter, skip, limit, sort, projection, population } = aqp(req.query);
     let id = await getProductId(filter);
     if (id != null) {
@@ -53,7 +57,8 @@ productRouter.put("/products/update",async(req, res)=>{
     }])
 });
 
-productRouter.delete("/products/delete",(req, res)=>{
+productRouter.delete("/products/update", cors())
+productRouter.delete("/products/delete", cors(), (req, res)=>{
     const { filter, skip, limit, sort, projection, population } = aqp(req.query);
     Product.deleteOne(filter)
         .then((product)=>{

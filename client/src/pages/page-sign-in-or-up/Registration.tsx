@@ -10,7 +10,8 @@ import { clearOrders } from "../../store/action-creators/orderListActionCreator"
 export const SignUpOrIn = () => {
   const dispatch = useDispatch();
   const userState = useTypedSelector((state) => state.currentUser);
-  const showExitFromProfile = userIsRegistered(userState.userDataProps.emailAndPassword) || userState.message.error;
+  const showExitFromProfile = userIsRegistered(userState.userDataProps.emailAndPassword);
+  const registrationError = userState.message.error;
   const [signInOrSignUp, setSignInOrSignUp] = useState<"SIGN_IN" | "SIGN_UP">("SIGN_IN");
 
   const performLogOut = async () => {
@@ -33,6 +34,12 @@ export const SignUpOrIn = () => {
     <div>
       {signInOrSignUp === "SIGN_IN" && (
         <div>
+          {registrationError && (
+            <div>
+              <div>Ошибка регистрации: </div>
+              <div>{userState.message.text}</div>
+            </div>
+          )}
           <SignIn />
           <div>
             <div className="stillNotWithUs">Еще не член нашего клуба?</div>
