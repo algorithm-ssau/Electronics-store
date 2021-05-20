@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { DevelopersData, fetchDevelopers } from "../../network/fetchDevelopers";
 import { logger } from "../../utils/logger";
-import { LoadingLayout } from "../../pure-components/loading-layout/LoadingLayout";
+import { LoadingLayout } from "../../ui/loading-layout/LoadingLayout";
 import { getUniqueId } from "../../utils/uniqueId";
 
 export const PageTeam: React.FC = () => {

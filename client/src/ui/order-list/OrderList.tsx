@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { EStoreTable } from "../../pure-components/estore-table/EStoreTable";
+import { EStoreTable } from "../estore-table/EStoreTable";
 import { getUniqueId } from "../../utils/uniqueId";
 import { ProductMiniature, ProductMiniatureProps } from "../product-miniature/ProductMiniature";
 import { fetchProduct } from "../../network/fetchProduct";
-import { TableProps } from "../../pure-components/estore-table/TableProps";
-import { LoadingLayout } from "../../pure-components/loading-layout/LoadingLayout";
+import { TableProps } from "../estore-table/TableProps";
+import { LoadingLayout } from "../loading-layout/LoadingLayout";
 import { getNavigationLinkTo } from "../../utils/getNavigationLinkTo";
 
 export const OrderList: React.FC = () => {

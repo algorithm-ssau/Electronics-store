@@ -5,6 +5,7 @@ import { signIn, signUp } from "../../store/action-creators/userAсtionCreator";
 import { EmailAndPassword, UserDataSignUpProps } from "../user-data/UserDataProps";
 import { getNavigationLinkTo } from "../../utils/getNavigationLinkTo";
 import { checkIsGuest } from "../../utils/utils";
+import storeAndPersistor from "../../store/store";
 
 export const SignUp = () => {
   const history = useHistory();
@@ -23,6 +24,7 @@ export const SignUp = () => {
   const [email, setEmail] = useState(initialState.emailAndPassword.email);
   const [password, setPassword] = useState(initialState.emailAndPassword.password);
   const [imageSource, setImageSource] = useState(initialState.userIcon);
+  const { store } = storeAndPersistor();
   const dispatchChainSignUp = async (userSignUpProps: UserDataSignUpProps) => {
     const { emailAndPassword } = userSignUpProps;
     await dispatch(signUp(userSignUpProps));
@@ -32,7 +34,9 @@ export const SignUp = () => {
     const emailAndPassword: EmailAndPassword = { email, password };
     const userSignUpProps: UserDataSignUpProps = { displayedName, realName, emailAndPassword, userIcon: imageSource };
     await dispatchChainSignUp(userSignUpProps);
-    history.push(getNavigationLinkTo("PAGE_PRODUCT-CATALOGUE"));
+    if (!checkIsGuest(userSignUpProps.emailAndPassword) && !store.getState().currentUser.message.error) {
+      history.push(getNavigationLinkTo("PAGE_PRODUCT-CATALOGUE"));
+    }
   };
 
   return (

@@ -1,7 +1,7 @@
 import React from "react";
 import { UserDataProps } from "./UserDataProps";
 import { checkIsGuest } from "../../utils/utils";
-import { LoadingLayout } from "../../pure-components/loading-layout/LoadingLayout";
+import { LoadingLayout } from "../loading-layout/LoadingLayout";
 import { AdminData } from "../admin-data/AdminData";
 
 export const UserData: React.FC<UserDataProps> = (props) => {

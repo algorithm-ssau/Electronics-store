@@ -16,7 +16,7 @@ https://www.docker.com/products/docker-desktop
 
 ### Building with Docker
 
-This project builds into 3 docker containers, named accordingly:
+This project assembles into 3 docker containers, named accordingly:
 - api:prod
 - server:prod
 - client:prod
@@ -77,7 +77,7 @@ There you go! Now whole project is running on http://localhost:8080
 
 ### Running without docker
 
-In order to run without docker, you should also have and [uvicorn](https://www.uvicorn.org/) installed.
+In order to run without docker, you should also have [uvicorn](https://www.uvicorn.org/) installed.
 
 - Server
 ```shell
@@ -180,6 +180,6 @@ Customer, Order, Product.
 | Средняя скорость поиска | [Ситилинк](https://www.citilink.ru/): ~3-5 секунд | < 0.01 секунды |
 | Корзина сохраняется, если случайно забыли зайти | [Aliexpress](https://aliexpress.ru/): нет | да |
 
-... и многие другие.
+... и многое другие.
 
 #### Приятного времяпрепровождения!
