@@ -5,14 +5,14 @@ import storage from "redux-persist/lib/storage";
 import autoMergeLevel1 from "redux-persist/lib/stateReconciler/autoMergeLevel1";
 import { rootReducer } from "./rootReducer";
 
-const persistConfig = {
+const rootReducerConfig = {
   key: "root",
   storage,
   autoMergeLevel1,
-  whiteList: ["currentUser", "orderList"],
+  blacklist: ["productList", "shoppingCart"],
 };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(rootReducerConfig, rootReducer);
 
 const store = createStore(persistedReducer, applyMiddleware(thunk));
 const persistor = persistStore(store);

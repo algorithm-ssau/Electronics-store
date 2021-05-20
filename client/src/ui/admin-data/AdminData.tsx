@@ -4,7 +4,7 @@ import { fetchServerVersion } from "../../network/fetchServerVersion";
 import { fetchClientLastUpdate } from "../../network/fetchClientLastUpdate";
 import { fetchServerLastUpdate } from "../../network/fetchServerLastUpdate";
 import { TechnicalInfo, TechnicalInfoProps } from "../technical-info/TechnicalInfo";
-import { LoadingLayout } from "../../pure-components/loading-layout/LoadingLayout";
+import { LoadingLayout } from "../loading-layout/LoadingLayout";
 import { logger } from "../../utils/logger";
 
 export const AdminData = () => {
