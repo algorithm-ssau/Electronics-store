@@ -4,6 +4,7 @@ import { checkIsGuest } from "../../utils/utils";
 import { GuestPurchaseComponent } from "./guest-purchase-component/GuestPurchaseComponent";
 import { NotVerifiedPurchaseComponent } from "./not-verified-purchase-component/NotVerifiedPurchaseComponent";
 import { OkPurchaseComponent } from "./ok-purchase-component/OkPurchaseComponent";
+import { EmptyCartPurchaseComponent } from "./empty-cart-purchase-component/EmptyCartPurchaseComponent";
 
 export const MakePurchaseComponent: React.FC<MakePurchaseComponentProps> = (props) => {
   const { isVerified, productsInCart, emailAndPassword } = props;
@@ -15,8 +16,8 @@ export const MakePurchaseComponent: React.FC<MakePurchaseComponentProps> = (prop
   if (!isVerified) {
     return <NotVerifiedPurchaseComponent />;
   }
-  if (emailAndPassword !== undefined) {
-    return <OkPurchaseComponent productsInCart={productsInCart} />;
+  if (productsInCart.size === 0) {
+    return <EmptyCartPurchaseComponent />;
   }
-  throw new Error("guest check incorrect, emailAndPassword are undefined");
+  return <OkPurchaseComponent productsInCart={productsInCart} />;
 };

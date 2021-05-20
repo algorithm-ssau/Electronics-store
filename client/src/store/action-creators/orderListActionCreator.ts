@@ -26,7 +26,9 @@ import { OrderOrError } from "../../interfaces/json-interfaces/OrderOrError";
 import { BackendMessage } from "../../interfaces/BackendMessage";
 import { logger } from "../../utils/logger";
 import { OrderToAddBackendFormat } from "../../interfaces/backend-send-types/OrderToAddBackendFormat";
-import { store } from "../store";
+import storeAndPersistor from "../store";
+
+const { store } = storeAndPersistor();
 
 export const fetchOrders = () => {
   return async (dispatch: Dispatch) => {

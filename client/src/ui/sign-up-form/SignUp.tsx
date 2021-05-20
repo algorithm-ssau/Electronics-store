@@ -32,7 +32,9 @@ export const SignUp = () => {
     const emailAndPassword: EmailAndPassword = { email, password };
     const userSignUpProps: UserDataSignUpProps = { displayedName, realName, emailAndPassword, userIcon: imageSource };
     await dispatchChainSignUp(userSignUpProps);
-    history.push(getNavigationLinkTo("PAGE_PRODUCT-CATALOGUE"));
+    if (!checkIsGuest(userSignUpProps.emailAndPassword)) {
+      history.push(getNavigationLinkTo("PAGE_PRODUCT-CATALOGUE"));
+    }
   };
 
   return (
