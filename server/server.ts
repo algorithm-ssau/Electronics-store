@@ -17,8 +17,8 @@ const corsOptions = {
     "http://localhost:8080", // localhost
     "http://127.0.0.1:3000", // localhost external
     "http://127.0.0.1:8080", // localhost external
-    "http://34.134.114.154:3000", // google cloud
-    "http://34.134.114.154:8080", // google cloud
+    "http://34.134.204.247:3000", // google cloud
+    "http://34.134.204.247:8080", // google cloud
     "http://estore.mywire.org:3000", // mywire
     "http://estore.mywire.org:8080", // mywire
   ],
