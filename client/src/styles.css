@@ -57,385 +57,402 @@ body {
 }
 
 .orderProduct{
+  width: 20%;
+  height: 20%;
   float:left;
 }
 
 .orderProductCount{
+  width: 75%;
+  height: 135px;
   float: right;
-  margin-top: 52%;
+  margin-top: 5%;
+  font-weight: 500;
 }
 
 .plusButton{
-  width: 24px;
-  height: 24px;
+width: 24px;
+height: 24px;
 }
 
 .buttonBlock {
-  width: 100%;
-  height: 100%;
+width: 100%;
+height: 100%;
 }
 
 .Application {
-  margin: 0 10% 0 10%;
-  width: 80%;
-  box-shadow: 0 0 45px #dbdada;
-  height: 100%;
-  min-height: 100vh;
+margin: 0 10% 0 10%;
+width: 80%;
+box-shadow: 0 0 45px #dbdada;
+height: 100%;
+min-height: 100vh;
 }
 
 .searchProduct {
-  width: 50%;
-  margin-right: 2%;
-  margin-left: 1%;
+width: 50%;
+margin-right: 2%;
+margin-left: 1%;
 }
 
 .inputPrice {
-  width: 10%;
-  margin-right: 1%;
+width: 10%;
+margin-right: 1%;
 }
 
 .descriptionPrice {
-  margin-left: 2%;
+margin-left: 2%;
 }
 
 .productBlock {
-  width: 300px;
-  overflow: hidden;
-  padding: 15px;
-  box-shadow: 0 0 15px #ddd;
-  margin: 10px 0;
-  position: relative;
+width: 300px;
+overflow: hidden;
+padding: 15px;
+box-shadow: 0 0 15px #ddd;
+margin: 10px 0;
+position: relative;
 }
 
 
 .orderProductBlock {
-  width: 200px;
-  overflow: hidden;
-  padding: 15px;
-  margin: 10px 0;
-  position: relative;
+width: 200px;
+overflow: hidden;
+padding: 15px;
+margin: 10px 0;
+position: relative;
 }
 
 .logoShop {
-  text-transform: uppercase;
-  margin-left: 1%;
-  color: #555;
-  flex: 1 1;
+text-transform: uppercase;
+margin-left: 1%;
+color: #555;
+flex: 1 1;
 }
 
 .listItem {
-  display: inline-block;
-  opacity: .7;
-  padding: 0 60px;
-  text-transform: uppercase;
-  color: #555;
+display: inline-block;
+opacity: .7;
+padding: 0 60px;
+text-transform: uppercase;
+color: #555;
 }
 
 a {
-  text-decoration: none;
-  text-transform: uppercase;
-  color: #555;
-  display: inline-block;
-  line-height: 1;
-  cursor: pointer;
-  position: relative;
+text-decoration: none;
+text-transform: uppercase;
+color: #555;
+display: inline-block;
+line-height: 1;
+cursor: pointer;
+position: relative;
 }
 
 a:after {
-  display: block;
-  content: "";
-  background-color: #095cd7;
-  height: 2px;
-  width: 0%;
-  left: 50%;
-  position: absolute;
-  -webkit-transition: width .3s ease-in-out;
-  -moz--transition: width .3s ease-in-out;
-  transition: width .3s ease-in-out;
-  -webkit-transform: translateX(-50%);
-  -moz-transform: translateX(-50%);
-  transform: translateX(-50%);
+display: block;
+content: "";
+background-color: #095cd7;
+height: 2px;
+width: 0%;
+left: 50%;
+position: absolute;
+-webkit-transition: width .3s ease-in-out;
+-moz--transition: width .3s ease-in-out;
+transition: width .3s ease-in-out;
+-webkit-transform: translateX(-50%);
+-moz-transform: translateX(-50%);
+transform: translateX(-50%);
 }
 a:hover:after,
 a:focus:after {
-  width: 100%;
+width: 100%;
 }
 a:hover{
-  color:#095cd7;
+color:#095cd7;
 }
 
 a:focus{
-  color:#095cd7;
+color:#095cd7;
 }
 
 .header {
-  min-height: 70px;
-  width: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
-  border-bottom: 1px solid #ddd;
+min-height: 70px;
+width: 100%;
+overflow: hidden;
+display: flex;
+flex-wrap: wrap;
+justify-content: space-around;
+align-items: center;
+border-bottom: 1px solid #ddd;
 }
 
 .stringSearch {
-  width: 100%;
-  min-height: 40px;
-  overflow: hidden;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  margin: 15px 0;
+width: 100%;
+min-height: 40px;
+overflow: hidden;
+display: flex;
+justify-content: space-between;
+align-items: center;
+flex-wrap: wrap;
+margin: 15px 0;
 }
 
 .nameUser {
-  text-align: center;
-  color: #555;
-  float: left;
-  margin-top: 22px;
+text-align: center;
+color: #555;
+float: left;
+margin-top: 22px;
 }
 
 .singleLineBlocks {
-  float: left;
-  width: 50%;
+float: left;
+width: 50%;
 }
 
 .dataUser {
-  max-width: 100%;
-  height: auto;
-  overflow: hidden;
-  margin-top: 3%;
+max-width: 100%;
+height: auto;
+overflow: hidden;
+margin-top: 3%;
 }
 
 .userImage {
-  margin-left: 50%;
-  width: 200px;
-  height: 200px;
-  margin-top: 2%;
-  border-radius: 100px;
-  border: 4px solid #03429a;
-  box-shadow: 0 0 7px #03429a;
+margin-left: 50%;
+width: 200px;
+height: 200px;
+margin-top: 2%;
+border-radius: 100px;
+border: 4px solid #03429a;
+box-shadow: 0 0 7px #03429a;
 }
 
 .userImageSmall{
-  width: 64px;
-  height: 64px;
-  border-radius: 100px;
-  box-shadow: 0 0 7px #03429a;
-  float: right;
-  margin-right: -10%;
-  margin-bottom: 2%;
+width: 64px;
+height: 64px;
+border-radius: 100px;
+box-shadow: 0 0 7px #03429a;
+float: right;
+margin-right: -10%;
+margin-bottom: 2%;
 }
 
 .userDescription {
-  margin-left: 20%;
+margin-left: 20%;
 }
 
 .purchaseHistory {
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  margin-top: 7%;
+text-align: center;
+text-decoration: none;
+text-transform: uppercase;
+margin-top: 7%;
 }
 
 .tablePurchaseHistory {
-  border-collapse: collapse;
-  width: 94%;
-  margin-left: 3%;
-  margin-right: 3%;
+border-collapse: collapse;
+width: 94%;
+margin-left: 3%;
+margin-right: 3%;
 }
 
 .tablePurchaseHistory td, th {
-  border: 1px solid #a3a3a3;
+border: 1px solid #a3a3a3;
 }
 
 .dataPurchase {
-  text-align: center;
+text-align: center;
 }
 
 .nameColumn {
-  font-weight: 700;
+font-weight: 700;
 }
 
 .loginInForm {
-  width: 50%;
-  margin: 5% 25% 0%;
-  border: 3px solid #00165ead;
-  padding: 20px 6px;
-  border-radius: 20px;
+width: 50%;
+margin: 5% 25% 0%;
+border: 3px solid #00165ead;
+padding: 20px 6px;
+border-radius: 20px;
 }
 
 .stillNotWithUs{
-  margin: 1% 41%;
-  width: max-content;
+margin: 1% 41%;
+width: max-content;
 }
 
 .inputDataRegistration {
-  width: 90%;
-  font-size: 100%;
-  color: #000000;
-  margin: 3%;
-  padding: 2%;
-  border: 2px solid #00165ead;
+width: 90%;
+font-size: 100%;
+color: #000000;
+margin: 3%;
+padding: 2%;
+border: 2px solid #00165ead;
 }
 
 .loginIn:hover {
-  background: #1f65e5;
+background: #1f65e5;
 }
 
 .loginIn:focus {
-  background: #0358f6;
+background: #0358f6;
 }
 
 .loginIn {
-  width: 30%;
-  margin: 3%;
-  padding: 2%;
-  background: #4785fa;
+width: 30%;
+margin: 3%;
+padding: 2%;
+background: #4785fa;
 }
 
 .descriptionLogIn {
-  text-transform: uppercase;
-  color: white;
-  letter-spacing: 2px;
+text-transform: uppercase;
+color: white;
+letter-spacing: 2px;
 }
 
 .textLogIn {
-  text-transform: uppercase;
-  margin: 5% 0% 5% 3%;
-  font-weight: 600;
-  font-size: 31px;
+text-transform: uppercase;
+margin: 5% 0% 5% 3%;
+font-weight: 600;
+font-size: 31px;
 }
 
 .buttonRegistration {
-  margin-left: 24%;
-  text-transform: uppercase;
-  color: #ff802b;
-  font-weight: 700;
-  font-size: 20px;
+margin-left: 24%;
+text-transform: uppercase;
+color: #ff802b;
+font-weight: 700;
+font-size: 20px;
 }
 
 .registrationButton:hover {
-  background: #1f65e5;
+background: #1f65e5;
 }
 
 .registrationButton:focus {
-  background: #0358f6;
+background: #0358f6;
 }
 
 .bottomRegistrationButton:hover {
-  background: #1f65e5;
+background: #1f65e5;
 }
 
 .bottomRegistrationButton:focus {
-  background: #0358f6;
+background: #0358f6;
 }
 
 .bottomRegistrationButton{
-  margin: 0% 40.5% 1%;
-  padding: 1%;
-  background: #4785fa;
+margin: 0% 40.5% 1%;
+padding: 1%;
+background: #4785fa;
 }
 
 .bottomSignInButton:hover {
-  background: #1f65e5;
+background: #1f65e5;
 }
 
 .bottomSignInButton:focus {
-  background: #0358f6;
+background: #0358f6;
 }
 
 .bottomSignInButton{
-  margin: 0% 47% 1%;
-  padding: 1%;
-  background: #4785fa;
+margin: 0% 47% 1%;
+padding: 1%;
+background: #4785fa;
 }
 
 .registrationButton {
-  width: 65%;
-  margin: 3%;
-  padding: 2%;
-  background: #4785fa;
+width: 65%;
+margin: 3%;
+padding: 2%;
+background: #4785fa;
 }
 
 .products-layout {
-  position: relative;
+position: relative;
 }
 
 .wrapper-loader {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-  background: rgba(0,0,0, 0.3);
-  z-index: 1;
+position: absolute;
+top: 0;
+left: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+height: 100%;
+width: 100%;
+background: rgba(0,0,0, 0.3);
+z-index: 1;
 }
 
 .loader {
-  width: 100px;
-  height: 100px;
+width: 100px;
+height: 100px;
 }
 
 .employeeTeamImage {
-  width: 67px;
-  height: 67px;
-  border-radius: 100px;
-  box-shadow: 0 0 7px #03429a;
-  float: right;
-  position: relative;
-  overflow:hidden;
+width: 67px;
+height: 67px;
+border-radius: 100px;
+box-shadow: 0 0 7px #03429a;
+float: right;
+position: relative;
+overflow:hidden;
 }
 
 .teamDeveloperBlockImg {
-  float: left;
-  font-size: 30px;
-  width: 20%;
-  text-align: left;
-  margin-right: 4%;
-  margin-top: 2%;
+float: left;
+font-size: 30px;
+width: 20%;
+text-align: left;
+margin-right: 4%;
+margin-top: 2%;
 }
 
 .teamDeveloperBlockText {
-  float: right;
-  font-size: 20px;
-  width: 76%;
-  text-align: left;
-  margin-top: 2%;
+float: right;
+font-size: 20px;
+width: 76%;
+text-align: left;
+margin-top: 2%;
 }
 
 .namePost {
-  float: left;
-  font-size: 32px;
-  width: 100%;
-  text-align: left;
-  font-weight: 400;
-  margin-left: 5%;
+float: left;
+font-size: 32px;
+width: 100%;
+text-align: left;
+font-weight: 400;
+margin-left: 5%;
 }
 
 .teamDevelopersBlockList {
-  font-size: 20px;
-  line-height: 76px;
-  float: right;
-  width: 76%;
-  text-align: left;
+font-size: 20px;
+line-height: 76px;
+float: right;
+width: 76%;
+text-align: left;
 }
 
 .teamDevelopers {
-  font-size: 35px;
-  width: 100%;
-  text-align: center;
-  font-weight: 700;
-  margin-left: 37%;
+font-size: 35px;
+width: 100%;
+text-align: center;
+font-weight: 700;
+margin-left: 37%;
 }
 
 .catalogProducts {
-  margin-left: 1%;
-  font-size: 30px;
-  font-weight: 700;
+margin-left: 1%;
+font-size: 30px;
+font-weight: 700;
+}
+
+.tableCell {
+width: 20%;
+}
+
+.tableHistory {
+border: 1px solid grey;
+}
+
+.tableHistory th, td {
+border: 1px solid grey;
 }

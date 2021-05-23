@@ -5,12 +5,16 @@ import { getUniqueId } from "../../utils/uniqueId";
 export const EStoreTable: React.FC<TableProps> = (props) => {
   const { body } = props;
   return (
-    <table>
+    <table className="tableHistory">
       {body.map((line, i) => {
         const cells = (
           <tr key={getUniqueId()}>
             {line.map((cell) => {
-              return <td key={getUniqueId()}>{cell}</td>;
+              return (
+                <td className="tableCell" key={getUniqueId()}>
+                  {cell}
+                </td>
+              );
             })}
           </tr>
         );
