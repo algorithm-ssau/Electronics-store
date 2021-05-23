@@ -116,3 +116,7 @@ export const userSignUpPropsToBackendUser = (userSignUpProps: UserDataSignUpProp
     password: userSignUpProps.emailAndPassword.password,
   };
 };
+
+export const dbDateToNiceDate = (dbDate: string): string => {
+  return dbDate.replace("T", " ").substring(0, dbDate.length - 5);
+};

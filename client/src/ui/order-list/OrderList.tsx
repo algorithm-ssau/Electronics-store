@@ -8,6 +8,7 @@ import { fetchProduct } from "../../network/fetchProduct";
 import { TableProps } from "../estore-table/TableProps";
 import { LoadingLayout } from "../loading-layout/LoadingLayout";
 import { getNavigationLinkTo } from "../../utils/getNavigationLinkTo";
+import { dbDateToNiceDate } from "../../utils/converters";
 
 export const OrderList: React.FC = () => {
   const orderListState = useTypedSelector((state) => state.orderList);
@@ -39,7 +40,7 @@ export const OrderList: React.FC = () => {
           })
         );
         return [
-          <div key={getUniqueId()}>{order.date}</div>,
+          <div key={getUniqueId()}>{dbDateToNiceDate(order.date)}</div>,
           <div key={getUniqueId()}>{order.orderStatus}</div>,
           <div key={getUniqueId()}>{productMiniatures}</div>,
           <div key={getUniqueId()}>${order.total}</div>,
