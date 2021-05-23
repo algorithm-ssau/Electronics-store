@@ -31,7 +31,9 @@ export const OrderList: React.FC = () => {
                 <div className="orderProduct">
                   <ProductMiniature {...curMiniature} />
                 </div>
-                <div className="orderProductCount">Штук: {count}</div>
+                <div className="orderProductCount">
+                  <span>Штук: {count}</span>
+                </div>
               </div>
             );
           })

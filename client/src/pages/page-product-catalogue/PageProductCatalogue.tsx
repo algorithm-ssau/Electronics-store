@@ -19,18 +19,7 @@ export const PageProductCatalogue: React.FC = () => {
 
   const [displayedProducts, setDisplayedProducts] = useState(products);
   useEffect(() => {
-    if (filterText === "") {
-      setDisplayedProducts(products);
-      return;
-    }
-    const filteredProducts = products.filter((product) =>
-      product.name.toLowerCase().includes(filterText.toLowerCase())
-    );
-    setDisplayedProducts(filteredProducts);
-  }, [filterText, products]);
-
-  useEffect(() => {
-    if (filterPriceLess === "" && filterPriceMore === "") {
+    if (filterPriceLess === "" && filterPriceMore === "" && filterText === "") {
       setDisplayedProducts(products);
       return;
     }
@@ -42,10 +31,11 @@ export const PageProductCatalogue: React.FC = () => {
     }
 
     const filteredProducts = products
+      .filter((product) => product.name.toLowerCase().includes(filterText.toLowerCase()))
       .filter((product) => product.price >= Number(filterPriceMore))
       .filter((product) => product.price <= valueLess);
     setDisplayedProducts(filteredProducts);
-  }, [filterPriceLess, filterPriceMore, products]);
+  }, [filterText, filterPriceLess, filterPriceMore, products]);
 
   const onChangeFilterText = (e: ChangeEvent<HTMLInputElement>) => {
     setFilterText(e.target.value);

@@ -10,11 +10,10 @@ export interface ProductMiniatureProps {
 export const ProductMiniature: React.FC<ProductMiniatureProps> = (props) => {
   const { name, icon, desc } = props;
   return (
-    <div className="productBorder">
+    <div>
       <img className="productImage" alt={icon} src={icon} />
       <section>
-        <h3>{name}</h3>
-        <h3>{desc}</h3>
+        <h5>{name}</h5>
       </section>
     </div>
   );
